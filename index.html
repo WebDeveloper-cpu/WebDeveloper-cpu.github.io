@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebDeveloper | Learn Computing, Coding, and Generative AI</title>
+  <style>
+    /* CSS Variables for Clean Color Themes */
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --border: #e2e8f0;
+      
+      /* Track Colors */
+      --color-comp: #3b82f6;
+      --color-html: #ea580c;
+      --color-js: #eab308;
+      --color-ai: #8b5cf6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-main: #0f172a;
+        --bg-card: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #334155;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Main content pushes the footer to the bottom */
+    main {
+      flex-grow: 1;
+      padding-bottom: 4rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 5rem 1rem 3rem 1rem;
+      background: linear-gradient(135deg, rgba(37,99,235,0.1) 0%, rgba(139,92,246,0.1) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Container Layout */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 4rem 0 2rem 0;
+      font-size: 1.75rem;
+    }
+
+    /* Course Grid Layout */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .course-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px -5px rgba(0,0,0,0.1);
+    }
+
+    .track-badge {
+      align-self: flex-start;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+
+    .course-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .course-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .course-btn {
+      text-align: center;
+      text-decoration: none;
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .course-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* Resource / Monetization Row Layout */
+    .resource-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .resource-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .resource-badge {
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 1rem;
+      display: inline-block;
+      align-self: flex-start;
+    }
+
+    .resource-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .resource-title {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .resource-text {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .resource-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .affiliate-notice {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .res-btn {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1rem;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .footer-content p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Banner -->
+  <header class="hero">
+    <div class="container">
+      <h1>Welcome to <span>WebDeveloper</span></h1>
+      <p>Master computer fundamentals, build interactive responsive web applications from scratch, and leverage the power of Generative AI tools.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Curriculum Grid Section -->
+    <h2 class="section-title">Explore Your Learning Paths</h2>
+    <div class="course-grid">
+      
+      <!-- Track 1 -->
+      <div class="course-card">
+        <span class="track-badge" style="background-color: var(--color-comp);">Track 01</span>
+        <h3>Computer Fundamentals</h3>
+        <p>Understand hardware architecture, operating systems, file paths, and how the global infrastructure of the internet processes requests.</p>
+        <a href="computer-fundamentals.html" class="course-btn" style="background-color: var(--color-comp);">Start Learning</a>
+      </div>
+
+      <!-- Track 2 -->
+      <div class="course-card">
+        <span class="track-badge" style="background-color: var(--color-html);">Track 02</span>
+        <h3>HTML & CSS</h3>
+        <p>Learn structural semantic HTML5 markup layouts, modern responsive web design using standard layouts like Flexbox, and styling workflows.</p>
+        <a href="html-css.html" class="course-btn" style="background-color: var(--color-html);">Start Learning</a>
+      </div>
+
+      <!-- Track 3 -->
+      <div class="course-card">
+        <span class="track-badge" style="background-color: var(--color-js);">Track 03</span>
+        <h3>JavaScript Logic</h3>
+        <p>Bring interactive elements to life. Write programmatic logic through variables, conditions, loops, and custom Document Object Model manipulation.</p>
+        <a href="javascript.html" class="course-btn" style="background-color: var(--color-js); color: #000;">Start Learning</a>
+      </div>
+
+      <!-- Track 4 -->
+      <div class="course-card">
+        <span class="track-badge" style="background-color: var(--color-ai);">Track 04</span>
+        <h3>Generative AI</h3>
+        <p>Unlock the future. Master prompt engineering strategies, debug logic efficiently with AI assistance, and access dynamic generative models.</p>
+        <a href="generative-ai.html" class="course-btn" style="background-color: var(--color-ai);">Start Learning</a>
+      </div>
+
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid var(--border);">
+
+    <!-- Partner Offers & Monetization Blocks -->
+    <h2 class="section-title">Recommended Student Resources</h2>
+    <div class="resource-row">
+
+      <!-- Monetag Referral Link -->
+      <div class="resource-card">
+        <span class="resource-badge" style="background-color: #10b981;">Earning Guide</span>
+        <div class="resource-content">
+          <h4 class="resource-title">Monetize Your New Projects</h4>
+          <p class="resource-text">Ready to turn your page views into passive income? Use Monetag to monetize your sites with zero minimum traffic requirements and instant onboarding.</p>
+          <div class="resource-footer">
+            <span class="affiliate-notice">*Top Ad Network</span>
+            <a href="YOUR_MONETAG_REFERRAL_LINK_HERE" target="_blank" rel="noopener noreferrer" class="res-btn" style="background-color: #10b981;">Join Monetag</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domain & Hosting Link -->
+      <div class="resource-card">
+        <span class="resource-badge" style="background-color: #f59e0b;">Web Hosting</span>
+        <div class="resource-content">
+          <h4 class="resource-title">Get Web Hosting</h4>
+          <p class="resource-text">Move beyond sandbox environments. Secure fast web hosting and grab a free domain name to publish your developer portfolio live on the real web.</p>
+          <div class="resource-footer">
+            <span class="affiliate-notice">*Student Deal</span>
+            <a href="YOUR_HOSTING_REFERRAL_LINK_HERE" target="_blank" rel="noopener noreferrer" class="res-btn" style="background-color: #f59e0b;">Claim Hosting</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional Certification Link -->
+      <div class="resource-card">
+        <span class="resource-badge" style="background-color: #6366f1;">Get Certified</span>
+        <div class="resource-content">
+          <h4 class="resource-title">Earn Professional Certifications</h4>
+          <p class="resource-text">Take your coding skills to the next level. Build on top of what you learned here and earn industry-recognized certifications to fast-track your career.</p>
+          <div class="resource-footer">
+            <span class="affiliate-notice">*Partner Training</span>
+            <a href="YOUR_CERTIFICATION_REFERRAL_LINK_HERE" target="_blank" rel="noopener noreferrer" class="res-btn" style="background-color: #6366f1;">Browse Courses</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Clean 2026 Footer -->
+  <footer>
+    <div class="container footer-content">
+      <p>&copy; 2026 WebDeveloper Tutorials. Built with passion for aspiring developers.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
