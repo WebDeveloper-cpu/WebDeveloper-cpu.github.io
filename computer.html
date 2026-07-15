@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+link rel="stylesheet" href="navigation .css">
+  <link rel="stylesheet" href="footer.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is a Computer?</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        h1 {
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        p {
+            margin: 15px 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #2c3e50;
+        }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: 40px 0;
+        }
+
+        .diagram-box {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1em;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+
+        blockquote {
+            background: #f8fafc;
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+            padding: 15px 20px;
+            font-style: italic;
+        }
+
+        .flex-container {
+            display: block;
+        }
+
+        @media (min-width: 600px) {
+            .flex-container {
+                display: table;
+                width: 100%;
+            }
+            .flex-child {
+                display: table-cell;
+                width: 50%;
+                padding: 10px;
+                vertical-align: top;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+nav class="navbar">
+
+  <!-- Drop-down container -->
+  <div class="dropdown">
+    <!-- Menu trigger with the arrow symbol -->
+    <button class="dropbtn">Topics &#9662;</button>
+    
+    <!-- Hidden menu items -->
+    <div class="dropdown-content">
+      <a href="system.html">Module 1: Hardware & System Architecture</a>
+      
+      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+      
+      <a href="history.html">Computer History</a>
+      
+      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+      
+      <a href="types.html"> Storage Types: HDD vs. SSD, and how memory volatility works </a>
+    </div>
+  </div>
+</nav>
+
+    <div class="container">
+        <h1>What is a Computer?</h1>
+        
+        <p>At its simplest, a <strong>computer</strong> is an electronic device that manipulates information, or data. It has the ability to store, retrieve, and process data to perform a wide variety of tasks—from writing documents and sending emails to running complex web applications, executing code, and managing databases.</p>
+
+        <hr class="divider">
+
+        <h2>The Core Functions: The IPOS Cycle</h2>
+        <p>To understand what a computer does at a fundamental level, we look at the four basic operations it performs sequentially, known as the <strong>IPOS Cycle</strong>:</p>
+        
+        <div class="diagram-box">
+            [ Input ] &mdash;&gt; [ Processing ] &mdash;&gt; [ Output ]<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ Storage ]
+        </div>
+
+        <ul>
+            <li><strong>Input:</strong> This is how you get data and instructions into the computer. You use input devices like a keyboard, mouse, touchscreen, microphone, or scanner.</li>
+            <li><strong>Processing:</strong> This is the execution phase. The <strong>Central Processing Unit (CPU)</strong> takes the raw input data, manipulates it according to specific instructions (software), and performs mathematical or logical calculations.</li>
+            <li><strong>Storage:</strong> A computer requires locations to keep data. This includes <strong>temporary storage</strong> (RAM) for files actively being processed, and <strong>permanent storage</strong> (SSD or Hard Drive) to keep data secure even when the system is turned off.</li>
+            <li><strong>Output:</strong> This is the resulting processed information returned to the user. Output devices include monitors, screens, speakers, or printers.</li>
+        </ul>
+
+        <hr class="divider">
+
+        <h2>The Two Pillars: Hardware and Software</h2>
+        <p>A computer cannot operate without the constant collaboration of physical machinery and digital instructions.</p>
+
+        <div class="flex-container">
+            <div class="flex-child">
+                <h3>1. Hardware</h3>
+                <p>The physical, tangible components of the computer system that you can touch and see.</p>
+                <ul>
+                    <li><strong>CPU:</strong> The central processing unit.</li>
+                    <li><strong>Motherboard:</strong> The main circuit board connecting all elements.</li>
+                    <li><strong>RAM & Storage:</strong> Storage drives and temporary memory chips.</li>
+                </ul>
+            </div>
+            <div class="flex-child">
+                <h3>2. Software</h3>
+                <p>The digital instructions, programs, and code that command the hardware on exactly what actions to execute.</p>
+                <ul>
+                    <li><strong>System Software:</strong> The Operating System (like Linux, Android, or Windows).</li>
+                    <li><strong>Application Software:</strong> Program utilities (like web browsers, text editors, and compilers).</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column brand-info">
+            <h3 class="footer-logo">WebDeveloper</h3>
+            <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
+        </div>
+
+        <div class="footer-column">
+            <h4>Tutorials</h4>
+            <ul>
+                <li><a href="system.html">Computer Fundamentals</a></li>
+                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
+                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
+                <li><a href="#https://omg10.com/4/9797627">Coursera Learning</a></li>
+                <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-bottom-content">
+            <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="https://omg10.com/4/9797691">Privacy Policy</a>
+                <a href="https://omg10.com/4/9797691">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>
