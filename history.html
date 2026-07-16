@@ -13,12 +13,73 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-link rel="stylesheet" href="navigation .css">
   <link rel="stylesheet" href="footer.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The History of the Computer: From Gears to Silicon</title>
     <style>
+
+    a { text-decoration:none}
+/* Navigation bar container */
+.navbar {
+  background-color: #333;
+  overflow: visible;
+  display: flex;
+}
+
+/* Base styles for navbar links and dropdown button */
+.navbar a, .dropbtn {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Change color on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #111;
+}
+
+/* Position container relatively to hold absolute children */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hide the dropdown menu by default */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Style links inside the dropdown */
+.dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* SHOW the dropdown menu when hovering over the container */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+ 
         :root {
             --primary-color: #2b4c7e;
             --accent-color: #e07a5f;
