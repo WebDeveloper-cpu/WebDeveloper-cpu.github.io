@@ -6,22 +6,57 @@
     <title>System Software vs. Application Software</title>
     <link rel="stylesheet" href="footer.css">
     <style>
-/* Styling for the active main navbar link or active dropdown button */
-a { text-decoration: none;
+/* --- EXISTING STYLING (Your Code) --- */
+a { 
+  text-decoration: none;
 }
 .navbar a.active, 
 .dropdown.active .dropbtn {
-  background-color: #04AA6D; /* Green accent (change to your preferred active color) */
+  background-color: #04AA6D; 
   color: white;
   font-weight: bold;
 }
-
-/* Styling for an active link inside the dropdown menu */
 .dropdown-content a.active {
-  background-color: #ddd; /* Light grey for dropdown active state */
+  background-color: #ddd; 
   color: #000;
   font-weight: bold;
+} 
+
+/* --- NEW CODE: SHOW & HIDE LOGIC --- */
+
+/* 1. Position the dropdown container relatively */
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
+
+/* 2. HIDE the dropdown content by default */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 280px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
+  z-index: 1;
+}
+
+/* 3. SHOW the dropdown content when hovering over the container */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Basic styling for dropdown links so they stack vertically */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  display: block;
+}
+
+/* Optional: Add a hover effect to dropdown items */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
     
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -98,33 +133,17 @@ a { text-decoration: none;
 <body>
 
 
-<nav class="navbar">
-  <!-- 
-    1. MAIN NAVBAR ACTIVE LINK:
-    If the user is on the Home page, add class="active" directly to the Home link.
-  -->
-
-
-  <!-- 
-    2. PARENT DROPDOWN ACTIVE LINK:
-    If the user is visiting one of the sub-pages inside the dropdown,
-    add class="active" to this outer "dropdown" div to keep the "Topics" button highlighted.
-  -->
-  <div class="dropdown">
-    <!-- Menu trigger with the arrow symbol -->
-    <button class="dropbtn">Topics &#9662;</button>
-    
+<<nav class="navbar">
+  <!-- 1. Move Home HERE so it stays on the main navbar row -->
   <a href="index.html" class="active">Home</a>
+
+  <!-- 2. Dropdown starts here -->
+  <div class="dropdown">
+    <button class="dropbtn">Topics ▾</button>
     
-    <!-- Hidden menu items -->
+    <!-- Hidden menu items container -->
     <div class="dropdown-content">
       <a href="system.html">Module 1: Hardware & System Architecture</a>
-      
-      <!-- 
-        3. DROPDOWN ACTIVE LINK:
-        If they are on this page, add class="active" to this specific tag:
-        Example: <a href="computer.html" class="active">What is a Computer?</a>
-      -->
       <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
       <a href="history.html">Computer History</a>
       <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
@@ -135,16 +154,14 @@ a { text-decoration: none;
       <a href="software.html">System software VS. Application software</a>
       <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
       
-      <a href="internet.html">Module 3:Internet & Networking Basics</a>
-      
+      <a href="internet.html">Module 3: Internet & Networking Basics</a>
       <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
-      
       <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
-      
       <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
     </div>
   </div>
 </nav>
+
     <h1>System Software vs. Application Software</h1>
     
     <p>At its core, the difference between <strong>system software</strong> and <strong>application software</strong> lies in <em>who</em> or <em>what</em> they are designed for.</p>
