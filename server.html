@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Cloud Computing and Web Servers</title>
+    <link rel="stylesheet" href="footer.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+            background-color: #f7fafc;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        h1 {
+            color: #0f172a;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1e293b;
+            font-size: 1.5rem;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 24px;
+            background-color: #3b82f6;
+            margin-right: 12px;
+            border-radius: 3px;
+        }
+        h3 {
+            color: #334155;
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        strong {
+            color: #0f172a;
+        }
+        code {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9em;
+        }
+        ul {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        
+        /* Banner Styling */
+        .promo-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 35px 0;
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid #ef4444;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+        }
+        .promo-banner::after {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+        }
+        .promo-banner h3 {
+            color: #ffffff;
+            margin-top: 0;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .promo-banner p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            max-width: 80%;
+        }
+        .promo-btn {
+            display: inline-block;
+            background-color: #ef4444;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+        .promo-btn:hover {
+            background-color: #dc2626;
+        }
+
+        /* Grid Layout for Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 24px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .card ul {
+            padding-left: 18px;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            .promo-banner p {
+                max-width: 100%;
+            }
+        }
+        
+/* Styling for the active main navbar link or active dropdown button */
+a { text-decoration: none;
+}
+.navbar a.active, 
+.dropdown.active .dropbtn {
+  background-color: #04AA6D; /* Green accent (change to your preferred active color) */
+  color: white;
+  font-weight: bold;
+}
+
+/* Styling for an active link inside the dropdown menu */
+.dropdown-content a.active {
+  background-color: #ddd; /* Light grey for dropdown active state */
+  color: #000;
+  font-weight: bold;
+}
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar">
+  <!-- 
+    1. MAIN NAVBAR ACTIVE LINK:
+    If the user is on the Home page, add class="active" directly to the Home link.
+  -->
+
+
+  <!-- 
+    2. PARENT DROPDOWN ACTIVE LINK:
+    If the user is visiting one of the sub-pages inside the dropdown,
+    add class="active" to this outer "dropdown" div to keep the "Topics" button highlighted.
+  -->
+  <div class="dropdown">
+    <!-- Menu trigger with the arrow symbol -->
+    <button class="dropbtn">Topics &#9662;</button>
+    
+  <a href="index.html" class="active">Home</a>
+    
+    <!-- Hidden menu items -->
+    <div class="dropdown-content">
+      <a href="system.html">Module 1: Hardware & System Architecture</a>
+      
+      <!-- 
+        3. DROPDOWN ACTIVE LINK:
+        If they are on this page, add class="active" to this specific tag:
+        Example: <a href="computer.html" class="active">What is a Computer?</a>
+      -->
+      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+      <a href="history.html">Computer History</a>
+      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
+      
+      <a href="operating.html">Module 2: Operating Systems</a>
+      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
+      <a href="software.html">System software VS. Application software</a>
+      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
+      
+      <a href="internet.html">Module 3:Internet & Networking Basics</a>
+      
+      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
+      
+      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
+      
+      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+    </div>
+  </div>
+</nav>
+    <div class="container">
+        <article>
+            <h1>Introduction to Cloud Computing &amp; Web Servers</h1>
+            
+            <p>Once you understand how clients and servers talk to each other over the internet, the next step is looking at <strong>where</strong> those servers actually live and <strong>how</strong> they are managed.</p>
+            
+            <p>In the early days of the web, launching a website required physical hardware, setting up static IP addresses, and routing cables. Today, we utilize modern <strong>Cloud Computing</strong> and virtual web servers to scale instantly.</p>
+
+            <!-- Host Africa Referral Banner -->
+            <div class="promo-banner">
+                <h3>Launch Your Website with Host Africa</h3>
+                <p>Ready to deploy your application? Get fast, reliable, and secure local web hosting built to scale. Check out Host Africa's high-speed SSD plans today.</p>
+                <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" target="_blank" rel="noopener noreferrer" class="promo-btn">Explore Hosting Plans &rarr;</a>
+            </div>
+
+            <section>
+                <h2>1. What is a Web Server?</h2>
+                <p>When developers refer to a "web server," they are describing two essential components working in tandem:</p>
+                <ul>
+                    <li><strong>The Hardware (Physical Machine):</strong> A server-grade computer housed in a secure data center that stores the website's physical files (HTML files, CSS code, images, scripts, and databases).</li>
+                    <li><strong>The Software (Web Server Software):</strong> An application running on that server machine that listens for incoming HTTP/HTTPS requests from client browsers. It parses requests, securely accesses the files, and returns them to the client.</li>
+                </ul>
+
+                <h3>Popular Web Server Software</h3>
+                <ul>
+                    <li><strong>Nginx:</strong> A modern, high-performance web server and reverse proxy renowned for its incredible speed and efficiency with high-traffic websites.</li>
+                    <li><strong>Apache HTTP Server:</strong> The classic, modular web server software powering a vast majority of active websites today.</li>
+                    <li><strong>LiteSpeed:</strong> A fast, lightweight proprietary alternative that drops directly into Apache-based systems with massive speed optimizations.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>2. Understanding Cloud Computing</h2>
+                <p>Instead of managing raw physical machines under your desk, <strong>Cloud Computing</strong> delivers computing resources—servers, storage, databases, and networking—on-demand over the internet with pay-as-you-go pricing.</p>
+                <p>This is made possible through <strong>Virtualization</strong>: using a software layer (a hypervisor) to slice up a single physical machine into isolated "Virtual Machines" (VMs). This allows multiple secure environments to share the same hardware efficiently.</p>
+            </section>
+
+            <section>
+                <h2>3. The Pillars of Cloud Deployment Models</h2>
+                <p>Depending on how much control you need, cloud services are split into three models:</p>
+
+                <div class="grid">
+                    <div class="card">
+                        <span class="badge">IaaS</span>
+                        <h3>Infrastructure</h3>
+                        <p>Rent raw virtual server hardware. You are responsible for configuring the Operating System, updating web servers, and maintaining custom configurations.</p>
+                        <ul>
+                            <li>Highest control</li>
+                            <li>Configure security &amp; software</li>
+                            <li>Examples: Amazon EC2, Linode</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <span class="badge">PaaS</span>
+                        <h3>Platform</h3>
+                        <p>The provider handles the operating system and web server environment. You only focus on uploading your application code and managing your logic.</p>
+                        <ul>
+                            <li>Faster deployment times</li>
+                            <li>Zero OS system updates</li>
+                            <li>Examples: Heroku, Render</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <span class="badge">SaaS</span>
+                        <h3>Software</h3>
+                        <p>Fully functional cloud software accessed directly in your browser. No code, web servers, or infrastructure configurations are managed by you.</p>
+                        <ul>
+                            <li>Out-of-the-box solution</li>
+                            <li>Highly restricted setup</li>
+                            <li>Examples: Google Drive, Canva</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
+footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column brand-info">
+            <h3 class="footer-logo">WebDeveloper</h3>
+            <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
+        </div>
+
+        <div class="footer-column">
+            <h4>Tutorials</h4>
+            <ul>
+                <li><a href="system.html">Computer Fundamentals</a></li>
+                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
+                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
+                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
+                <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-bottom-content">
+            <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KBDWMPSJ0D');
+</script>
+</body>
+</html>

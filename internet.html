@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Internet and Networking Basics</title>
+    <link rel="stylesheet" href="footer.css">
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --text-color: #2d3748;
+            --card-bg: #ffffff;
+            --primary-color: #2b6cb0;
+            --accent-color: #319795;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+            --highlight-border: #3182ce;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1a202c;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: #2d3748;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+        }
+
+        strong {
+            color: #1a202c;
+        }
+
+        code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #edf2f7;
+            color: #2b6cb0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--highlight-border);
+            padding: 15px;
+            border-radius: 0 6px 6px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #edf2f7;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f7fafc;
+        }
+/* Styling for the active main navbar link or active dropdown button */
+a { text-decoration: none;
+}
+.navbar a.active, 
+.dropdown.active .dropbtn {
+  background-color: #04AA6D; /* Green accent (change to your preferred active color) */
+  color: white;
+  font-weight: bold;
+}
+
+/* Styling for an active link inside the dropdown menu */
+.dropdown-content a.active {
+  background-color: #ddd; /* Light grey for dropdown active state */
+  color: #000;
+  font-weight: bold;
+}
+        
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar">
+  <!-- 
+    1. MAIN NAVBAR ACTIVE LINK:
+    If the user is on the Home page, add class="active" directly to the Home link.
+  -->
+
+
+  <!-- 
+    2. PARENT DROPDOWN ACTIVE LINK:
+    If the user is visiting one of the sub-pages inside the dropdown,
+    add class="active" to this outer "dropdown" div to keep the "Topics" button highlighted.
+  -->
+  <div class="dropdown">
+    <!-- Menu trigger with the arrow symbol -->
+    <button class="dropbtn">Topics &#9662;</button>
+    
+  <a href="index.html" class="active">Home</a>
+    
+    <!-- Hidden menu items -->
+    <div class="dropdown-content">
+      <a href="system.html">Module 1: Hardware & System Architecture</a>
+      
+      <!-- 
+        3. DROPDOWN ACTIVE LINK:
+        If they are on this page, add class="active" to this specific tag:
+        Example: <a href="computer.html" class="active">What is a Computer?</a>
+      -->
+      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+      <a href="history.html">Computer History</a>
+      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
+      
+      <a href="operating.html">Module 2: Operating Systems</a>
+      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
+      <a href="software.html">System software VS. Application software</a>
+      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
+      
+      <a href="internet.html">Module 3:Internet & Networking Basics</a>
+      
+      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
+      
+      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
+      
+      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+    </div>
+  </div>
+</nav>
+
+    <div class="container">
+        <h1>The Internet &amp; Networking Basics</h1>
+        
+        <p>The internet is so deeply integrated into our daily lives that we rarely think about how it works. At its most basic level, <strong>the internet is a massive, global network of computers connected together to share information.</strong></p>
+        
+        <p>To understand how this global network functions, it helps to break it down into core fundamental concepts: <strong>local networks (LANs), global networks (WANs), how computers find each other (IP addresses), and how they communicate (protocols).</strong></p>
+
+        <h2>1. What is a Network? (LAN vs. WAN)</h2>
+        <p>A network is simply two or more devices connected together so they can communicate.</p>
+        
+        <ul>
+            <li><strong>LAN (Local Area Network):</strong> This is a network that covers a small, localized area, like your home, school, or office. When your phone, laptop, and smart TV are all connected to your home Wi-Fi router, they form a LAN. They can easily share files or communicate with each other locally without even needing the internet.</li>
+            <li><strong>WAN (Wide Area Network):</strong> When you connect multiple LANs across large geographical distances (cities, countries, or continents), you get a WAN.</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p><strong>The Internet is the ultimate WAN.</strong> It is a global "network of networks" connecting billions of local LANs together using fiber-optic cables running underground and across ocean floors.</p>
+        </div>
+
+        <h2>2. How Devices Connect: Clients, Servers, and Routers</h2>
+        <p>To navigate the internet, devices play specific roles:</p>
+        
+        <ul>
+            <li><strong>Clients:</strong> These are the devices that <em>request</em> information. Your smartphone, laptop, or smart TV acting on your command is a client. When you open a web browser and search for a website, your device is making a request.</li>
+            <li><strong>Servers:</strong> These are powerful, specialized computers that <em>serve</em> or store information (websites, videos, database files). They are kept powered on 24/7. When you visit a website, a server somewhere in the world sends that website's files to your client device.</li>
+            <li><strong>Routers:</strong> Think of a router as a digital traffic cop. When you send data from your device, the router looks at where it's supposed to go and directs it along the fastest path through the physical wires of the network.</li>
+        </ul>
+
+        <h2>3. How Devices Find Each Other: IP Addresses and DNS</h2>
+        <p>With billions of devices online, how does data sent from a server in California find its way directly to your phone? It relies on two main components:</p>
+
+        <h3>IP Addresses (The Mailing Address)</h3>
+        <p>Every single device connected to the internet is assigned a unique numerical label known as an <strong>IP (Internet Protocol) Address</strong>.</p>
+        <ul>
+            <li><strong>IPv4:</strong> The traditional format, written as four numbers separated by periods (e.g., <code>192.168.1.1</code>).</li>
+            <li><strong>IPv6:</strong> The newer format created because the world ran out of IPv4 addresses. It uses hexadecimal characters separated by colons (e.g., <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>).</li>
+        </ul>
+
+        <h3>DNS (The Phonebook of the Internet)</h3>
+        <p>Computers love numbers, but humans prefer names. You don't type <code>142.250.190.46</code> into your browser; you type <code>google.com</code>.</p>
+        <p>The <strong>Domain Name System (DNS)</strong> is a global directory that translates human-readable domain names (like <code>google.com</code>) into computer-readable IP addresses.</p>
+        
+        <ol>
+            <li>You type <code>example.com</code> in your browser.</li>
+            <li>Your computer asks a <strong>DNS Server</strong>: <em>"What is the IP address for example.com?"</em></li>
+            <li>The DNS Server looks it up and returns the IP address.</li>
+            <li>Your browser uses that IP address to connect directly to the web server hosting the site.</li>
+        </ol>
+
+        <h2>4. How Data Travels: Packets and Protocols</h2>
+        <p>When you download a file, watch a video, or view a web page, the data doesn't travel as one single massive block. If it did, a single hiccup in the connection would force you to restart the entire download.</p>
+
+        <h3>Packet Switching</h3>
+        <p>Instead, data is broken down into tiny chunks called <strong>packets</strong>. Each packet contains:</p>
+        <ul>
+            <li>A piece of the actual content (payload).</li>
+            <li>A header containing the sender's IP address and the destination's IP address.</li>
+            <li>An order number (so your device knows how to assemble them back together).</li>
+        </ul>
+        <p>These packets are sent across the internet. Because routers constantly calculate the fastest route, different packets of the <em>same</em> file might take completely different physical pathways across the globe, arriving out of order. Once all packets reach your device, they are reassembled into the seamless file or webpage you requested.</p>
+
+        <h3>Protocols (The Rules of Communication)</h3>
+        <p>For different devices to understand each other, they must follow standard rules called <strong>protocols</strong>:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Protocol</th>
+                    <th>Full Name</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TCP/IP</strong></td>
+                    <td>Transmission Control Protocol / Internet Protocol</td>
+                    <td>The fundamental standard of the internet. IP handles addressing and routing, while TCP ensures packets arrive safely and in order.</td>
+                </tr>
+                <tr>
+                    <td><strong>HTTP</strong></td>
+                    <td>Hypertext Transfer Protocol</td>
+                    <td>Used by web browsers and servers to transmit web documents (HTML, images).</td>
+                </tr>
+                <tr>
+                    <td><strong>HTTPS</strong></td>
+                    <td>Hypertext Transfer Protocol Secure</td>
+                    <td>An encrypted version of HTTP that protects sensitive data like passwords during transmission.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Summary: What happens when you search a website?</h2>
+        <ol>
+            <li><strong>The Request:</strong> You type a web address into your browser.</li>
+            <li><strong>The Lookup (DNS):</strong> Your device contacts a DNS server to translate that domain name into an IP address.</li>
+            <li><strong>The Connection (TCP/IP):</strong> Your browser uses that IP address to establish a secure connection with the web host server.</li>
+            <li><strong>The Split (Packets):</strong> The web server breaks the website's HTML, CSS, and image files into packets.</li>
+            <li><strong>The Journey (Routing):</strong> Routers across the globe guide these packets from network to network until they reach your local router.</li>
+            <li><strong>The Reassembly:</strong> Your browser receives the packets, reassembles them using TCP, and renders the complete webpage on your screen.</li>
+        </ol>
+    </div>
+footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column brand-info">
+            <h3 class="footer-logo">WebDeveloper</h3>
+            <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
+        </div>
+
+        <div class="footer-column">
+            <h4>Tutorials</h4>
+            <ul>
+                <li><a href="system.html">Computer Fundamentals</a></li>
+                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
+                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
+                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
+                <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-bottom-content">
+            <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KBDWMPSJ0D');
+</script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the Web Works: Clients, Servers, and IP Addresses</title>
+    
+    <link rel="stylesheet" href="footer.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #111;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        blockquote {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f0f4f8;
+            border-left: 5px solid #3182ce;
+            color: #2d3748;
+        }
+        ol.sequence {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ol.sequence li {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 40px;
+        }
+        ol.sequence li::before {
+            content: counter(item);
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            background: #3182ce;
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        ol.sequence {
+            counter-reset: item;
+        }
+        .step-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            display: block;
+        }
+        .step-subtitle {
+            font-size: 0.85em;
+            color: #718096;
+            display: block;
+            margin-bottom: 5px;
+        }
+/* Styling for the active main navbar link or active dropdown button */
+a { text-decoration: none;
+}
+.navbar a.active, 
+.dropdown.active .dropbtn {
+  background-color: #04AA6D; /* Green accent (change to your preferred active color) */
+  color: white;
+  font-weight: bold;
+}
+
+/* Styling for an active link inside the dropdown menu */
+.dropdown-content a.active {
+  background-color: #ddd; /* Light grey for dropdown active state */
+  color: #000;
+  font-weight: bold;
+}
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar">
+  <!-- 
+    1. MAIN NAVBAR ACTIVE LINK:
+    If the user is on the Home page, add class="active" directly to the Home link.
+  -->
+
+
+  <!-- 
+    2. PARENT DROPDOWN ACTIVE LINK:
+    If the user is visiting one of the sub-pages inside the dropdown,
+    add class="active" to this outer "dropdown" div to keep the "Topics" button highlighted.
+  -->
+  <div class="dropdown">
+    <!-- Menu trigger with the arrow symbol -->
+    <button class="dropbtn">Topics &#9662;</button>
+    
+  <a href="index.html" class="active">Home</a>
+    
+    <!-- Hidden menu items -->
+    <div class="dropdown-content">
+      <a href="system.html">Module 1: Hardware & System Architecture</a>
+      
+      <!-- 
+        3. DROPDOWN ACTIVE LINK:
+        If they are on this page, add class="active" to this specific tag:
+        Example: <a href="computer.html" class="active">What is a Computer?</a>
+      -->
+      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+      <a href="history.html">Computer History</a>
+      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
+      
+      <a href="operating.html">Module 2: Operating Systems</a>
+      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
+      <a href="software.html">System software VS. Application software</a>
+      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
+      
+      <a href="internet.html">Module 3:Internet & Networking Basics</a>
+      
+      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
+      
+      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
+      
+      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+    </div>
+  </div>
+</nav>
+    <article>
+        <h1>How the Web Works: Clients, Servers, and IP Addresses</h1>
+        
+        <p>At its core, the World Wide Web is just a massive global network of computers talking to one another. Whenever you read an article, watch a video, or look up a tutorial, you are participating in a classic, structured conversation: the <strong>Client-Server model</strong>.</p>
+
+        <hr>
+
+        <section>
+            <h2>1. The Client-Server Model</h2>
+            <p>Think of this model like a restaurant. You are the customer sitting at the table, and the kitchen is where all the food is prepared.</p>
+            
+            <ul>
+                <li><strong>The Client (You):</strong> Any device connected to the internet that is requesting data—like your smartphone, laptop, or a web browser (Chrome, Safari, Firefox). The client is responsible for sending the order (request) and displaying the food (rendering the HTML, CSS, and JavaScript) once it arrives.</li>
+                <li><strong>The Server (The Kitchen):</strong> A specialized, high-powered computer located in a data center somewhere in the world. It continuously "listens" for incoming requests, processes them (runs databases, processes backend code like PHP or Node.js), and "serves" the requested files back to the client.</li>
+            </ul>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Characteristic</th>
+                        <th>Client-Side</th>
+                        <th>Server-Side</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Primary Actor</strong></td>
+                        <td>Web browser / User's device</td>
+                        <td>Remote computer / Web server</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Responsibility</strong></td>
+                        <td>Renders UI, handles user clicks, displays media</td>
+                        <td>Stores database records, processes logic, holds files</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Languages Used</strong></td>
+                        <td>HTML, CSS, JavaScript</td>
+                        <td>PHP, Python, SQL, JavaScript (Node.js)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Access</strong></td>
+                        <td>Runs on your local device; code is fully visible</td>
+                        <td>Runs securely on a remote host; code is hidden</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>2. IP Addresses &amp; DNS: Finding Where to Go</h2>
+            <p>For a client to request a file from a server, it needs to know exactly where that server lives. Every single device connected to the internet has a unique label called an <strong>IP (Internet Protocol) Address</strong>.</p>
+            
+            <p>Think of an IP address like a physical mailing address.</p>
+            <ul>
+                <li><strong>IPv4:</strong> The traditional format, made of four numbers separated by dots (e.g., <code>192.168.1.1</code>). Because there are only 4.3 billion possible combinations, we are quickly running out of them.</li>
+                <li><strong>IPv6:</strong> The modern upgrade, using longer hexadecimal strings (e.g., <code>2001:db8::ff00:42:8329</code>) to ensure we have enough addresses for every smart device on Earth for generations to come.</li>
+            </ul>
+
+            <h3>The DNS (Domain Name System)</h3>
+            <p>Computers are great with numbers, but humans are not. No one wants to type <code>142.250.190.46</code> to search for something.</p>
+            <p>To solve this, we use the <strong>DNS</strong>—the "phonebook of the internet". It translates easy-to-remember domain names (like <code>google.com</code>) into computer-friendly IP addresses.</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>3. The Step-by-Step Flow: What Happens When You Search?</h2>
+            <p>When you type a URL into your browser and press Enter, a lightning-fast sequence of events occurs before the page appears on your screen:</p>
+
+            <ol class="sequence">
+                <li>
+                    <span class="step-title">Domain Translation (DNS Lookup)</span>
+                    <span class="step-subtitle">Under 100 milliseconds</span>
+                    <p>Your browser checks its local cache to see if it already knows the IP address for the domain. If it doesn't, it asks a <strong>DNS Resolver</strong> (usually managed by your ISP) to find the correct IP address for that server.</p>
+                </li>
+                <li>
+                    <span class="step-title">The Handshake (TCP Connection)</span>
+                    <span class="step-subtitle">Establishing trust</span>
+                    <p>Once the browser has the server's IP address, it establishes a reliable connection using <strong>TCP/IP</strong> (Transmission Control Protocol). This protocol ensures that any data sent between your device and the server doesn't get lost or corrupted along the way.</p>
+                </li>
+                <li>
+                    <span class="step-title">The Request (HTTP Get)</span>
+                    <span class="step-subtitle">Asking for the goods</span>
+                    <p>Now that the connection is secure, your browser sends an <strong>HTTP/HTTPS Request</strong>. This is literally a text message saying: <em>"Hey server, please send me the main page files for this website."</em></p>
+                </li>
+                <li>
+                    <span class="step-title">The Response (Server Processing)</span>
+                    <span class="step-subtitle">Assembling and shipping</span>
+                    <p>The server receives the request, pulls up the files (or queries its database to generate them on the fly), and packages them into small bundles of data called <strong>packets</strong>. It ships these packets back to your client device over the internet.</p>
+                </li>
+                <li>
+                    <span class="step-title">The Render (Client Construction)</span>
+                    <span class="step-subtitle">Making it pretty</span>
+                    <p>Your browser receives the raw packets, puts them back together in the correct order, and reads the code (HTML, CSS, JavaScript). It converts this code into the interactive, styled webpage you see on your screen.</p>
+                </li>
+            </</ol>
+        </section>
+    </article>
+footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column brand-info">
+            <h3 class="footer-logo">WebDeveloper</h3>
+            <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
+        </div>
+
+        <div class="footer-column">
+            <h4>Tutorials</h4>
+            <ul>
+                <li><a href="system.html">Computer Fundamentals</a></li>
+                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
+                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
+                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
+                <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-bottom-content">
+            <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KBDWMPSJ0D');
+</script>
+</body>
+</html>

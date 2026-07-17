@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding DNS Resolution</title>
+    <link rel="stylesheet" href="footer.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #2d3748;
+        }
+        .dns-flow {
+            border-left: 3px solid #3182ce;
+            padding-left: 25px;
+            margin: 20px 0;
+        }
+        .step {
+            margin-bottom: 25px;
+        }
+        .step-title {
+            font-weight: 700;
+            color: #1a202c;
+            display: block;
+            font-size: 1.1rem;
+        }
+        code {
+            background: #edf2f7;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+/* Styling for the active main navbar link or active dropdown button */
+a { text-decoration: none;
+}
+.navbar a.active, 
+.dropdown.active .dropbtn {
+  background-color: #04AA6D; /* Green accent (change to your preferred active color) */
+  color: white;
+  font-weight: bold;
+}
+
+/* Styling for an active link inside the dropdown menu */
+.dropdown-content a.active {
+  background-color: #ddd; /* Light grey for dropdown active state */
+  color: #000;
+  font-weight: bold;
+}
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar">
+  <!-- 
+    1. MAIN NAVBAR ACTIVE LINK:
+    If the user is on the Home page, add class="active" directly to the Home link.
+  -->
+
+
+  <!-- 
+    2. PARENT DROPDOWN ACTIVE LINK:
+    If the user is visiting one of the sub-pages inside the dropdown,
+    add class="active" to this outer "dropdown" div to keep the "Topics" button highlighted.
+  -->
+  <div class="dropdown">
+    <!-- Menu trigger with the arrow symbol -->
+    <button class="dropbtn">Topics &#9662;</button>
+    
+  <a href="index.html" class="active">Home</a>
+    
+    <!-- Hidden menu items -->
+    <div class="dropdown-content">
+      <a href="system.html">Module 1: Hardware & System Architecture</a>
+      
+      <!-- 
+        3. DROPDOWN ACTIVE LINK:
+        If they are on this page, add class="active" to this specific tag:
+        Example: <a href="computer.html" class="active">What is a Computer?</a>
+      -->
+      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+      <a href="history.html">Computer History</a>
+      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
+      
+      <a href="operating.html">Module 2: Operating Systems</a>
+      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
+      <a href="software.html">System software VS. Application software</a>
+      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
+      
+      <a href="internet.html">Module 3:Internet & Networking Basics</a>
+      
+      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
+      
+      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
+      
+      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+    </div>
+  </div>
+</nav>
+    <article>
+        <h1>How DNS Translates URLS to IP Addresses</h1>
+        
+        <section>
+            <h2>The Anatomy of a URL</h2>
+            <p>A URL is a map. To understand where you are going, you must break the address down into its functional parts:</p>
+            <ul>
+                <li><strong>Protocol:</strong> <code>https://</code> (The language used to communicate)</li>
+                <li><strong>Subdomain:</strong> <code>blog.</code> (A specific section of the site)</li>
+                <li><strong>Domain Name:</strong> <code>example.com</code> (The human-friendly name)</li>
+                <li><strong>Path:</strong> <code>/contact</code> (The specific resource/file)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>The 4 Steps of DNS Resolution</h2>
+            <p>When you press "Enter," your browser initiates a four-part conversation to translate that URL into a machine-readable <code>IP Address</code>.</p>
+            
+            <div class="dns-flow">
+                <div class="step">
+                    <span class="step-title">1. DNS Recursor</span>
+                    <p>Acts as your personal librarian. It takes the browser's request and handles the heavy lifting of querying the other servers until it finds the correct IP.</p>
+                </div>
+                <div class="step">
+                    <span class="step-title">2. Root Nameserver</span>
+                    <p>The first point of contact in the DNS hierarchy. It doesn't know the specific IP, but it knows which server manages the <code>.com</code> or <code>.org</code> registry.</p>
+                </div>
+                <div class="step">
+                    <span class="step-title">3. TLD Nameserver</span>
+                    <p>Manages the Top-Level Domain (TLD). It holds the info for every registered domain with that extension and points the search toward the domain's own server.</p>
+                </div>
+                <div class="step">
+                    <span class="step-title">4. Authoritative Nameserver</span>
+                    <p>The "Source of Truth." This server is maintained by the website owner and holds the actual <code>A Record</code> containing the IP address.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Summary of the Hierarchy</h2>
+            <p>DNS is a tree-like structure, moving from general to specific:</p>
+            <ol>
+                <li><strong>Root Level:</strong> The start of the internet (<code>.</code>)</li>
+                <li><strong>TLD Level:</strong> The extension (<code>.com</code>, <code>.net</code>)</li>
+                <li><strong>Second-Level Domain:</strong> The brand (<code>google</code>, <code>example</code>)</li>
+                <li><strong>Subdomain:</strong> The specific server (<code>docs</code>, <code>mail</code>)</li>
+            </ol>
+        </section>
+    </article>
+footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column brand-info">
+            <h3 class="footer-logo">WebDeveloper</h3>
+            <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
+        </div>
+
+        <div class="footer-column">
+            <h4>Tutorials</h4>
+            <ul>
+                <li><a href="system.html">Computer Fundamentals</a></li>
+                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
+                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
+                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
+                <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-bottom-content">
+            <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KBDWMPSJ0D');
+</script>
+</body>
+</html>
