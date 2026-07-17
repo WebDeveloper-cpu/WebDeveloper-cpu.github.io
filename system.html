@@ -10,6 +10,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hardware and System Architecture</title>
     <style>
+
+/* This container forces the links to opposite sides */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        /* Optional styling to make the links look like buttons */
+        .page-link {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            padding: 8px 16px;
+            border: 1px solid #007BFF;
+            border-radius: 4px;
+        }
+
+        .page-link:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+
 /* --- EXISTING STYLING (Your Code) --- */
 a { 
   text-decoration: none;
@@ -286,6 +311,13 @@ a {
             <li><strong>Compatibility:</strong> The operating system acts as the translator, making sure your software can speak to the physical hardware without needing custom code for every single microchip.</li>
         </ul>
     </div>
+<!-- The pagination structure -->
+    <div class="pagination-container">
+        <a href="index.html" class="page-link">&larr; Previous</a>
+        <a href="computer.html" class="page-link">Next &rarr;</a>
+    </div>
+
+
 <footer class="site-footer">
     <div class="footer-container">
         <div class="footer-column brand-info">
