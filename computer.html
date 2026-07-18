@@ -163,6 +163,37 @@ a {
                 vertical-align: top;
             }
         }
+
+/* This container forces the links to opposite sides */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        /* Optional styling to make the links look like buttons */
+        .page-link {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            padding: 8px 16px;
+            border: 1px solid #007BFF;
+            border-radius: 4px;
+        }
+
+        .page-link:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+
+<!-- The pagination structure -->
+    <div class="pagination-container">
+        <a href="system.html" class="page-link">&larr; Previous</a>
+        <a href="history.html" class="page-link">Next &rarr;</a>
+    </div>
+
     </style>
 </head>
 <body>
@@ -178,7 +209,7 @@ a {
     <button class="dropbtn">Topics ▾</button>
     
     <!-- Hidden menu items container -->
-    <div class="dropdown-content">
+    <div class="dropdown-content" style="background-color:green">
       <a href="system.html">Module 1: Hardware & System Architecture</a>
       <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
       <a href="history.html">Computer History</a>
