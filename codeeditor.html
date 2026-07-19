@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KBDWMPSJ0D');
+</script>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabbed Web Development Lab</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #1e1e2e;
+            color: #cdd6f4;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        header {
+            background-color: #11111b;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #313244;
+            z-index: 10;
+        }
+        h1 {
+            font-size: 1.1rem;
+            color: #a6e3a1;
+        }
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .upload-section {
+            background: #252538;
+            padding: 5px 12px;
+            border-radius: 6px;
+            border: 1px dashed #45475a;
+            display: flex;
+            align-items: center;
+        }
+        .upload-section label {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #cba6f7;
+            cursor: pointer;
+        }
+        .upload-section input[type="file"] {
+            display: none;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-top {
+            border: none;
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: opacity 0.2s;
+        }
+        .btn-top:hover {
+            opacity: 0.9;
+        }
+        .btn-run { background-color: #a6e3a1; color: #11111b; }
+        .btn-download { background-color: #89b4fa; color: #11111b; }
+        
+        /* Layout Structure */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        /* Asset Sidebar */
+        .asset-sidebar {
+            width: 250px;
+            background-color: #11111b;
+            border-right: 2px solid #313244;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+        }
+        .asset-sidebar h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #a6adc8;
+        }
+        .asset-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .asset-item {
+            background: #1e1e2e;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #313244;
+            font-size: 0.75rem;
+        }
+        .asset-name {
+            font-weight: bold;
+            color: #cdd6f4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 6px;
+        }
+        .src-label {
+            font-size: 0.65rem;
+            color: #a6adc8;
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+        .asset-src-box {
+            background-color: #11111b;
+            border: 1px solid #45475a;
+            color: #f9e2af;
+            padding: 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            word-break: break-all;
+            cursor: pointer;
+            user-select: all;
+            font-size: 0.7rem;
+        }
+        .asset-src-box:hover {
+            border-color: #89b4fa;
+        }
+        
+        /* Tab Routing Architecture */
+        .workspace-tabs-container {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .tabs-nav {
+            display: flex;
+            background-color: #11111b;
+            padding: 4px 10px 0 10px;
+            gap: 5px;
+            border-bottom: 2px solid #181825;
+        }
+        .tab-button {
+            background: #181825;
+            color: #a6adc8;
+            border: 1px solid #313244;
+            border-bottom: none;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-button:hover {
+            background: #252538;
+            color: #cdd6f4;
+        }
+        .tab-button.active-tab {
+            background: #1e1e2e;
+            color: #ffffff;
+            border-color: #45475a;
+            padding-bottom: 9px;
+            margin-bottom: -1px;
+        }
+        .tab-button.html-btn.active-tab { border-top: 3px solid #f38ba8; }
+        .tab-button.css-btn.active-tab { border-top: 3px solid #89b4fa; }
+        .tab-button.js-btn.active-tab { border-top: 3px solid #f9e2af; }
+
+        .editor-workspace {
+            background-color: #1e1e2e;
+            height: 45%;
+            position: relative;
+        }
+        .panel {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        .panel.active-panel {
+            display: block;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100%;
+            background-color: #1e1e2e;
+            color: #cdd6f4;
+            border: none;
+            padding: 15px;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            resize: none;
+            outline: none;
+        }
+        
+        /* Bottom Frame Window */
+        .preview-container {
+            height: 55%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid #313244;
+        }
+        .preview-title {
+            background-color: #11111b;
+            color: #a6adc8;
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        iframe {
+            width: 100%;
+            flex: 1;
+            border: none;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Code Lab Sandbox</h1>
+        
+        <div class="header-controls">
+            <div class="upload-section">
+                <label for="asset-picker">📁 Import Media Asset</label>
+                <input type="file" id="asset-picker" accept="image/*,audio/*,video/*" onchange="handleAssetUpload(event)">
+            </div>
+            
+            <div class="actions">
+                <button class="btn-top btn-run" onclick="runFullscreen()">Run Fullscreen</button>
+                <button class="btn-top btn-download" onclick="downloadProject()">Download Project</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Asset Sidebar Tracking Menu -->
+        <div class="asset-sidebar">
+            <h3>Media Drive</h3>
+            <p style="font-size:0.7rem; color:#a6adc8; margin-bottom:10px;">Click a file's source box to copy its path, then use it in your code.</p>
+            <div class="asset-list" id="asset-list-container">
+                <p id="no-assets" style="font-size:0.7rem; color:#585b70; font-style:italic;">No custom files imported yet.</p>
+            </div>
+        </div>
+
+        <!-- Interactive Workspace Routing System -->
+        <div class="workspace-tabs-container">
+            <!-- Navigation Switches -->
+            <nav class="tabs-nav">
+                <button class="tab-button html-btn active-tab" onclick="switchTab('html')">HTML</button>
+                <button class="tab-button css-btn" onclick="switchTab('css')">CSS</button>
+                <button class="tab-button js-btn" onclick="switchTab('js')">JavaScript</button>
+            </nav>
+
+            <!-- Text Workspace Panels -->
+            <div class="editor-workspace">
+                <div id="html-panel" class="panel active-panel">
+                    <textarea id="html-code" oninput="updatePreview()"><main class="card">
+    <h1>Focused Tab Editor</h1>
+    <p>Upload a file using the menu above, click its path box to copy, and paste it inside an HTML source tag like this:</p>
+    
+    <!-- Student Media Example -->
+    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Placeholder" style="width:100%; max-height:150px; object-fit:cover; border-radius:6px;" />
+</main></textarea>
+                </div>
+                
+                <div id="css-panel" class="panel">
+                    <textarea id="css-code" oninput="updatePreview()">body {
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    text-align: center;
+    max-width: 400px;
+}</textarea>
+                </div>
+                
+                <div id="js-panel" class="panel">
+                    <textarea id="js-code" oninput="updatePreview()">console.log('Editor ready!');</textarea>
+                </div>
+            </div>
+
+            <!-- Global Target Preview Engine Container -->
+            <div class="preview-container">
+                <div class="preview-title">Live Preview Area</div>
+                <iframe id="preview-window"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const uploadedAssets = {};
+
+        function switchTab(targetLang) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active-tab'));
+            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active-panel'));
+
+            if (targetLang === 'html') {
+                document.querySelector('.html-btn').classList.add('active-tab');
+                document.getElementById('html-panel').classList.add('active-panel');
+            } else if (targetLang === 'css') {
+                document.querySelector('.css-btn').classList.add('active-tab');
+                document.getElementById('css-panel').classList.add('active-panel');
+            } else if (targetLang === 'js') {
+                document.querySelector('.js-btn').classList.add('active-tab');
+                document.getElementById('js-panel').classList.add('active-panel');
+            }
+        }
+
+        function handleAssetUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const localUrl = URL.createObjectURL(file);
+            const elementId = `asset_${Date.now()}`;
+            
+            uploadedAssets[elementId] = { name: file.name, url: localUrl };
+            renderAssetSidebar();
+            updatePreview();
+            event.target.value = ''; 
+        }
+
+        function renderAssetSidebar() {
+            const container = document.getElementById('asset-list-container');
+            container.innerHTML = '';
+            const keys = Object.keys(uploadedAssets);
+            if(keys.length === 0) {
+                container.innerHTML = '<p id="no-assets" style="font-size:0.7rem; color:#585b70; font-style:italic;">No custom files imported yet.</p>';
+                return;
+            }
+            keys.forEach(id => {
+                const asset = uploadedAssets[id];
+
+                const item = document.createElement('div');
+                item.className = 'asset-item';
+                item.innerHTML = `
+                    <div class="asset-name" title="${asset.name}">${asset.name}</div>
+                    <div class="src-label">Source URL (src):</div>
+                    <div class="asset-src-box" onclick="copyText('${btoa(asset.url)}')" title="Click to copy path">${asset.url}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function copyText(b64) {
+            const text = atob(b64);
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Source path string copied to clipboard!');
+            });
+        }
+
+        function generateFullSource() {
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sandbox Application View</title>
+    <style>${document.getElementById('css-code').value}</style>
+</head>
+<body>
+    ${document.getElementById('html-code').value}
+    <script>${document.getElementById('js-code').value}<\/script>
+</body>
+</html>`;
+        }
+
+        function updatePreview() {
+            const previewFrame = document.getElementById('preview-window').contentDocument || document.getElementById('preview-window').contentWindow.document;
+            previewFrame.open();
+            previewFrame.write(generateFullSource());
+            previewFrame.close();
+        }
+
+        function runFullscreen() {
+            const blob = new Blob([generateFullSource()], { type: 'text/html' });
+            window.open(URL.createObjectURL(blob), '_blank');
+        }
+
+        function downloadProject() {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(new Blob([generateFullSource()], { type: 'text/html' }));
+            link.download = 'my-web-project.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Run application setup
+        updatePreview();
+    </script>
+</body>
+</html>
