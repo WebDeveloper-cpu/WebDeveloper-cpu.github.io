@@ -250,9 +250,73 @@ a {
                 left: 7px;
             }
         }
+
+/* Container that handles the horizontal scrolling */
+.course-nav-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 5px;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+  
+  /* Optional: Hides the scrollbar for a cleaner look */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hides scrollbar for Chrome, Safari, and Opera */
+.course-nav-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* The horizontal list */
+.course-nav-list {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The individual course buttons */
+.course-nav-item {
+  display: inline-block;
+  text-decoration: none;
+  color: #495057;
+  background-color: #e9ecef;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover state */
+.course-nav-item:hover {
+  background-color: #dee2e6;
+  color: #212529;
+}
+
+/* Active state (use this class to highlight the current page/course) */
+.course-nav-item.active {
+  background-color: #0d6efd;
+  color: #ffffff;
+}
     </style>
 </head>
 <body>
+
+ <!-- Horizontal Scrollable Course Navigation -->
+<nav style="overflow-x: auto; white-space: nowrap; padding: 10px 0; -webkit-overflow-scrolling: touch;">
+  <ul style="display: flex; gap: 12px; list-style: none; margin: 0; padding: 0;">
+    <li><a href="system.html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Fundamentals of computer</a></li>
+    <li><a href="#html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">HTML</a></li>
+    <li><a href="#css" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">CSS</a></li>
+    <li><a href="#javascript" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">JavaScript</a></li>
+    
+
+    <li><a href="#gen-ai" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Generative AI</a></li>
+  </ul>
+</nav>   
 
 
 <nav class="navbar">
@@ -412,7 +476,9 @@ a {
             </div>
         </div>
     </div>
+ 
 </footer>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
 <script>
