@@ -55,6 +55,30 @@
       min-height: 100vh;
     }
 
+    /* Code Editor Top Banner */
+    .promo-banner {
+      background: linear-gradient(90deg, #1e1b4b 0%, #312e81 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .promo-banner a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 700;
+      margin-left: 0.5rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .promo-banner a:hover {
+      border-color: #38bdf8;
+    }
+
     /* Main content pushes the footer to the bottom */
     main {
       flex-grow: 1;
@@ -251,22 +275,25 @@
 </head>
 <body>
 
-   <!-- Horizontal Scrollable Course Navigation -->
-<nav style="overflow-x: auto; white-space: nowrap; padding: 10px 0; -webkit-overflow-scrolling: touch;">
-  <ul style="display: flex; gap: 12px; list-style: none; margin: 0; padding: 0;">
-    <li><a href="system.html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Fundamentals of computer</a></li>
-    <li><a href="#html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">HTML</a></li>
-    <li><a href="#css" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">CSS</a></li>
-    <li><a href="#javascript" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">JavaScript</a></li>
-    
+  <!-- Interactive Code Editor Banner -->
+  <div class="promo-banner">
+    🚀 Practice coding as you learn! Try our new interactive scratchpad: <a href="codeeditor.html">Open Code Editor →</a>
+  </div>
 
-    <li><a href="#gen-ai" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Generative AI</a></li>
-  </ul>
-</nav>   
+  <!-- Horizontal Scrollable Course Navigation -->
+  <nav style="overflow-x: auto; white-space: nowrap; padding: 10px 0; -webkit-overflow-scrolling: touch;">
+    <ul style="display: flex; gap: 12px; list-style: none; margin: 0; padding: 0;">
+      <li><a href="system.html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Fundamentals of computer</a></li>
+      <li><a href="#html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">HTML</a></li>
+      <li><a href="#css" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">CSS</a></li>
+      <li><a href="#javascript" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">JavaScript</a></li>
+      <li><a href="#gen-ai" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Generative AI</a></li>
+    </ul>
+  </nav>   
+
   <!-- Hero Banner -->
   <header class="hero">
     <div class="container">
- 
       <h1>Welcome to <span>WebDeveloper</span></h1>
       <p>Master computer fundamentals, build interactive responsive web applications from scratch, and leverage the power of Generative AI tools.</p>
     </div>
