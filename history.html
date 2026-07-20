@@ -301,6 +301,29 @@ a {
   background-color: #0d6efd;
   color: #ffffff;
 }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        /* Optional styling to make the links look like buttons */
+        .page-link {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            padding: 8px 16px;
+            border: 1px solid #007BFF;
+            border-radius: 4px;
+        }
+
+        .page-link:hover {
+            background-color: #007BFF;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -318,6 +341,11 @@ a {
   </ul>
 </nav>   
 
+<!-- The pagination structure -->
+    <div class="pagination-container">
+        <a href="computer.html" class="page-link">&larr; Previous</a>
+        <a href="Demystifying.html" class="page-link">Next &rarr;</a>
+    </div>
 
 <nav class="navbar">
  <!-- 1. Move Home HERE so it stays on the main navbar row -->
@@ -439,6 +467,12 @@ a {
                 <p>To put this incredible evolution into perspective: the smartphone in your pocket has millions of times more processing power, memory, and storage capacity than the ENIAC computer and all of NASA's 1969 Apollo guidance computers combined—all while consuming a tiny fraction of the electrical power.</p>
             </section>
         </article>
+<!-- The pagination structure -->
+    <div class="pagination-container">
+        <a href="computer.html" class="page-link">&larr; Previous</a>
+        <a href="Demystifying.html" class="page-link">Next &rarr;</a>
+    </div>
+
     </main>
 <footer class="site-footer">
     <div class="footer-container">
