@@ -3,61 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Understanding Operating Systems</title>
+
+    <!-- Primary Search Engine Meta Tags -->
+    <title>Understanding Operating Systems: Architecture & Core Functions | WebDeveloper</title>
+    <meta name="description" content="Learn how operating systems bridge the gap between software and physical hardware. Explore kernels, shells, process scheduling, memory management, and system calls.">
+    <meta name="keywords" content="Operating System, OS architecture, Kernel, Shell, Process Management, System Calls, Memory Management, Device Drivers, WebDeveloper">
+    <meta name="author" content="WebDeveloper">
+    <link rel="canonical" href="https://webdeveloper-cpu.github.io/operating.html">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Understanding Operating Systems: Architecture & Core Functions">
+    <meta property="og:description" content="A comprehensive guide explaining kernels, user shells, system calls, and how the OS manages RAM, processes, and peripherals.">
+    <meta property="og:url" content="https://webdeveloper-cpu.github.io/operating.html">
+    <meta property="og:site_name" content="WebDeveloper">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Understanding Operating Systems: Architecture & Core Functions">
+    <meta name="twitter:description" content="A comprehensive guide explaining kernels, user shells, system calls, and how the OS manages RAM, processes, and peripherals.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- External Stylesheet -->
     <link rel="stylesheet" href="footer.css">
+
+    <!-- Structured Data for Search Engines (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "TechArticle",
+          "headline": "Understanding Operating Systems: Architecture & Core Functions",
+          "description": "An introduction to computer operating systems covering the kernel, shell, process scheduling, virtual memory, and security isolation.",
+          "author": {
+            "@type": "Organization",
+            "name": "WebDeveloper"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://webdeveloper-cpu.github.io/operating.html"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://webdeveloper-cpu.github.io/index.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Operating Systems",
+              "item": "https://webdeveloper-cpu.github.io/operating.html"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <style>
-/* --- EXISTING STYLING (Your Code) --- */
-a { 
-  text-decoration: none;
-}
-.navbar a.active, 
-.dropdown.active .dropbtn {
-  background-color: #04AA6D; 
-  color: white;
-  font-weight: bold;
-}
-.dropdown-content a.active {
-  background-color: #ddd; 
-  color: #000;
-  font-weight: bold;
-} 
-
-/* --- NEW CODE: SHOW & HIDE LOGIC --- */
-
-/* 1. Position the dropdown container relatively */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* 2. HIDE the dropdown content by default */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 280px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
-  z-index: 1;
-}
-
-/* 3. SHOW the dropdown content when hovering over the container */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Basic styling for dropdown links so they stack vertically */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  display: block;
-}
-
-/* Optional: Add a hover effect to dropdown items */
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-    
         :root {
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
@@ -66,6 +81,7 @@ a {
             --primary-color: #0d6efd;
             --accent-color: #e9ecef;
             --border-color: #dee2e6;
+            --link-blue: #007BFF;
         }
 
         body {
@@ -77,6 +93,146 @@ a {
             padding: 2rem 1rem;
         }
 
+        a { 
+            text-decoration: none;
+        }
+
+        /* Horizontal Scroll Navigation */
+        .course-nav {
+            max-width: 800px;
+            margin: 0 auto 15px auto;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .course-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .course-nav-list {
+            display: flex;
+            gap: 12px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .course-nav-item {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background-color: #e9ecef;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .course-nav-item:hover {
+            background-color: #dee2e6;
+            color: #212529;
+        }
+
+        .course-nav-item.active {
+            background-color: #0d6efd;
+            color: #ffffff;
+        }
+
+        /* Top Dropdown Navbar */
+        .navbar {
+            max-width: 800px;
+            margin: 0 auto 25px auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar a.active, 
+        .dropdown.active .dropbtn {
+            background-color: #04AA6D; 
+            color: white;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #2b4c7e;
+            color: white;
+            padding: 10px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #2d3748;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f7fafc;
+        }
+
+        .dropdown-content a.active {
+            background-color: #edf2f7; 
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Pagination Buttons */
+        .pagination-container {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .page-link {
+            text-decoration: none;
+            color: var(--link-blue);
+            font-weight: bold;
+            padding: 8px 16px;
+            border: 1px solid var(--link-blue);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .page-link:hover {
+            background-color: var(--link-blue);
+            color: white;
+        }
+
+        /* Main Container Card */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -192,169 +348,195 @@ a {
 </head>
 <body>
 
-
-<nav class="navbar">
-  <!-- 1. Move Home HERE so it stays on the main navbar row -->
-  <a href="index.html" class="active">Home</a>
-
-  <!-- 2. Dropdown starts here -->
-  <div class="dropdown">
-    <button class="dropbtn">Topics ▾</button>
-    
-    <!-- Hidden menu items container -->
-    <div class="dropdown-content">
-      <a href="system.html">Module 1: Hardware & System Architecture</a>
-      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
-      <a href="history.html">Computer History</a>
-      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
-      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
-      
-      <a href="operating.html">Module 2: Operating Systems</a>
-      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
-      <a href="software.html">System software VS. Application software</a>
-      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
-      
-      <a href="internet.html">Module 3: Internet & Networking Basics</a>
-      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
-      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
-      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
-    </div>
-  </div>
-</nav>
-
-<div class="container">
-    <article>
-        <header>
-            <h1>Operating Systems</h1>
-            <p class="subtitle">The bridge between human intention, applications, and physical hardware.</p>
-        </header>
-
-        <p>An <strong>Operating System (OS)</strong> is the core system software that acts as an intermediary between the computer hardware and the user (as well as their applications). Without an OS, you would have to write custom binary code just to get a computer to read a file from a disk or display a character on a screen.</p>
-
-        <hr>
-
-        <section>
-            <h2>Core Architecture of an OS</h2>
-            <p>An operating system is typically split into distinct layers that separate user interactions from the physical hardware.</p>
-
-            <h3>1. The Kernel</h3>
-            <p>The <strong>Kernel</strong> is the heart of the operating system. It is the program that starts up first, remains in the main memory (RAM), and directly interacts with the physical hardware.</p>
-            <ul>
-                <li>It manages memory allocation, schedules CPU tasks, and handles hardware communication through <strong>device drivers</strong>.</li>
-                <li>It runs in a privileged <strong>Kernel Mode</strong> to prevent user programs from directly modifying critical system resources and causing crashes.</li>
+    <!-- Header Navigation -->
+    <header>
+        <!-- Horizontal Scrollable Course Nav -->
+        <nav class="course-nav" aria-label="Course Topics Horizontal Scroll">
+            <ul class="course-nav-list">
+                <li><a href="system.html" class="course-nav-item">Fundamentals of computer</a></li>
+                <li><a href="operating.html" class="course-nav-item active">Operating Systems</a></li>
+                <li><a href="#html" class="course-nav-item">HTML</a></li>
+                <li><a href="#css" class="course-nav-item">CSS</a></li>
+                <li><a href="#javascript" class="course-nav-item">JavaScript</a></li>
+                <li><a href="#gen-ai" class="course-nav-item">Generative AI</a></li>
             </ul>
+        </nav>
 
-            <h3>2. The Shell (User Interface)</h3>
-            <p>The <strong>Shell</strong> is the outer layer that wraps around the kernel. It takes input from the user and translates it into instructions the kernel can execute.</p>
-            <ul>
-                <li><strong>Command Line Interface (CLI):</strong> A text-based shell (e.g., Bash in Linux, Command Prompt/PowerShell in Windows) where users type commands.</li>
-                <li><strong>Graphical User Interface (GUI):</strong> A visual shell (e.g., the Windows Desktop, macOS Finder) using windows, icons, and menus.</li>
-            </ul>
-        </section>
+        <!-- Top Pagination -->
+        <nav class="pagination-container" aria-label="Page Pagination Top">
+            <a href="types.html" class="page-link">&larr; Previous</a>
+            <a href="function.html" class="page-link">Next &rarr;</a>
+        </nav>
 
-        <hr>
+        <!-- Main Dropdown Navbar -->
+        <nav class="navbar" aria-label="Main Site Navigation">
+            <a href="index.html" class="active">Home</a>
 
-        <section>
-            <h2>Principal Functions of an Operating System</h2>
-            <p>To keep a computer running smoothly, the OS performs several critical resource management tasks behind the scenes:</p>
+            <div class="dropdown">
+                <button class="dropbtn">Topics &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="system.html">Module 1: Hardware &amp; System Architecture</a>
+                    <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+                    <a href="history.html">Computer History</a>
+                    <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+                    <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
+                    <a href="operating.html" class="active">Module 2: Operating Systems</a>
+                    <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
+                    <a href="software.html">System software VS. Application software</a>
+                    <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
+                    <a href="internet.html">Module 3: Internet &amp; Networking Basics</a>
+                    <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
+                    <a href="dns.html">Domain Names (DNS) Moving from IP addresses to readable URLs</a>
+                    <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Function</th>
-                        <th>What the OS Does</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Process Management</strong></td>
-                        <td>Allocates CPU time to active programs (processes). The OS uses <strong>schedulers</strong> to rapidly switch between tasks, giving the illusion that multiple programs are running simultaneously (multitasking).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Memory Management</strong></td>
-                        <td>Allocates portions of the RAM to running programs and reclaims it when they close. If physical RAM runs out, the OS uses <strong>virtual memory</strong> (temporary space on the storage drive) to keep things running.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>File System Management</strong></td>
-                        <td>Organizes and tracks how data is stored on hard drives or SSDs. It translates raw blocks of physical storage into directories (folders) and files, managing access permissions and security.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Device Management</strong></td>
-                        <td>Handles communication with external peripherals (keyboards, mice, printers, displays) via dedicated translators called <strong>device drivers</strong>.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Security &amp; Isolation</strong></td>
-                        <td>Ensures that one running application cannot accidentally or maliciously access the memory space or files of another application or user.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+    <!-- Main Content Container -->
+    <div class="container">
+        <main>
+            <article>
+                <header>
+                    <h1>Understanding Operating Systems</h1>
+                    <p class="subtitle">The bridge between human intention, applications, and physical hardware.</p>
+                </header>
 
-        <hr>
+                <p>An <strong>Operating System (OS)</strong> is the core system software that acts as an intermediary between the computer hardware and the user (as well as their applications). Without an OS, you would have to write custom binary code just to get a computer to read a file from a disk or display a character on a screen.</p>
 
-        <section>
-            <h2>Types of Operating Systems</h2>
-            <p>Depending on the device and its intended use, operating systems are designed differently:</p>
-            <ul>
-                <li><strong>Single-User, Single-Task:</strong> Designed for devices that only do one thing at a time (e.g., early MS-DOS, basic microcontrollers).</li>
-                <li><strong>Multi-User, Multi-Tasking:</strong> Allows multiple users to log in and run separate applications simultaneously (e.g., Linux, Unix, Windows Server).</li>
-                <li><strong>Real-Time Operating Systems (RTOS):</strong> Used where timing is critical and processing must happen with virtually zero latency (e.g., autopilot systems, industrial machinery, pacemaker controllers).</li>
-                <li><strong>Mobile Operating Systems:</strong> Optimized for touchscreens, power conservation, and cellular connectivity (e.g., Android, iOS).</li>
-            </ul>
+                <hr>
 
-            <blockquote>
-                <p><strong>System Calls:</strong> When a user application (like a web browser or text editor) needs to write a file to the disk or connect to the internet, it cannot do so directly. Instead, it must make a <strong>System Call</strong>—a formal request asking the Kernel to perform the privileged operation on its behalf.</p>
-            </blockquote>
-        </section>
-    </article>
-</div>
-<footer class="site-footer">
-    <div class="footer-container">
-        <div class="footer-column brand-info">
-            <h3 class="footer-logo">WebDeveloper</h3>
-            <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
-        </div>
+                <section id="architecture">
+                    <h2>Core Architecture of an OS</h2>
+                    <p>An operating system is typically split into distinct layers that separate user interactions from the physical hardware.</p>
 
-        <div class="footer-column">
-            <h4>Tutorials</h4>
-            <ul>
-                <li><a href="system.html">Computer Fundamentals</a></li>
-                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
-                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
-            </ul>
-        </div>
+                    <h3>1. The Kernel</h3>
+                    <p>The <strong>Kernel</strong> is the heart of the operating system. It is the program that starts up first, remains in the main memory (RAM), and directly interacts with the physical hardware.</p>
+                    <ul>
+                        <li>It manages memory allocation, schedules CPU tasks, and handles hardware communication through <strong>device drivers</strong>.</li>
+                        <li>It runs in a privileged <strong>Kernel Mode</strong> to prevent user programs from directly modifying critical system resources and causing crashes.</li>
+                    </ul>
 
-        <div class="footer-column">
-            <h4>Resources</h4>
-            <ul>
-                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
-                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
-                <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
-                
-            </ul>
-        </div>
+                    <h3>2. The Shell (User Interface)</h3>
+                    <p>The <strong>Shell</strong> is the outer layer that wraps around the kernel. It takes input from the user and translates it into instructions the kernel can execute.</p>
+                    <ul>
+                        <li><strong>Command Line Interface (CLI):</strong> A text-based shell (e.g., Bash in Linux, Command Prompt/PowerShell in Windows) where users type commands.</li>
+                        <li><strong>Graphical User Interface (GUI):</strong> A visual shell (e.g., the Windows Desktop, macOS Finder) using windows, icons, and menus.</li>
+                    </ul>
+                </section>
+
+                <hr>
+
+                <section id="functions">
+                    <h2>Principal Functions of an Operating System</h2>
+                    <p>To keep a computer running smoothly, the OS performs several critical resource management tasks behind the scenes:</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>What the OS Does</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Process Management</strong></td>
+                                <td>Allocates CPU time to active programs (processes). The OS uses <strong>schedulers</strong> to rapidly switch between tasks, giving the illusion that multiple programs are running simultaneously (multitasking).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Memory Management</strong></td>
+                                <td>Allocates portions of the RAM to running programs and reclaims it when they close. If physical RAM runs out, the OS uses <strong>virtual memory</strong> (temporary space on the storage drive) to keep things running.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>File System Management</strong></td>
+                                <td>Organizes and tracks how data is stored on hard drives or SSDs. It translates raw blocks of physical storage into directories (folders) and files, managing access permissions and security.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Device Management</strong></td>
+                                <td>Handles communication with external peripherals (keyboards, mice, printers, displays) via dedicated translators called <strong>device drivers</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Security &amp; Isolation</strong></td>
+                                <td>Ensures that one running application cannot accidentally or maliciously access the memory space or files of another application or user.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <hr>
+
+                <section id="types">
+                    <h2>Types of Operating Systems</h2>
+                    <p>Depending on the device and its intended use, operating systems are designed differently:</p>
+                    <ul>
+                        <li><strong>Single-User, Single-Task:</strong> Designed for devices that only do one thing at a time (e.g., early MS-DOS, basic microcontrollers).</li>
+                        <li><strong>Multi-User, Multi-Tasking:</strong> Allows multiple users to log in and run separate applications simultaneously (e.g., Linux, Unix, Windows Server).</li>
+                        <li><strong>Real-Time Operating Systems (RTOS):</strong> Used where timing is critical and processing must happen with virtually zero latency (e.g., autopilot systems, industrial machinery, pacemaker controllers).</li>
+                        <li><strong>Mobile Operating Systems:</strong> Optimized for touchscreens, power conservation, and cellular connectivity (e.g., Android, iOS).</li>
+                    </ul>
+
+                    <blockquote>
+                        <p><strong>System Calls:</strong> When a user application (like a web browser or text editor) needs to write a file to the disk or connect to the internet, it cannot do so directly. Instead, it must make a <strong>System Call</strong>—a formal request asking the Kernel to perform the privileged operation on its behalf.</p>
+                    </blockquote>
+                </section>
+            </article>
+        </main>
     </div>
 
-    <div class="footer-bottom">
-        <div class="footer-bottom-content">
-            <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
-            <div class="footer-legal">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
+    <!-- Bottom Pagination -->
+    <nav class="pagination-container" aria-label="Page Pagination Bottom">
+        <a href="types.html" class="page-link">&larr; Previous</a>
+        <a href="function.html" class="page-link">Next &rarr;</a>
+    </nav>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column brand-info">
+                <h3 class="footer-logo">WebDeveloper</h3>
+                <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Tutorials</h4>
+                <ul>
+                    <li><a href="system.html">Computer Fundamentals</a></li>
+                    <li><a href="https://omg10.com/4/9300114" rel="noopener noreferrer">Frontend Development</a></li>
+                    <li><a href="https://omg10.com/4/9300114" rel="noopener noreferrer">Generative AI</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" rel="noopener noreferrer">Web Hosting</a></li>
+                    <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm" rel="noopener noreferrer">Get Your Certificate</a></li>
+                    <li><a href="https://monetag.com/?ref_id=zUg8" rel="noopener noreferrer">Website Monetization</a></li>
+                </ul>
             </div>
         </div>
-    </div>
-</footer>
-<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-  gtag('config', 'G-KBDWMPSJ0D');
-</script>
+    <!-- Google Analytics & Third-Party Scripts -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KBDWMPSJ0D');
+    </script>
+
+    <script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </body>
 </html>
