@@ -1,297 +1,583 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-
-  <link rel="stylesheet" href="footer.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storage Types: HDD vs. SSD and Memory Volatility</title>
+
+    <!-- Primary Search Engine Meta Tags -->
+    <title>Storage Types: HDD vs. SSD and Memory Volatility | WebDeveloper</title>
+    <meta name="description" content="Explore the differences between Hard Disk Drives (HDD) and Solid State Drives (SSD), and learn how memory volatility distinguishes RAM from non-volatile secondary storage.">
+    <meta name="keywords" content="HDD vs SSD, Solid State Drive, Hard Disk Drive, Volatile memory, Non-volatile memory, RAM vs SSD, Computer storage basics, NAND Flash">
+    <meta name="author" content="WebDeveloper">
+    <link rel="canonical" href="https://webdeveloper-cpu.github.io/types.html">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Storage Types: HDD vs. SSD and Memory Volatility">
+    <meta property="og:description" content="A simple guide explaining mechanical HDDs, flash SSDs, and how volatile RAM works together with permanent storage.">
+    <meta property="og:url" content="https://webdeveloper-cpu.github.io/types.html">
+    <meta property="og:site_name" content="WebDeveloper">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Storage Types: HDD vs. SSD and Memory Volatility">
+    <meta name="twitter:description" content="A simple guide explaining mechanical HDDs, flash SSDs, and how volatile RAM works together with permanent storage.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="footer.css">
+
+    <!-- Structured Data for Search Engines (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "TechArticle",
+          "headline": "Storage Types: HDD vs. SSD and How Memory Volatility Works",
+          "description": "An introductory technical article breaking down secondary storage devices (HDD vs SSD) and the physics behind volatile and non-volatile memory.",
+          "author": {
+            "@type": "Organization",
+            "name": "WebDeveloper"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://webdeveloper-cpu.github.io/types.html"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://webdeveloper-cpu.github.io/index.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Hardware & System Architecture",
+              "item": "https://webdeveloper-cpu.github.io/system.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Storage Types & Volatility",
+              "item": "https://webdeveloper-cpu.github.io/types.html"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <style>
-/* --- EXISTING STYLING (Your Code) --- */
-a { 
-  text-decoration: none;
-}
-.navbar a.active, 
-.dropdown.active .dropbtn {
-  background-color: #04AA6D; 
-  color: white;
-  font-weight: bold;
-}
-.dropdown-content a.active {
-  background-color: #ddd; 
-  color: #000;
-  font-weight: bold;
-} 
+        :root {
+            --primary-color: #2b4c7e;
+            --accent-color: #e07a5f;
+            --bg-color: #faf9f6;
+            --text-color: #2f3e46;
+            --border-color: #e5e5e5;
+            --link-blue: #007BFF;
+        }
 
-/* --- NEW CODE: SHOW & HIDE LOGIC --- */
-
-/* 1. Position the dropdown container relatively */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* 2. HIDE the dropdown content by default */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 280px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
-  z-index: 1;
-}
-
-/* 3. SHOW the dropdown content when hovering over the container */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Basic styling for dropdown links so they stack vertically */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  display: block;
-}
-
-/* Optional: Add a hover effect to dropdown items */
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-
-    
-        /* Optional basic styling for previewing */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
         }
-        h1, h2, h3 {
-            color: #111;
+
+        a { 
+            text-decoration: none;
         }
+
+        header.article-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            color: var(--primary-color);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-left: 10px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--text-color);
+            margin-top: 1.2rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .intro {
+            font-size: 1.15rem;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        strong {
+            color: #1a202c;
+        }
+
         hr {
             border: 0;
-            border-top: 1px solid #ccc;
-            margin: 40px 0;
+            border-top: 1px solid var(--border-color);
+            margin: 2.5rem 0;
         }
+
+        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 25px 0;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border-radius: 6px;
+            overflow: hidden;
         }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
             text-align: left;
         }
+
         th {
-            background-color: #f5f5f5;
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 600;
         }
-        .placeholder-image {
-            background-color: #eaeaea;
-            border: 2px dashed #bbb;
-            color: #666;
+
+        /* Figures & Card Elements */
+        figure {
+            margin: 2rem 0;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             padding: 20px;
             text-align: center;
-            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .component-icon {
+            font-size: 2.5rem;
+            margin-bottom: 6px;
+        }
+
+        figcaption {
+            font-size: 0.9rem;
+            color: #718096;
             font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* Horizontal Scroll Navigation */
+        .course-nav {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .course-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .course-nav-list {
+            display: flex;
+            gap: 12px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .course-nav-item {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background-color: #e9ecef;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .course-nav-item:hover {
+            background-color: #dee2e6;
+            color: #212529;
+        }
+
+        .course-nav-item.active {
+            background-color: #0d6efd;
+            color: #ffffff;
+        }
+
+        /* Dropdown Navigation */
+        .navbar {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar a.active, 
+        .dropdown.active .dropbtn {
+            background-color: #04AA6D; 
+            color: white;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #2d3748;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f7fafc;
+        }
+
+        .dropdown-content a.active {
+            background-color: #edf2f7; 
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Pagination Buttons */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .page-link {
+            text-decoration: none;
+            color: var(--link-blue);
+            font-weight: bold;
+            padding: 8px 16px;
+            border: 1px solid var(--link-blue);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .page-link:hover {
+            background-color: var(--link-blue);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            table {
+                font-size: 0.9rem;
+            }
+            th, td {
+                padding: 8px 10px;
+            }
         }
     </style>
 </head>
 <body>
 
-
-<nav class="navbar">
-  <!-- 1. Move Home HERE so it stays on the main navbar row -->
-  <a href="index.html" class="active">Home</a>
-
-  <!-- 2. Dropdown starts here -->
-  <div class="dropdown">
-    <button class="dropbtn">Topics ▾</button>
-    
-    <!-- Hidden menu items container -->
-    <div class="dropdown-content">
-      <a href="system.html">Module 1: Hardware & System Architecture</a>
-      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
-      <a href="history.html">Computer History</a>
-      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
-      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
-      
-      <a href="operating.html">Module 2: Operating Systems</a>
-      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
-      <a href="software.html">System software VS. Application software</a>
-      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
-      
-      <a href="internet.html">Module 3: Internet & Networking Basics</a>
-      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
-      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
-      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
-    </div>
-  </div>
-</nav>
-
-<article>
+    <!-- Header Navigation -->
     <header>
-        <h1>Storage Types: HDD vs. SSD, and How Memory Volatility Works</h1>
-        <p>When it comes to keeping your files, photos, and operating system safe, your computer relies on <strong>secondary storage</strong>. Today, this comes down to a choice between two entirely different technologies: <strong>HDDs</strong> (Hard Disk Drives) and <strong>SSDs</strong> (Solid State Drives).</p>
-        <p>To understand how they differ—and how they contrast with temporary memory like RAM—we also need to look at the physics of <strong>memory volatility</strong>.</p>
+        <!-- Horizontal Scrollable Course Nav -->
+        <nav class="course-nav" aria-label="Course Topics Horizontal Scroll">
+            <ul class="course-nav-list">
+                <li><a href="system.html" class="course-nav-item active">Fundamentals of computer</a></li>
+                <li><a href="#html" class="course-nav-item">HTML</a></li>
+                <li><a href="#css" class="course-nav-item">CSS</a></li>
+                <li><a href="#javascript" class="course-nav-item">JavaScript</a></li>
+                <li><a href="#gen-ai" class="course-nav-item">Generative AI</a></li>
+            </ul>
+        </nav>   
+
+        <!-- Top Pagination -->
+        <nav class="pagination-container" aria-label="Page Pagination Top">
+            <a href="demystifying.html" class="page-link">&larr; Previous</a>
+            <a href="operating.html" class="page-link">Next &rarr;</a>
+        </nav>
+
+        <!-- Dropdown Navigation -->
+        <nav class="navbar" aria-label="Main Site Navigation">
+            <a href="index.html" class="active">Home</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">Topics &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="system.html">Module 1: Hardware &amp; System Architecture</a>
+                    <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+                    <a href="history.html">Computer History</a>
+                    <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+                    <a href="types.html" class="active">Storage Types: HDD vs. SSD, and how memory volatility works</a>
+                    <a href="operating.html">Module 2: Operating Systems</a>
+                    <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
+                    <a href="software.html">System software VS. Application software</a>
+                    <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
+                    <a href="internet.html">Module 3: Internet &amp; Networking Basics</a>
+                    <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
+                    <a href="dns.html">Domain Names (DNS) Moving from IP addresses to readable URLs</a>
+                    <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <hr>
+    <!-- Main Content Area -->
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>Storage Types: HDD vs. SSD, and How Memory Volatility Works</h1>
+                <p class="intro">When it comes to keeping your files, photos, and operating system safe, your computer relies on <strong>secondary storage</strong>. Today, this comes down to a choice between two entirely different technologies: <strong>HDDs</strong> (Hard Disk Drives) and <strong>SSDs</strong> (Solid State Drives).</p>
+                <p>To understand how they differ—and how they contrast with temporary memory like RAM—we also need to look at the physics of <strong>memory volatility</strong>.</p>
+            </header>
 
-    <section>
-        <h2>1. HDD vs. SSD: Moving Parts vs. Microchips</h2>
-        <p>The easiest way to understand the difference is to think of an HDD as a record player and an SSD as a flash drive.</p>
+            <hr>
 
-        <!-- Placeholder for HDD vs SSD internal structure image -->
-        <div class="placeholder-image">
-            <img src="ssd-hdd.jpeg" alt="SSD VS HDD">
-        </div>
+            <!-- Section 1 -->
+            <section id="hdd-vs-ssd">
+                <h2>1. HDD vs. SSD: Moving Parts vs. Microchips</h2>
+                <p>The easiest way to understand the difference is to think of an HDD as a record player and an SSD as a flash drive.</p>
 
-        <h3>Hard Disk Drives (HDD)</h3>
-        <p>Introduced by IBM in 1956, HDDs are mechanical storage devices.</p>
-        <ul>
-            <li><strong>How they work:</strong> Inside an HDD is a stack of spinning magnetic platters (like CDs) and a tiny read/write head on a mechanical arm (like a record player needle). The head hovers micro-inches above the spinning platter, using magnetic fields to write data as 1s and 0s.</li>
-            <li><strong>The Catch:</strong> Because the platters have to spin up and the arm has to physically move to find your data, HDDs have a physical speed limit. They are also sensitive to drops and physical shock.</li>
-        </ul>
+                <figure>
+                    <img src="ssd-hdd.jpeg" alt="Comparison diagram showing internal structure of an SSD versus an HDD">
+                    <figcaption>Side-by-side comparison: Magnetic spinning platters (HDD) vs. Silicon NAND flash chips (SSD).</figcaption>
+                </figure>
 
-        <h3>Solid State Drives (SSD)</h3>
-        <p>SSDs are modern, entirely electronic storage devices.</p>
-        <ul>
-            <li><strong>How they work:</strong> SSDs have <strong>no moving parts</strong>. Instead, they write data to interconnected silicon microchips called <strong>NAND flash memory</strong> (the same technology inside your phone or USB thumb drive).</li>
-            <li><strong>The Benefit:</strong> Because there are no mechanical parts to move, data retrieval is nearly instantaneous. SSDs are incredibly fast, silent, energy-efficient, and highly resistant to physical damage.</li>
-        </ul>
+                <h3>Hard Disk Drives (HDD)</h3>
+                <p>Introduced by IBM in 1956, HDDs are mechanical storage devices.</p>
+                <ul>
+                    <li><strong>How they work:</strong> Inside an HDD is a stack of spinning magnetic platters (like CDs) and a tiny read/write head on a mechanical arm (like a record player needle). The head hovers micro-inches above the spinning platter, using magnetic fields to write data as 1s and 0s.</li>
+                    <li><strong>The Catch:</strong> Because the platters have to spin up and the arm has to physically move to find your data, HDDs have a physical speed limit. They are also sensitive to drops and physical shock.</li>
+                </ul>
 
-        <h3>Quick Comparison Table</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Feature</th>
-                    <th>HDD (Hard Disk Drive)</th>
-                    <th>SSD (Solid State Drive)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Speed</strong></td>
-                    <td>Slower (Approx. 80–160 MB/s)</td>
-                    <td>Blazing Fast (500 MB/s to over 7,000 MB/s)</td>
-                </tr>
-                <tr>
-                    <td><strong>Mechanism</strong></td>
-                    <td>Mechanical (spinning disks, moving arm)</td>
-                    <td>Electronic (microchips, no moving parts)</td>
-                </tr>
-                <tr>
-                    <td><strong>Durability</strong></td>
-                    <td>Vulnerable to physical shocks and drops</td>
-                    <td>Highly durable; shock-resistant</td>
-                </tr>
-                <tr>
-                    <td><strong>Lifespan</strong></td>
-                    <td>Can fail over time due to mechanical wear</td>
-                    <td>Wears out after a high volume of writes (TBW)</td>
-                </tr>
-                <tr>
-                    <td><strong>Best Used For</strong></td>
-                    <td>Mass, budget-friendly archiving (e.g., 4TB backups)</td>
-                    <td>Operating systems, gaming, and active work files</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+                <h3>Solid State Drives (SSD)</h3>
+                <p>SSDs are modern, entirely electronic storage devices.</p>
+                <ul>
+                    <li><strong>How they work:</strong> SSDs have <strong>no moving parts</strong>. Instead, they write data to interconnected silicon microchips called <strong>NAND flash memory</strong> (the same technology inside your phone or USB thumb drive).</li>
+                    <li><strong>The Benefit:</strong> Because there are no mechanical parts to move, data retrieval is nearly instantaneous. SSDs are incredibly fast, silent, energy-efficient, and highly resistant to physical damage.</li>
+                </ul>
 
-    <hr>
+                <h3>Quick Comparison Table</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>HDD (Hard Disk Drive)</th>
+                            <th>SSD (Solid State Drive)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Speed</strong></td>
+                            <td>Slower (Approx. 80–160 MB/s)</td>
+                            <td>Blazing Fast (500 MB/s to over 7,000 MB/s)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mechanism</strong></td>
+                            <td>Mechanical (spinning disks, moving arm)</td>
+                            <td>Electronic (microchips, no moving parts)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Durability</strong></td>
+                            <td>Vulnerable to physical shocks and drops</td>
+                            <td>Highly durable; shock-resistant</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lifespan</strong></td>
+                            <td>Can fail over time due to mechanical wear</td>
+                            <td>Wears out after a high volume of writes (TBW)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best Used For</strong></td>
+                            <td>Mass, budget-friendly archiving (e.g., 4TB backups)</td>
+                            <td>Operating systems, gaming, and active work files</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
 
-    <section>
-        <h2>2. Understanding Memory Volatility</h2>
-        <p>To understand why we need both storage (SSDs/HDDs) and memory (RAM), we have to understand <strong>volatility</strong>. In computer science, memory is split into two physical categories: <strong>Volatile</strong> and <strong>Non-Volatile</strong>.</p>
+            <hr>
 
-        <!-- Placeholder for volatile vs non-volatile diagram -->
-        <div class="placeholder-image">
-            [Image: Diagram outlining Volatile Memory (RAM, Cache) vs. Non-Volatile Memory (SSD, HDD, ROM)]
-        </div>
+            <!-- Section 2 -->
+            <section id="volatility">
+                <h2>2. Understanding Memory Volatility</h2>
+                <p>To understand why we need both storage (SSDs/HDDs) and memory (RAM), we have to understand <strong>volatility</strong>. In computer science, memory is split into two physical categories: <strong>Volatile</strong> and <strong>Non-Volatile</strong>.</p>
 
-        <h3>Volatile Memory (Temporary)</h3>
-        <p>Volatile memory <strong>requires electrical power</strong> to maintain its data. The moment the power is cut, everything stored in it instantly vanishes.</p>
-        <ul>
-            <li><strong>Primary Example:</strong> <strong>RAM</strong> (Random Access Memory).</li>
-            <li><strong>How the physics works:</strong> RAM is made up of millions of tiny transistors and capacitors grouped together on integrated circuits. The capacitors hold an electrical charge to represent a <strong>1</strong>, and discharge to represent a <strong>0</strong>. Because these capacitors naturally leak charge, they must be dynamically refreshed with electricity thousands of times per second. <strong>When the power goes out</strong>, the capacitors instantly lose their charge, resetting all data to zero.</li>
-        </ul>
+                <figure>
+                    <div class="component-icon" aria-hidden="true">⚡ vs 💾</div>
+                    <figcaption>Memory Architecture: Volatile Memory (RAM, Cache) requires continuous power, whereas Non-Volatile Memory (SSD, HDD, ROM) retains data indefinitely.</figcaption>
+                </figure>
 
-        <h3>Non-Volatile Memory (Permanent)</h3>
-        <p>Non-volatile memory <strong>retains its data even when powered down</strong>.</p>
-        <ul>
-            <li><strong>Primary Examples:</strong> <strong>SSDs, HDDs, USB drives, and ROM chips</strong>.</li>
-            <li><strong>How the physics works in an HDD:</strong> Data is written by magnetically aligning microscopic particles on the platter. Once aligned, they stay that way until a new magnetic charge forces them to change, electricity or no electricity.</li>
-            <li><strong>How the physics works in an SSD (NAND Flash):</strong> SSDs use a special type of transistor called a <em>floating gate transistor</em>. It uses a strong electrical pulse to trap electrons in a microscopic "cage" (the gate). Once trapped, the electrons cannot escape, even when the power is turned off. This trap holds the charge—and your data—for years.</li>
-        </ul>
-    </section>
+                <h3>Volatile Memory (Temporary)</h3>
+                <p>Volatile memory <strong>requires electrical power</strong> to maintain its data. The moment the power is cut, everything stored in it instantly vanishes.</p>
+                <ul>
+                    <li><strong>Primary Example:</strong> <strong>RAM</strong> (Random Access Memory).</li>
+                    <li><strong>How the physics works:</strong> RAM is made up of millions of tiny transistors and capacitors grouped together on integrated circuits. The capacitors hold an electrical charge to represent a <strong>1</strong>, and discharge to represent a <strong>0</strong>. Because these capacitors naturally leak charge, they must be dynamically refreshed with electricity thousands of times per second. <strong>When the power goes out</strong>, the capacitors instantly lose their charge, resetting all data to zero.</li>
+                </ul>
 
-    <hr>
+                <h3>Non-Volatile Memory (Permanent)</h3>
+                <p>Non-volatile memory <strong>retains its data even when powered down</strong>.</p>
+                <ul>
+                    <li><strong>Primary Examples:</strong> <strong>SSDs, HDDs, USB drives, and ROM chips</strong>.</li>
+                    <li><strong>How the physics works in an HDD:</strong> Data is written by magnetically aligning microscopic particles on the platter. Once aligned, they stay that way until a new magnetic charge forces them to change, electricity or no electricity.</li>
+                    <li><strong>How the physics works in an SSD (NAND Flash):</strong> SSDs use a special type of transistor called a <em>floating gate transistor</em>. It uses a strong electrical pulse to trap electrons in a microscopic "cage" (the gate). Once trapped, the electrons cannot escape, even when the power is turned off. This trap holds the charge—and your data—for years.</li>
+                </ul>
+            </section>
 
-    <section>
-        <h2>The Perfect Partnership</h2>
-        <p>Your computer uses both types of memory to balance speed and permanence:</p>
-        <ol>
-            <li>When you turn on your computer, the non-volatile <strong>SSD</strong> safely passes your operating system files to the volatile <strong>RAM</strong>.</li>
-            <li>As you work, the CPU reads and writes data to the ultra-fast <strong>RAM</strong> because SSDs are still too slow to keep up with the CPU's raw speed.</li>
-            <li>When you hit <strong>Save</strong>, the computer writes your progress back to the non-volatile <strong>SSD</strong>, ensuring it will still be there tomorrow when you turn the machine back on.</li>
-        </ol>
-    </section>
-</article>
-<footer class="site-footer">
-    <div class="footer-container">
-        <div class="footer-column brand-info">
-            <h3 class="footer-logo">WebDeveloper</h3>
-            <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
-        </div>
+            <hr>
 
-        <div class="footer-column">
-            <h4>Tutorials</h4>
-            <ul>
-                <li><a href="system.html">Computer Fundamentals</a></li>
-                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
-                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
-            </ul>
-        </div>
+            <!-- Section 3 -->
+            <section id="partnership">
+                <h2>The Perfect Partnership</h2>
+                <p>Your computer uses both types of memory to balance speed and permanence:</p>
+                <ol>
+                    <li>When you turn on your computer, the non-volatile <strong>SSD</strong> safely passes your operating system files to the volatile <strong>RAM</strong>.</li>
+                    <li>As you work, the CPU reads and writes data to the ultra-fast <strong>RAM</strong> because SSDs are still too slow to keep up with the CPU's raw speed.</li>
+                    <li>When you hit <strong>Save</strong>, the computer writes your progress back to the non-volatile <strong>SSD</strong>, ensuring it will still be there tomorrow when you turn the machine back on.</li>
+                </ol>
+            </section>
+        </article>
 
-        <div class="footer-column">
-            <h4>Resources</h4>
-            <ul>
-                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
-                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
-                <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
-                
-            </ul>
-        </div>
-    </div>
+        <!-- Bottom Pagination -->
+        <nav class="pagination-container" aria-label="Page Pagination Bottom">
+            <a href="demystifying.html" class="page-link">&larr; Previous</a>
+            <a href="operating.html" class="page-link">Next &rarr;</a>
+        </nav>
+    </main>
 
-    <div class="footer-bottom">
-        <div class="footer-bottom-content">
-            <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
-            <div class="footer-legal">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column brand-info">
+                <h3 class="footer-logo">WebDeveloper</h3>
+                <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Tutorials</h4>
+                <ul>
+                    <li><a href="system.html">Computer Fundamentals</a></li>
+                    <li><a href="https://omg10.com/4/9300114" rel="noopener noreferrer">Frontend Development</a></li>
+                    <li><a href="https://omg10.com/4/9300114" rel="noopener noreferrer">Generative AI</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" rel="noopener noreferrer">Web Hosting</a></li>
+                    <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm" rel="noopener noreferrer">Get Your Certificate</a></li>
+                    <li><a href="https://monetag.com/?ref_id=zUg8" rel="noopener noreferrer">Website Monetization</a></li>
+                </ul>
             </div>
         </div>
-    </div>
-</footer>
-<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-KBDWMPSJ0D');
-</script>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Analytics & Third-Party Scripts -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KBDWMPSJ0D');
+    </script>
+
+    <script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </body>
 </html>
