@@ -1,66 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="footer.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What is a Computer?</title>
+
+    <!-- Primary Search Engine Meta Tags -->
+    <title>What is a Computer? The IPOS Cycle & Core Components | WebDeveloper</title>
+    <meta name="description" content="Learn what a computer is and how the Input, Processing, Output, and Storage (IPOS) cycle works alongside hardware and software fundamentals.">
+    <meta name="keywords" content="What is a computer, IPOS cycle, Computer Input Processing Output Storage, Computer Hardware and Software, CPU, RAM">
+    <meta name="author" content="WebDeveloper">
+    <link rel="canonical" href="https://webdeveloper-cpu.github.io/computer.html">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="What is a Computer? The IPOS Cycle Explained">
+    <meta property="og:description" content="Discover how computers process data using the IPOS cycle and the collaboration between hardware and software.">
+    <meta property="og:url" content="https://webdeveloper-cpu.github.io/computer.html">
+    <meta property="og:site_name" content="WebDeveloper">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="What is a Computer? The IPOS Cycle Explained">
+    <meta name="twitter:description" content="Discover how computers process data using the IPOS cycle and the collaboration between hardware and software.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="footer.css">
+
+    <!-- Structured Data for Search Engines (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "TechArticle",
+          "headline": "What is a Computer?",
+          "description": "An introduction to computer operations, detailing the IPOS (Input, Processing, Output, Storage) cycle, hardware, and software.",
+          "author": {
+            "@type": "Organization",
+            "name": "WebDeveloper"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://webdeveloper-cpu.github.io/computer.html"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://webdeveloper-cpu.github.io/index.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Hardware & System Architecture",
+              "item": "https://webdeveloper-cpu.github.io/system.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "What is a Computer?",
+              "item": "https://webdeveloper-cpu.github.io/computer.html"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <style>
-/* Styling for the active main navbar link or active dropdown button */
-/* --- EXISTING STYLING (Your Code) --- */
-a { 
-  text-decoration: none;
-}
-.navbar a.active, 
-.dropdown.active .dropbtn {
-  background-color: #04AA6D; 
-  color: white;
-  font-weight: bold;
-}
-.dropdown-content a.active {
-  background-color: #ddd; 
-  color: #000;
-  font-weight: bold;
-} 
-
-/* --- NEW CODE: SHOW & HIDE LOGIC --- */
-
-/* 1. Position the dropdown container relatively */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* 2. HIDE the dropdown content by default */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 280px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
-  z-index: 1;
-}
-
-/* 3. SHOW the dropdown content when hovering over the container */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Basic styling for dropdown links so they stack vertically */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  display: block;
-}
-
-/* Optional: Add a hover effect to dropdown items */
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
         :root {
             --bg-color: #f4f7f6;
             --text-color: #333;
@@ -68,6 +86,7 @@ a {
             --accent-color: #3498db;
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
+            --link-blue: #007BFF;
         }
 
         body {
@@ -79,6 +98,7 @@ a {
             padding: 20px;
         }
 
+        /* Container Layout */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -88,6 +108,7 @@ a {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        /* Typography */
         h1, h2, h3 {
             color: var(--primary-color);
         }
@@ -117,7 +138,7 @@ a {
         }
 
         strong {
-            color: #2c3e50;
+            color: var(--primary-color);
         }
 
         .divider {
@@ -127,6 +148,15 @@ a {
             margin: 40px 0;
         }
 
+        blockquote {
+            background: #f8fafc;
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+            padding: 15px 20px;
+            font-style: italic;
+        }
+
+        /* Diagram Component */
         .diagram-box {
             background-color: #f8fafc;
             border: 1px solid var(--border-color);
@@ -139,32 +169,64 @@ a {
             color: #2c3e50;
         }
 
-        blockquote {
-            background: #f8fafc;
-            border-left: 4px solid var(--accent-color);
-            margin: 20px 0;
-            padding: 15px 20px;
-            font-style: italic;
-        }
-
-        .flex-container {
-            display: block;
+        /* Responsive Grid for Pillars Section */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 20px;
         }
 
         @media (min-width: 600px) {
-            .flex-container {
-                display: table;
-                width: 100%;
-            }
-            .flex-child {
-                display: table-cell;
-                width: 50%;
-                padding: 10px;
-                vertical-align: top;
+            .pillars-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
-/* This container forces the links to opposite sides */
+        /* Course Scroll Navigation */
+        .course-nav {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .course-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .course-nav-list {
+            display: flex;
+            gap: 12px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .course-nav-item {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background-color: #e9ecef;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .course-nav-item:hover {
+            background-color: #dee2e6;
+            color: #212529;
+        }
+
+        .course-nav-item.active {
+            background-color: #0d6efd;
+            color: #ffffff;
+        }
+
+        /* Pagination Buttons */
         .pagination-container {
             display: flex;
             justify-content: space-between;
@@ -173,181 +235,237 @@ a {
             padding: 20px 0;
         }
 
-        /* Optional styling to make the links look like buttons */
         .page-link {
             text-decoration: none;
-            color: #007BFF;
+            color: var(--link-blue);
             font-weight: bold;
             padding: 8px 16px;
-            border: 1px solid #007BFF;
+            border: 1px solid var(--link-blue);
             border-radius: 4px;
+            transition: all 0.2s ease;
         }
 
         .page-link:hover {
-            background-color: #007BFF;
+            background-color: var(--link-blue);
             color: white;
         }
 
+        /* Main Navbar & Dropdown */
+        .navbar {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
+        .navbar a {
+            text-decoration: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 10;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .navbar a.active, 
+        .dropdown-content a.active {
+            background-color: #04AA6D; 
+            color: white;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
-  
-  <!-- Horizontal Scrollable Course Navigation -->
-<nav style="overflow-x: auto; white-space: nowrap; padding: 10px 0; -webkit-overflow-scrolling: touch;">
-  <ul style="display: flex; gap: 12px; list-style: none; margin: 0; padding: 0;">
-    <li><a href="system.html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Fundamentals of computer</a></li>
-    <li><a href="#html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">HTML</a></li>
-    <li><a href="#css" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">CSS</a></li>
-    <li><a href="#javascript" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">JavaScript</a></li>
-    
 
-    <li><a href="#gen-ai" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Generative AI</a></li>
-  </ul>
-</nav> 
-
-
-<!-- The pagination structure -->
-    <div class="pagination-container">
-        <a href="system.html" class="page-link">&larr; Previous</a>
-        <a href="history.html" class="page-link">Next &rarr;</a>
-    </div>
-  
-
-<nav class="navbar">
-  <!-- 1. Move Home HERE so it stays on the main navbar row -->
-  <a href="index.html" class="active">Home</a>
-
-  <!-- 2. Dropdown starts here -->
-  <div class="dropdown">
-    <button class="dropbtn">Topics ▾</button>
-    
-    <!-- Hidden menu items container -->
-    <div class="dropdown-content">
-      <a href="system.html">Module 1: Hardware & System Architecture</a>
-      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
-      <a href="history.html">Computer History</a>
-      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
-      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
-      
-      <a href="operating.html">Module 2: Operating Systems</a>
-      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
-      <a href="software.html">System software VS. Application software</a>
-      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
-      
-      <a href="internet.html">Module 3: Internet & Networking Basics</a>
-      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
-      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
-      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
-    </div>
-  </div>
-</nav>
-
-
-    <div class="container">
-        <h1>What is a Computer?</h1>
-        
-        <p>At its simplest, a <strong>computer</strong> is an electronic device that manipulates information, or data. It has the ability to store, retrieve, and process data to perform a wide variety of tasks—from writing documents and sending emails to running complex web applications, executing code, and managing databases.</p>
-
-        <hr class="divider">
-
-        <h2>The Core Functions: The IPOS Cycle</h2>
-        <p>To understand what a computer does at a fundamental level, we look at the four basic operations it performs sequentially, known as the <strong>IPOS Cycle</strong>:</p>
-        
-        <div class="diagram-box">
-            [ Input ] &mdash;&gt; [ Processing ] &mdash;&gt; [ Output ]<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ Storage ]
-        </div>
-
-        <ul>
-            <li><strong>Input:</strong> This is how you get data and instructions into the computer. You use input devices like a keyboard, mouse, touchscreen, microphone, or scanner.</li>
-            <li><strong>Processing:</strong> This is the execution phase. The <strong>Central Processing Unit (CPU)</strong> takes the raw input data, manipulates it according to specific instructions (software), and performs mathematical or logical calculations.</li>
-            <li><strong>Storage:</strong> A computer requires locations to keep data. This includes <strong>temporary storage</strong> (RAM) for files actively being processed, and <strong>permanent storage</strong> (SSD or Hard Drive) to keep data secure even when the system is turned off.</li>
-            <li><strong>Output:</strong> This is the resulting processed information returned to the user. Output devices include monitors, screens, speakers, or printers.</li>
-        </ul>
-
-        <hr class="divider">
-
-        <h2>The Two Pillars: Hardware and Software</h2>
-        <p>A computer cannot operate without the constant collaboration of physical machinery and digital instructions.</p>
-
-        <div class="flex-container">
-            <div class="flex-child">
-                <h3>1. Hardware</h3>
-                <p>The physical, tangible components of the computer system that you can touch and see.</p>
-                <ul>
-                    <li><strong>CPU:</strong> The central processing unit.</li>
-                    <li><strong>Motherboard:</strong> The main circuit board connecting all elements.</li>
-                    <li><strong>RAM & Storage:</strong> Storage drives and temporary memory chips.</li>
-                </ul>
-            </div>
-            <div class="flex-child">
-                <h3>2. Software</h3>
-                <p>The digital instructions, programs, and code that command the hardware on exactly what actions to execute.</p>
-                <ul>
-                    <li><strong>System Software:</strong> The Operating System (like Linux, Android, or Windows).</li>
-                    <li><strong>Application Software:</strong> Program utilities (like web browsers, text editors, and compilers).</li>
-                </ul>
-            </div>
-        </div>
-</div>
-
-<!-- The pagination structure -->
-    <div class="pagination-container">
-        <a href="system.html" class="page-link">&larr; Previous</a>
-        <a href="history.html" class="page-link">Next &rarr;</a>
-    </div>
-
-<footer class="site-footer">
-    <div class="footer-container">
-        <div class="footer-column brand-info">
-            <h3 class="footer-logo">WebDeveloper</h3>
-            <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
-        </div>
-
-        <div class="footer-column">
-            <h4>Tutorials</h4>
-            <ul>
-                <li><a href="system.html">Computer Fundamentals</a></li>
-                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
-                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
+    <!-- Header Navigation -->
+    <header>
+        <nav class="course-nav" aria-label="Course Topics Horizontal Scroll">
+            <ul class="course-nav-list">
+                <li><a href="system.html" class="course-nav-item active">Fundamentals of computer</a></li>
+                <li><a href="#html" class="course-nav-item">HTML</a></li>
+                <li><a href="#css" class="course-nav-item">CSS</a></li>
+                <li><a href="#javascript" class="course-nav-item">JavaScript</a></li>
+                <li><a href="#gen-ai" class="course-nav-item">Generative AI</a></li>
             </ul>
-        </div>
+        </nav> 
 
-        <div class="footer-column">
-            <h4>Resources</h4>
-            <ul>
-                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
-                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
-                <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
+        <nav class="pagination-container" aria-label="Page Pagination Top">
+            <a href="system.html" class="page-link">&larr; Previous</a>
+            <a href="history.html" class="page-link">Next &rarr;</a>
+        </nav>
+
+        <nav class="navbar" aria-label="Main Site Navigation">
+            <a href="index.html" class="active">Home</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">Topics &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="system.html">Module 1: Hardware &amp; System Architecture</a>
+                    <a href="computer.html" class="active">What is a Computer? (IPO Cycle)</a>
+                    <a href="history.html">Computer History</a>
+                    <a href="demystifying.html">Inside the Box: CPU, RAM, GPU, Motherboard</a>
+                    <a href="types.html">Storage Types: HDD vs. SSD</a>
+                    <a href="operating.html">Module 2: Operating Systems</a>
+                    <a href="function.html">What does an OS actually do?</a>
+                    <a href="software.html">System VS. Application Software</a>
+                    <a href="files.html">File Systems &amp; Paths</a>
+                    <a href="internet.html">Module 3: Internet &amp; Networking Basics</a>
+                    <a href="web.html">How the Web Works</a>
+                    <a href="dns.html">Domain Name System (DNS)</a>
+                    <a href="server.html">Cloud Computing &amp; Web Servers</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        <article>
+            <h1>What is a Computer?</h1>
+            
+            <p>At its simplest, a <strong>computer</strong> is an electronic device that manipulates information, or data. It has the ability to store, retrieve, and process data to perform a wide variety of tasks—from writing documents and sending emails to running complex web applications, executing code, and managing databases.</p>
+
+            <hr class="divider">
+
+            <section>
+                <h2>The Core Functions: The IPOS Cycle</h2>
+                <p>To understand what a computer does at a fundamental level, we look at the four basic operations it performs sequentially, known as the <strong>IPOS Cycle</strong>:</p>
                 
-            </ul>
-        </div>
-    </div>
+                <div class="diagram-box">
+                    [ Input ] &mdash;&gt; [ Processing ] &mdash;&gt; [ Output ]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ Storage ]
+                </div>
 
-    <div class="footer-bottom">
-        <div class="footer-bottom-content">
-            <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
-            <div class="footer-legal">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
+                <ul>
+                    <li><strong>Input:</strong> This is how you get data and instructions into the computer. You use input devices like a keyboard, mouse, touchscreen, microphone, or scanner.</li>
+                    <li><strong>Processing:</strong> This is the execution phase. The <strong>Central Processing Unit (CPU)</strong> takes the raw input data, manipulates it according to specific instructions (software), and performs mathematical or logical calculations.</li>
+                    <li><strong>Storage:</strong> A computer requires locations to keep data. This includes <strong>temporary storage</strong> (RAM) for files actively being processed, and <strong>permanent storage</strong> (SSD or Hard Drive) to keep data secure even when the system is turned off.</li>
+                    <li><strong>Output:</strong> This is the resulting processed information returned to the user. Output devices include monitors, screens, speakers, or printers.</li>
+                </ul>
+            </section>
+
+            <hr class="divider">
+
+            <section>
+                <h2>The Two Pillars: Hardware and Software</h2>
+                <p>A computer cannot operate without the constant collaboration of physical machinery and digital instructions.</p>
+
+                <div class="pillars-grid">
+                    <div>
+                        <h3>1. Hardware</h3>
+                        <p>The physical, tangible components of the computer system that you can touch and see.</p>
+                        <ul>
+                            <li><strong>CPU:</strong> The central processing unit.</li>
+                            <li><strong>Motherboard:</strong> The main circuit board connecting all elements.</li>
+                            <li><strong>RAM &amp; Storage:</strong> Storage drives and temporary memory chips.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>2. Software</h3>
+                        <p>The digital instructions, programs, and code that command the hardware on exactly what actions to execute.</p>
+                        <ul>
+                            <li><strong>System Software:</strong> The Operating System (like Linux, Android, or Windows).</li>
+                            <li><strong>Application Software:</strong> Program utilities (like web browsers, text editors, and compilers).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- Bottom Pagination Navigation -->
+        <nav class="pagination-container" aria-label="Page Pagination Bottom">
+            <a href="system.html" class="page-link">&larr; Previous</a>
+            <a href="history.html" class="page-link">Next &rarr;</a>
+        </nav>
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column brand-info">
+                <h3 class="footer-logo">WebDeveloper</h3>
+                <p>Mastering the craft of building for the web. From foundational code to modern deployment structures, built step-by-step.</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Tutorials</h4>
+                <ul>
+                    <li><a href="system.html">Computer Fundamentals</a></li>
+                    <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
+                    <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" rel="noopener noreferrer">Web Hosting</a></li>
+                    <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm" rel="noopener noreferrer">Get Your Certificate</a></li>
+                    <li><a href="https://monetag.com/?ref_id=zUg8" rel="noopener noreferrer">Website Monetization</a></li>
+                </ul>
             </div>
         </div>
-    </div>
-</footer>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-KBDWMPSJ0D');
-</script>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2026 WebDeveloper. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <!-- Analytics and Third-Party Scripts -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
+      gtag('config', 'G-KBDWMPSJ0D');
+    </script>
+
+    <script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </body>
 </html>
