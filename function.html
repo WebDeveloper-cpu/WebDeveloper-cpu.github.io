@@ -3,61 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows vs. macOS vs. Linux - What Do They Actually Do?</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Windows vs. macOS vs. Linux - Operating System Comparison | WebDeveloper</title>
+    <meta name="title" content="Windows vs. macOS vs. Linux - Operating System Comparison | WebDeveloper">
+    <meta name="description" content="Understand what Windows, macOS, and Linux actually do under the hood. Compare NT, Darwin, and Linux kernels, file systems, shells, and system architectures.">
+    <meta name="keywords" content="Windows vs macOS vs Linux, OS kernels, Windows NT, Darwin BSD, Linux kernel, file systems, operating system comparison, computer science">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://webdeveloper.pages.dev/function.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://webdeveloper.pages.dev/function.html">
+    <meta property="og:title" content="Windows vs. macOS vs. Linux - Operating System Comparison">
+    <meta property="og:description" content="Discover how Windows, macOS, and Linux manage hardware, files, and processes under the hood with a detailed technical breakdown.">
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://webdeveloper.pages.dev/function.html">
+    <meta property="twitter:title" content="Windows vs. macOS vs. Linux - Operating System Comparison">
+    <meta property="twitter:description" content="Discover how Windows, macOS, and Linux manage hardware, files, and processes under the hood with a detailed technical breakdown.">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Windows, macOS, & Linux: What do they actually do under the hood?",
+      "description": "A technical breakdown comparing kernel architecture, file systems, driver management, and shells across Windows, macOS, and Linux.",
+      "author": {
+        "@type": "Organization",
+        "name": "WebDeveloper"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WebDeveloper"
+      },
+      "inLanguage": "en-US",
+      "articleSection": "Operating Systems"
+    }
+    </script>
+
     <link rel="stylesheet" href="footer.css">
+    
     <style>
-/* Styling for the active main navbar link or active dropdown button */
-/* --- EXISTING STYLING (Your Code) --- */
-a { 
-  text-decoration: none;
-}
-.navbar a.active, 
-.dropdown.active .dropbtn {
-  background-color: #04AA6D; 
-  color: white;
-  font-weight: bold;
-}
-.dropdown-content a.active {
-  background-color: #ddd; 
-  color: #000;
-  font-weight: bold;
-} 
-
-/* --- NEW CODE: SHOW & HIDE LOGIC --- */
-
-/* 1. Position the dropdown container relatively */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* 2. HIDE the dropdown content by default */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 280px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
-  z-index: 1;
-}
-
-/* 3. SHOW the dropdown content when hovering over the container */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Basic styling for dropdown links so they stack vertically */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  display: block;
-}
-
-/* Optional: Add a hover effect to dropdown items */
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
         :root {
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
@@ -67,6 +56,8 @@ a {
             --accent-color: #e9ecef;
             --border-color: #dee2e6;
             --code-bg: #f1f3f5;
+            --navbar-bg: #333;
+            --navbar-active: #04AA6D;
         }
 
         body {
@@ -75,12 +66,96 @@ a {
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 2rem 1rem;
+            padding: 0;
         }
 
+        /* --- Navigation Bar --- */
+        .navbar {
+            background-color: var(--navbar-bg);
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .navbar a {
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 1rem;
+            display: inline-block;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .navbar a.active, 
+        .dropdown.active .dropbtn {
+            background-color: var(--navbar-active); 
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 1rem;    
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #555;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown-content a.active {
+            background-color: #ddd; 
+            color: #000;
+            font-weight: bold;
+        } 
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- Layout & Typography --- */
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 2rem auto;
             background: var(--card-bg);
             padding: 2.5rem;
             border-radius: 8px;
@@ -125,7 +200,7 @@ a {
             margin: 2.5rem 0;
         }
 
-        /* Diagrams and Preformatted Text */
+        /* Diagrams & Code Blocks */
         pre {
             background-color: var(--code-bg);
             padding: 1.2rem;
@@ -135,6 +210,13 @@ a {
             overflow-x: auto;
             border: 1px solid var(--border-color);
             line-height: 1.4;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: var(--code-bg);
+            padding: 2px 4px;
+            border-radius: 4px;
         }
 
         /* Lists */
@@ -185,13 +267,11 @@ a {
             font-style: italic;
         }
 
-        /* Responsive styling */
+        /* Responsive Styling */
         @media (max-width: 600px) {
-            body {
-                padding: 1rem 0.5rem;
-            }
             .container {
                 padding: 1.5rem;
+                margin: 1rem 0.5rem;
             }
             h1 {
                 font-size: 2rem;
@@ -205,34 +285,29 @@ a {
 </head>
 <body>
 
-
 <nav class="navbar">
-  <!-- 1. Move Home HERE so it stays on the main navbar row -->
-  <a href="index.html" class="active">Home</a>
+    <a href="index.html">Home</a>
 
-  <!-- 2. Dropdown starts here -->
-  <div class="dropdown">
-    <button class="dropbtn">Topics ▾</button>
-    
-    <!-- Hidden menu items container -->
-    <div class="dropdown-content">
-      <a href="system.html">Module 1: Hardware & System Architecture</a>
-      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
-      <a href="history.html">Computer History</a>
-      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
-      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
-      
-      <a href="operating.html">Module 2: Operating Systems</a>
-      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
-      <a href="software.html">System software VS. Application software</a>
-      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
-      
-      <a href="internet.html">Module 3: Internet & Networking Basics</a>
-      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
-      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
-      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+    <div class="dropdown active">
+        <button class="dropbtn">Topics ▾</button>
+        <div class="dropdown-content">
+            <a href="system.html">Module 1: Hardware & System Architecture</a>
+            <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+            <a href="history.html">Computer History</a>
+            <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+            <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
+            
+            <a href="operating.html">Module 2: Operating Systems</a>
+            <a href="function.html" class="active">What does an OS actually do? (Windows, macOS, Linux)</a>
+            <a href="software.html">System software VS. Application software</a>
+            <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
+            
+            <a href="internet.html">Module 3: Internet & Networking Basics</a>
+            <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
+            <a href="dns.html">Domain Names (DNS) Moving from IP addresses to readable URLs</a>
+            <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+        </div>
     </div>
-  </div>
 </nav>
 
 <div class="container">
@@ -338,6 +413,7 @@ a {
         </section>
     </article>
 </div>
+
 <footer class="site-footer">
     <div class="footer-container">
         <div class="footer-column brand-info">
@@ -357,10 +433,9 @@ a {
         <div class="footer-column">
             <h4>Resources</h4>
             <ul>
-                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
-                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
+                <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">Web Hosting</a></li>
+                <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm">Get Your Certificate</a></li>
                 <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
-                
             </ul>
         </div>
     </div>
@@ -375,9 +450,11 @@ a {
         </div>
     </div>
 </footer>
+
+<!-- Monetag Tag Script -->
 <script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
-<!-- Google tag (gtag.js) -->
+<!-- Google Analytics (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
