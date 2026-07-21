@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Software vs. Application Software</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>System Software vs. Application Software: Key Differences Explained</title>
+    <meta name="title" content="System Software vs. Application Software: Key Differences Explained">
+    <meta name="description" content="Learn the core differences between system software and application software with interactive practice code, real-world examples, and comparative tables.">
+    <meta name="keywords" content="System Software, Application Software, Operating Systems, Compilers, Web Development, Computer Science Basics, WebDeveloper">
+    <meta name="author" content="WebDeveloper">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/software.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yourdomain.com/software.html">
+    <meta property="og:title" content="System Software vs. Application Software Explained">
+    <meta property="og:description" content="Master the structural differences between background system software and user-facing application software through interactive examples.">
+    <meta property="og:site_name" content="WebDeveloper">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="System Software vs. Application Software Explained">
+    <meta property="twitter:description" content="Master the structural differences between background system software and user-facing application software through interactive examples.">
+
+    <!-- Structured Data (JSON-LD for Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "System Software vs. Application Software",
+      "description": "An introductory technical guide explaining the role of system software versus application software with code practice tools.",
+      "articleSection": "Computer Fundamentals",
+      "author": {
+        "@type": "Organization",
+        "name": "WebDeveloper"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WebDeveloper"
+      },
+      "inLanguage": "en"
+    }
+    </script>
+
     <link rel="stylesheet" href="footer.css">
     <style>
-/* --- EXISTING STYLING (Your Code) --- */
+/* --- EXISTING STYLING --- */
 a { 
   text-decoration: none;
 }
@@ -22,238 +63,380 @@ a {
   font-weight: bold;
 } 
 
-/* --- NEW CODE: SHOW & HIDE LOGIC --- */
-
-/* 1. Position the dropdown container relatively */
+/* --- SHOW & HIDE LOGIC --- */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
-/* 2. HIDE the dropdown content by default */
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 280px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
-/* 3. SHOW the dropdown content when hovering over the container */
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
-/* Basic styling for dropdown links so they stack vertically */
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
   display: block;
 }
 
-/* Optional: Add a hover effect to dropdown items */
 .dropdown-content a:hover {
   background-color: #f1f1f1;
 }
 
-    
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            color: #1a1a1a;
-            border-bottom: 2px solid #eaeaea;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #2c3e50;
-            margin-top: 30px;
-        }
-        h3 {
-            color: #34495e;
-        }
-        p {
-            margin-bottom: 1.2em;
-        }
-        strong {
-            color: #111;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background: #ddd;
-            margin: 40px 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            background: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        th {
-            background-color: #f4f6f8;
-            color: #333;
-            font-weight: bold;
-        }
-        tr:hover {
-            background-color: #fcfcfc;
-        }
-        ul {
-            padding-left: 20px;
-            margin-bottom: 1.5rem;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        .blockquote {
-            background: #f0f4f8;
-            border-left: 5px solid #3182ce;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        .step-list {
-            list-style-type: decimal;
-        }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+h1 {
+    color: #1a1a1a;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+}
+h2 {
+    color: #2c3e50;
+    margin-top: 30px;
+}
+h3 {
+    color: #34495e;
+}
+p {
+    margin-bottom: 1.2em;
+}
+strong {
+    color: #111;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 40px 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+th {
+    background-color: #f4f6f8;
+    color: #333;
+    font-weight: bold;
+}
+tr:hover {
+    background-color: #fcfcfc;
+}
+ul {
+    padding-left: 20px;
+    margin-bottom: 1.5rem;
+}
+li {
+    margin-bottom: 8px;
+}
+.blockquote {
+    background: #f0f4f8;
+    border-left: 5px solid #3182ce;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+.step-list {
+    list-style-type: decimal;
+}
+
+/* --- CODE PRACTICE STYLES --- */
+.practice-box {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 20px 0;
+    font-family: "Courier New", Courier, monospace;
+}
+.practice-title {
+    color: #4ec9b0;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.code-editor {
+    width: 100%;
+    height: 100px;
+    background: #252526;
+    color: #9cdcfe;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: inherit;
+    resize: vertical;
+}
+.btn-run {
+    background: #04AA6D;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-run:hover {
+    background: #038a58;
+}
+.code-output {
+    background: #000;
+    color: #00ff00;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    min-height: 40px;
+    white-space: pre-wrap;
+    font-size: 0.9em;
+}
+
+/* --- PAGINATION NAVIGATION STYLES --- */
+.topic-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0 20px 0;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 12px 18px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    color: #333;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease-in-out;
+    max-width: 48%;
+    box-sizing: border-box;
+}
+
+.nav-btn:hover {
+    border-color: #04AA6D;
+    background-color: #f4fbf8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nav-btn .nav-label {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #04AA6D;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.nav-btn .nav-title {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.nav-btn.next {
+    text-align: right;
+    margin-left: auto;
+}
+
+@media (max-width: 600px) {
+    .nav-btn {
+        max-width: 100%;
+        width: 100%;
+    }
+    .nav-btn.next {
+        text-align: left;
+    }
+}
     </style>
 </head>
 <body>
 
+<header>
+    <nav class="navbar" aria-label="Main Navigation">
+      <a href="index.html" class="active">Home</a>
 
-<nav class="navbar">
-  <!-- 1. Move Home HERE so it stays on the main navbar row -->
-  <a href="index.html" class="active">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">Topics ▾</button>
+        
+        <div class="dropdown-content">
+          <a href="system.html">Module 1: Hardware & System Architecture</a>
+          <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
+          <a href="history.html">Computer History</a>
+          <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
+          <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
+          
+          <a href="operating.html">Module 2: Operating Systems</a>
+          <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
+          <a href="software.html">System software VS. Application software</a>
+          <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
+          
+          <a href="internet.html">Module 3: Internet & Networking Basics</a>
+          <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
+          <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
+          <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
+        </div>
+      </div>
+    </nav>
+</header>
 
-  <!-- 2. Dropdown starts here -->
-  <div class="dropdown">
-    <button class="dropbtn">Topics ▾</button>
-    
-    <!-- Hidden menu items container -->
-    <div class="dropdown-content">
-      <a href="system.html">Module 1: Hardware & System Architecture</a>
-      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
-      <a href="history.html">Computer History</a>
-      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
-      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
-      
-      <a href="operating.html">Module 2: Operating Systems</a>
-      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
-      <a href="software.html">System software VS. Application software</a>
-      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
-      
-      <a href="internet.html">Module 3: Internet & Networking Basics</a>
-      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
-      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
-      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
-    </div>
-  </div>
-</nav>
+<main>
+    <article>
+        <h1>System Software vs. Application Software</h1>
+        
+        <p>At its core, the difference between <strong>system software</strong> and <strong>application software</strong> lies in <em>who</em> or <em>what</em> they are designed for.</p>
+        
+        <p>System software runs behind the scenes to manage the computer hardware itself, while application software sits on top of that system to help you, the user, perform specific tasks.</p>
 
-    <h1>System Software vs. Application Software</h1>
-    
-    <p>At its core, the difference between <strong>system software</strong> and <strong>application software</strong> lies in <em>who</em> or <em>what</em> they are designed for.</p>
-    
-    <p>System software runs behind the scenes to manage the computer hardware itself, while application software sits on top of that system to help you, the user, perform specific tasks.</p>
+        <hr>
 
-    <hr>
+        <h2>Key Differences at a Glance</h2>
 
-    <h2>Key Differences at a Glance</h2>
+        <table>
+            <caption>Comparison of System Software and Application Software Core Features</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Feature</th>
+                    <th scope="col">System Software</th>
+                    <th scope="col">Application Software</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Primary Purpose</strong></td>
+                    <td>Manages and controls the computer's hardware and resources.</td>
+                    <td>Performs specific user-oriented tasks (work, play, creation).</td>
+                </tr>
+                <tr>
+                    <td><strong>User Interaction</strong></td>
+                    <td>Generally runs in the background; users rarely interact with it directly.</td>
+                    <td>Direct, active interaction via a user interface.</td>
+                </tr>
+                <tr>
+                    <td><strong>Dependency</strong></td>
+                    <td>Runs independently of application software.</td>
+                    <td>Cannot run without system software (needs an OS to function).</td>
+                </tr>
+                <tr>
+                    <td><strong>Installation</strong></td>
+                    <td>Pre-installed with the operating system.</td>
+                    <td>Installed by the user as needed.</td>
+                </tr>
+                <tr>
+                    <td><strong>Examples</strong></td>
+                    <td>Operating Systems (Android, Windows, Linux), Device Drivers, Compilers.</td>
+                    <td>Web Browsers (Chrome), Text Editors, Media Players, Mobile Apps.</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Feature</th>
-                <th>System Software</th>
-                <th>Application Software</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Primary Purpose</strong></td>
-                <td>Manages and controls the computer's hardware and resources.</td>
-                <td>Performs specific user-oriented tasks (work, play, creation).</td>
-            </tr>
-            <tr>
-                <td><strong>User Interaction</strong></td>
-                <td>Generally runs in the background; users rarely interact with it directly.</td>
-                <td>Direct, active interaction via a user interface.</td>
-            </tr>
-            <tr>
-                <td><strong>Dependency</strong></td>
-                <td>Runs independently of application software.</td>
-                <td>Cannot run without system software (needs an OS to function).</td>
-            </tr>
-            <tr>
-                <td><strong>Installation</strong></td>
-                <td>Pre-installed with the operating system.</td>
-                <td>Installed by the user as needed.</td>
-            </tr>
-            <tr>
-                <td><strong>Examples</strong></td>
-                <td>Operating Systems (Android, Windows, Linux), Device Drivers, Compilers.</td>
-                <td>Web Browsers (Chrome), Text Editors, Media Players, Mobile Apps.</td>
-            </tr>
-        </tbody>
-    </table>
+        <hr>
 
-    <hr>
+        <h2>1. System Software: The Infrastructure</h2>
+        
+        <p>Think of system software as the engine, chassis, and electrical system of a car. Without it, the car is just an expensive, stationary heap of metal.</p>
+        
+        <p>System software acts as the intermediary between the computer hardware and the applications you want to run. It handles background tasks like memory allocation, file management, security, and hardware communication.</p>
 
-    <h2>1. System Software: The Infrastructure</h2>
-    
-    <p>Think of system software as the engine, chassis, and electrical system of a car. Without it, the car is just an expensive, stationary heap of metal.</p>
-    
-    <p>System software acts as the intermediary between the computer hardware and the applications you want to run. It handles background tasks like memory allocation, file management, security, and hardware communication.</p>
+        <h3>Core Types of System Software:</h3>
+        <ul>
+            <li><strong>Operating Systems (OS):</strong> The ultimate manager. It allocates CPU time, manages RAM, handles storage, and provides the user interface. <em>(Examples: Linux, Android, Windows, macOS)</em></li>
+            <li><strong>Device Drivers:</strong> Specialized programs that allow the OS to communicate with specific hardware (like a printer, graphics card, or keyboard).</li>
+            <li><strong>Utility Programs:</strong> Tools that maintain, analyze, and optimize the system. <em>(Examples: Disk defragmenters, file compression tools, and system diagnostics)</em></li>
+            <li><strong>Language Translators:</strong> Tools like compilers, assemblers, and interpreters that translate human-readable source code into machine code (0s and 1s) that the CPU can actually execute.</li>
+        </ul>
 
-    <h3>Core Types of System Software:</h3>
-    <ul>
-        <li><strong>Operating Systems (OS):</strong> The ultimate manager. It allocates CPU time, manages RAM, handles storage, and provides the user interface. <em>(Examples: Linux, Android, Windows, macOS)</em></li>
-        <li><strong>Device Drivers:</strong> Specialized programs that allow the OS to communicate with specific hardware (like a printer, graphics card, or keyboard).</li>
-        <li><strong>Utility Programs:</strong> Tools that maintain, analyze, and optimize the system. <em>(Examples: Disk defragmenters, file compression tools, and system diagnostics)</em></li>
-        <li><strong>Language Translators:</strong> Tools like compilers, assemblers, and interpreters that translate human-readable source code into machine code (0s and 1s) that the CPU can actually execute.</li>
-    </ul>
+        <!-- PRACTICE CODE BLOCK: SYSTEM SOFTWARE -->
+        <section class="practice-box" aria-label="System Software Practice">
+            <div class="practice-title">Interactive Practice: Compiler Simulator (System Software)</div>
+            <p style="font-size: 0.85em; color: #aaa;">System software includes translators that convert high-level code into binary machine instructions. Type a sentence below and click run to compile it into binary code.</p>
+            <textarea id="sysCodeInput" class="code-editor" aria-label="Input code for compiler" placeholder="Type text to translate into machine code...">Hello OS</textarea>
+            <button class="btn-run" onclick="runCompilerSimulation()">Compile to Binary</button>
+            <div id="sysCodeOutput" class="code-output" aria-live="polite">> System ready...</div>
+        </section>
 
-    <hr>
+        <hr>
 
-    <h2>2. Application Software: The Productivity & Creativity Tools</h2>
-    
-    <p>If system software is the car's engine, application software is the GPS, the air conditioning, and the stereo system. It is designed to perform specific, real-world tasks for the user.</p>
-    
-    <p>Application software doesn't care <em>how</em> the CPU allocates RAM or how the hard drive spins; it relies on the Operating System to handle those details so it can focus entirely on its specialized task.</p>
+        <h2>2. Application Software: The Productivity & Creativity Tools</h2>
+        
+        <p>If system software is the car's engine, application software is the GPS, the air conditioning, and the stereo system. It is designed to perform specific, real-world tasks for the user.</p>
+        
+        <p>Application software doesn't care <em>how</em> the CPU allocates RAM or how the hard drive spins; it relies on the Operating System to handle those details so it can focus entirely on its specialized task.</p>
 
-    <h3>Common Types of Application Software:</h3>
-    <ul>
-        <li><strong>Web Browsers:</strong> Used to access and view websites. <em>(Examples: Chrome, Firefox)</em></li>
-        <li><strong>Word Processors & Text Editors:</strong> Used for writing, formatting, and coding. <em>(Examples: VS Code, MS Word, Notepad)</em></li>
-        <li><strong>Database Management Systems (DBMS):</strong> Used to organize, store, and retrieve structured data. <em>(Examples: MySQL, PostgreSQL)</em></li>
-        <li><strong>Specialized Mobile Apps:</strong> Built to run on mobile operating systems to do everything from social media networking to local development testing.</li>
-    </ul>
+        <h3>Common Types of Application Software:</h3>
+        <ul>
+            <li><strong>Web Browsers:</strong> Used to access and view websites. <em>(Examples: Chrome, Firefox)</em></li>
+            <li><strong>Word Processors & Text Editors:</strong> Used for writing, formatting, and coding. <em>(Examples: VS Code, MS Word, Notepad)</em></li>
+            <li><strong>Database Management Systems (DBMS):</strong> Used to organize, store, and retrieve structured data. <em>(Examples: MySQL, PostgreSQL)</em></li>
+            <li><strong>Specialized Mobile Apps:</strong> Built to run on mobile operating systems to do everything from social media networking to local development testing.</li>
+        </ul>
 
-    <hr>
+        <!-- PRACTICE CODE BLOCK: APPLICATION SOFTWARE -->
+        <section class="practice-box" aria-label="Application Software Practice">
+            <div class="practice-title">Interactive Practice: Data Formatter (Application Software)</div>
+            <p style="font-size: 0.85em; color: #aaa;">Application software performs user tasks like calculating totals or parsing input data. Enter comma-separated items to simulate app processing.</p>
+            <textarea id="appCodeInput" class="code-editor" aria-label="Input data for app simulator" placeholder="Enter items separated by commas...">HTML, CSS, JavaScript, PHP, SQL</textarea>
+            <button class="btn-run" onclick="runAppSimulation()">Process Application Data</button>
+            <div id="appCodeOutput" class="code-output" aria-live="polite">> App waiting for input...</div>
+        </section>
 
-    <h2>How They Work Together</h2>
-    
-    <p>The relationship between your hardware and these software types is a layered stack:</p>
+        <hr>
 
-    <ol class="step-list">
-        <li><strong>Hardware:</strong> The physical silicon, CPU, RAM, and storage.</li>
-        <li><strong>System Software (OS):</strong> Directly controls the hardware and provides a stable platform.</li>
-        <li><strong>Application Software:</strong> Runs on top of the OS, utilizing system resources to do what the user asks.</li>
-        <li><strong>User:</strong> Interacts directly with the application software to get results.</li>
-    </ol>
-footer class="site-footer">
+        <h2>How They Work Together</h2>
+        
+        <p>The relationship between your hardware and these software types is a layered stack:</p>
+
+        <ol class="step-list">
+            <li><strong>Hardware:</strong> The physical silicon, CPU, RAM, and storage.</li>
+            <li><strong>System Software (OS):</strong> Directly controls the hardware and provides a stable platform.</li>
+            <li><strong>Application Software:</strong> Runs on top of the OS, utilizing system resources to do what the user asks.</li>
+            <li><strong>User:</strong> Interacts directly with the application software to get results.</li>
+        </ol>
+
+        <!-- PREVIOUS / NEXT TOPIC PAGINATION -->
+        <nav class="topic-navigation" aria-label="Pagination Navigation">
+            <a href="function.html" class="nav-btn prev">
+                <span class="nav-label">← Previous Topic</span>
+                <span class="nav-title">What does an OS actually do?</span>
+            </a>
+            <a href="files.html" class="nav-btn next">
+                <span class="nav-label">Next Topic →</span>
+                <span class="nav-title">File Systems & File Paths</span>
+            </a>
+        </nav>
+    </article>
+</main>
+
+<footer class="site-footer">
     <div class="footer-container">
         <div class="footer-column brand-info">
             <h3 class="footer-logo">WebDeveloper</h3>
@@ -275,7 +458,6 @@ footer class="site-footer">
                 <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
                 <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
                 <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
-                
             </ul>
         </div>
     </div>
@@ -290,16 +472,51 @@ footer class="site-footer">
         </div>
     </div>
 </footer>
-<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<script>
+// System Software Compiler Simulator Logic
+function runCompilerSimulation() {
+    const input = document.getElementById('sysCodeInput').value;
+    const outputDiv = document.getElementById('sysCodeOutput');
+    
+    if(!input.trim()) {
+        outputDiv.innerText = "> Error: No input code provided to compiler.";
+        return;
+    }
+    
+    let binaryResult = "";
+    for (let i = 0; i < input.length; i++) {
+        binaryResult += input[i].charCodeAt(0).toString(2).padStart(8, '0') + " ";
+    }
+    
+    outputDiv.innerText = "> Compiling source text to machine binary...\n" + binaryResult;
+}
+
+// Application Software Data Processor Logic
+function runAppSimulation() {
+    const input = document.getElementById('appCodeInput').value;
+    const outputDiv = document.getElementById('appCodeOutput');
+    
+    if(!input.trim()) {
+        outputDiv.innerText = "> Error: No user data entered.";
+        return;
+    }
+    
+    const items = input.split(',').map(item => item.trim()).filter(item => item.length > 0);
+    let formatted = "> Formatted Application Output:\n";
+    items.forEach((item, index) => {
+        formatted += `  ${index + 1}. ${item.toUpperCase()}\n`;
+    });
+    formatted += `\nTotal Records Processed: ${items.length}`;
+    
+    outputDiv.innerText = formatted;
+}
+</script>
+
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<script src="https://quge5.com/88/tag.min.js" data-zone="261551" async data-cfasync="false"></script>
 
-  gtag('config', 'G-KBDWMPSJ0D');
-</script>
 </body>
 </html>
