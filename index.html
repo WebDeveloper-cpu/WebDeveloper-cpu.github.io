@@ -1,18 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-  
-<meta name="monetag" content="4edaa01ac2f394625c9185f60e41fca1">
-
-<meta name="msvalidate.01" content="9028AFE46A94712BEE22E85F62E03858" />
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebDeveloper | Learn Computing, Coding, and Generative AI</title>
+  
+  <!-- Primary Meta Tags -->
+  <title>Learn Web Development | HTML, CSS, JS & Generative AI Courses</title>
+  <meta name="title" content="Learn Web Development | HTML, CSS, JS & Generative AI Courses">
+  <meta name="description" content="Master computer fundamentals, build interactive responsive web applications from scratch, and leverage the power of Generative AI tools with our free courses.">
+  <meta name="keywords" content="web development, learn HTML, learn CSS, JavaScript tutorials, generative AI, coding for beginners, computer fundamentals">
+  <meta name="author" content="WebDeveloper">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Canonical URL (Prevents duplicate content issues) -->
+  <link rel="canonical" href="https://www.yourdomain.com/">
+
+  <!-- Verification Tags -->
+  <meta name="monetag" content="4edaa01ac2f394625c9185f60e41fca1">
+  <meta name="msvalidate.01" content="9028AFE46A94712BEE22E85F62E03858" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.yourdomain.com/">
+  <meta property="og:title" content="Learn Web Development | HTML, CSS, JS & Generative AI Courses">
+  <meta property="og:description" content="Master computer fundamentals, build interactive web applications from scratch, and leverage Generative AI.">
+  <meta property="og:image" content="https://www.yourdomain.com/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.yourdomain.com/">
+  <meta property="twitter:title" content="Learn Web Development | HTML, CSS, JS & Generative AI Courses">
+  <meta property="twitter:description" content="Master computer fundamentals, build interactive web applications from scratch, and leverage Generative AI.">
+  <meta property="twitter:image" content="https://www.yourdomain.com/og-image.jpg">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Schema.org Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "WebDeveloper",
+    "url": "https://www.yourdomain.com/",
+    "description": "Learn Computing, Coding, and Generative AI",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.yourdomain.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
   <style>
     /* CSS Variables for Clean Color Themes */
     :root {
@@ -81,6 +123,39 @@
       border-color: #38bdf8;
     }
 
+    /* Horizontal Nav (Moved CSS from inline to stylesheet for faster rendering) */
+    .scroll-nav {
+      overflow-x: auto; 
+      white-space: nowrap; 
+      padding: 10px 0; 
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .scroll-nav ul {
+      display: flex; 
+      gap: 12px; 
+      list-style: none; 
+      margin: 0 auto; 
+      padding: 0 1.5rem;
+      max-width: 1100px;
+    }
+
+    .scroll-nav a {
+      display: inline-block; 
+      text-decoration: none; 
+      color: #495057; 
+      background-color: #e9ecef; 
+      padding: 10px 20px; 
+      border-radius: 20px; 
+      font-size: 14px; 
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    .scroll-nav a:hover {
+      background-color: #dee2e6;
+    }
+
     /* Main content pushes the footer to the bottom */
     main {
       flex-grow: 1;
@@ -141,6 +216,7 @@
       display: flex;
       flex-direction: column;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      scroll-margin-top: 100px; /* Accounts for fixed headers if you add them later */
     }
 
     .course-card:hover {
@@ -278,18 +354,17 @@
 <body>
 
   <!-- Interactive Code Editor Banner -->
-  <div class="promo-banner">
-    🚀 Practice coding as you learn! Try our new interactive scratchpad: <a href="codeeditor.html">Open Code Editor →</a>
+  <div class="promo-banner" role="banner">
+    🚀 Practice coding as you learn! Try our new interactive scratchpad: <a href="codeeditor.html" aria-label="Open the code editor">Open Code Editor &rarr;</a>
   </div>
 
   <!-- Horizontal Scrollable Course Navigation -->
-  <nav style="overflow-x: auto; white-space: nowrap; padding: 10px 0; -webkit-overflow-scrolling: touch;">
-    <ul style="display: flex; gap: 12px; list-style: none; margin: 0; padding: 0;">
-      <li><a href="system.html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Fundamentals of computer</a></li>
-      <li><a href="#html" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">HTML</a></li>
-      <li><a href="#css" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">CSS</a></li>
-      <li><a href="#javascript" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">JavaScript</a></li>
-      <li><a href="#gen-ai" style="display: inline-block; text-decoration: none; color: #495057; background-color: #e9ecef; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;">Generative AI</a></li>
+  <nav class="scroll-nav" aria-label="Course Navigation">
+    <ul>
+      <li><a href="#system">Computer Fundamentals</a></li>
+      <li><a href="#html">HTML & CSS</a></li>
+      <li><a href="#javascript">JavaScript</a></li>
+      <li><a href="#gen-ai">Generative AI</a></li>
     </ul>
   </nav>   
 
@@ -304,99 +379,113 @@
   <main class="container">
     
     <!-- Curriculum Grid Section -->
-    <h2 class="section-title">Explore Your Learning Paths</h2>
-    <div class="course-grid">
-      
-      <!-- Track 1 -->
-      <div class="course-card">
-        <span class="track-badge" style="background-color: var(--color-comp);">Track 01</span>
-        <h3>Computer Fundamentals</h3>
-        <p>Understand hardware architecture, operating systems, file paths, and how the global infrastructure of the internet processes requests.</p>
-        <a href="system.html" class="course-btn" style="background-color: var(--color-comp);">Start Learning</a>
-      </div>
+    <section aria-labelledby="learning-paths">
+      <h2 id="learning-paths" class="section-title">Explore Your Learning Paths</h2>
+      <div class="course-grid">
+        
+        <!-- Track 1 -->
+        <article class="course-card" id="system">
+          <span class="track-badge" style="background-color: var(--color-comp);">Track 01</span>
+          <h3>Computer Fundamentals</h3>
+          <p>Understand hardware architecture, operating systems, file paths, and how the global infrastructure of the internet processes requests.</p>
+          <a href="system.html" class="course-btn" style="background-color: var(--color-comp);">Start Learning</a>
+        </article>
 
-      <!-- Track 2 -->
-      <div class="course-card">
-        <span class="track-badge" style="background-color: var(--color-html);">Track 02</span>
-        <h3>HTML & CSS</h3>
-        <p>Learn structural semantic HTML5 markup layouts, modern responsive web design using standard layouts like Flexbox, and styling workflows.</p>
-        <a href="https://omg10.com/4/9319730" class="course-btn" style="background-color: var(--color-html);">Start Learning</a>
-      </div>
+        <!-- Track 2 -->
+        <article class="course-card" id="html">
+          <span class="track-badge" style="background-color: var(--color-html);">Track 02</span>
+          <h3>HTML & CSS</h3>
+          <p>Learn structural semantic HTML5 markup layouts, modern responsive web design using standard layouts like Flexbox, and styling workflows.</p>
+          <a href="https://omg10.com/4/9319730" class="course-btn" style="background-color: var(--color-html);">Start Learning</a>
+        </article>
 
-      <!-- Track 3 -->
-      <div class="course-card">
-        <span class="track-badge" style="background-color: var(--color-js);">Track 03</span>
-        <h3>JavaScript Logic</h3>
-        <p>Bring interactive elements to life. Write programmatic logic through variables, conditions, loops, and custom Document Object Model manipulation.</p>
-        <a href="https://omg10.com/4/9319730" class="course-btn" style="background-color: var(--color-js); color: #000;">Start Learning</a>
-      </div>
+        <!-- Track 3 -->
+        <article class="course-card" id="javascript">
+          <span class="track-badge" style="background-color: var(--color-js);">Track 03</span>
+          <h3>JavaScript Logic</h3>
+          <p>Bring interactive elements to life. Write programmatic logic through variables, conditions, loops, and custom Document Object Model manipulation.</p>
+          <a href="https://omg10.com/4/9319730" class="course-btn" style="background-color: var(--color-js); color: #000;">Start Learning</a>
+        </article>
 
-      <!-- Track 4 -->
-      <div class="course-card">
-        <span class="track-badge" style="background-color: var(--color-ai);">Track 04</span>
-        <h3>Generative AI</h3>
-        <p>Unlock the future. Master prompt engineering strategies, debug logic efficiently with AI assistance, and access dynamic generative models.</p>
-        <a href="generative-ai.html" class="course-btn" style="background-color: var(--color-ai);">Start Learning</a>
-      </div>
+        <!-- Track 4 -->
+        <article class="course-card" id="gen-ai">
+          <span class="track-badge" style="background-color: var(--color-ai);">Track 04</span>
+          <h3>Generative AI</h3>
+          <p>Unlock the future. Master prompt engineering strategies, debug logic efficiently with AI assistance, and access dynamic generative models.</p>
+          <a href="generative-ai.html" class="course-btn" style="background-color: var(--color-ai);">Start Learning</a>
+        </article>
 
-    </div>
+      </div>
+    </section>
 
     <hr style="border: 0; border-top: 1px solid var(--border);">
 
     <!-- Partner Offers & Monetization Blocks -->
-    <h2 class="section-title">Recommended Student Resources</h2>
-    <div class="resource-row">
+    <section aria-labelledby="student-resources">
+      <h2 id="student-resources" class="section-title">Recommended Student Resources</h2>
+      <div class="resource-row">
 
-      <!-- Monetag Referral Link -->
-      <div class="resource-card">
-        <span class="resource-badge" style="background-color: #10b981;">Earning Guide</span>
-        <div class="resource-content">
-          <h4 class="resource-title">Monetize Your New Projects</h4>
-          <p class="resource-text">Ready to turn your page views into passive income? Use Monetag to monetize your sites with zero minimum traffic requirements and instant onboarding.</p>
-          <div class="resource-footer">
-            <span class="affiliate-notice">*Top Ad Network</span>
-            <a href="https://monetag.com/?ref_id=zUg8" target="_blank" rel="noopener noreferrer" class="res-btn" style="background-color: #10b981;">Join Monetag</a>
+        <!-- Monetag Referral Link -->
+        <article class="resource-card">
+          <span class="resource-badge" style="background-color: #10b981;">Earning Guide</span>
+          <div class="resource-content">
+            <h4 class="resource-title">Monetize Your New Projects</h4>
+            <p class="resource-text">Ready to turn your page views into passive income? Use Monetag to monetize your sites with zero minimum traffic requirements and instant onboarding.</p>
+            <div class="resource-footer">
+              <span class="affiliate-notice">*Top Ad Network</span>
+              <!-- Added rel="sponsored" for SEO compliance on affiliate links -->
+              <a href="https://monetag.com/?ref_id=zUg8" target="_blank" rel="sponsored noopener noreferrer" class="res-btn" style="background-color: #10b981;">Join Monetag</a>
+            </div>
           </div>
-        </div>
-      </div>
+        </article>
 
-      <!-- Domain & Hosting Link -->
-      <div class="resource-card">
-        <span class="resource-badge" style="background-color: #f59e0b;">Web Hosting</span>
-        <div class="resource-content">
-          <h4 class="resource-title">Get Web Hosting</h4>
-          <p class="resource-text">Move beyond sandbox environments. Secure fast web hosting and grab a free domain name to publish your developer portfolio live on the real web.</p>
-          <div class="resource-footer">
-            <span class="affiliate-notice">*Student Deal</span>
-            <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" target="_blank" rel="noopener noreferrer" class="res-btn" style="background-color: #f59e0b;">Claim Hosting</a>
+        <!-- Domain & Hosting Link -->
+        <article class="resource-card">
+          <span class="resource-badge" style="background-color: #f59e0b;">Web Hosting</span>
+          <div class="resource-content">
+            <h4 class="resource-title">Get Web Hosting</h4>
+            <p class="resource-text">Move beyond sandbox environments. Secure fast web hosting and grab a free domain name to publish your developer portfolio live on the real web.</p>
+            <div class="resource-footer">
+              <span class="affiliate-notice">*Student Deal</span>
+              <!-- Added rel="sponsored" for SEO compliance on affiliate links -->
+              <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" target="_blank" rel="sponsored noopener noreferrer" class="res-btn" style="background-color: #f59e0b;">Claim Hosting</a>
+            </div>
           </div>
-        </div>
-      </div>
+        </article>
 
-      <!-- Professional Certification Link -->
-      <div class="resource-card">
-        <span class="resource-badge" style="background-color: #6366f1;">Get Certified</span>
-        <div class="resource-content">
-          <h4 class="resource-title">Earn Professional Certifications</h4>
-          <p class="resource-text">Take your coding skills to the next level. Build on top of what you learned here and earn industry-recognized certifications to fast-track your career.</p>
-          <div class="resource-footer">
-            <span class="affiliate-notice">*Partner Training</span>
-            <a href=" https://campus.w3schools.com/collections/certifications?srsltid=AfmBOorioCfxZ9toopTy5QDFckZLmJEnEHlPYCasJiu-YQmv4CGFD6W6" target="_blank" rel="noopener noreferrer" class="res-btn" style="background-color: #6366f1;">Browse Certificates</a>
+        <!-- Professional Certification Link -->
+        <article class="resource-card">
+          <span class="resource-badge" style="background-color: #6366f1;">Get Certified</span>
+          <div class="resource-content">
+            <h4 class="resource-title">Earn Professional Certifications</h4>
+            <p class="resource-text">Take your coding skills to the next level. Build on top of what you learned here and earn industry-recognized certifications to fast-track your career.</p>
+            <div class="resource-footer">
+              <span class="affiliate-notice">*Partner Training</span>
+              <!-- Added rel="sponsored" for SEO compliance on affiliate links -->
+              <a href="https://campus.w3schools.com/collections/certifications?srsltid=AfmBOorioCfxZ9toopTy5QDFckZLmJEnEHlPYCasJiu-YQmv4CGFD6W6" target="_blank" rel="sponsored noopener noreferrer" class="res-btn" style="background-color: #6366f1;">Browse Certificates</a>
+            </div>
           </div>
-        </div>
-      </div>
+        </article>
 
-    </div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- Clean 2026 Footer -->
-  <footer>
+  <!-- Clean Footer -->
+  <footer role="contentinfo">
     <div class="container footer-content">
       <p>&copy; 2026 WebDeveloper Tutorials. Built with passion for aspiring developers.</p>
     </div>
   </footer>
-<script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  
+  <!-- Ad Network Script -->
+  <script>
+    (function(s){
+      s.dataset.zone='11293594',
+      s.src='https://nap5k.com/tag.min.js'
+    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
+  </script>
 
 </body>
 </html>
