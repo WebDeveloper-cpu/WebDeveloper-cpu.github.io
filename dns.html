@@ -3,124 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Understanding DNS Resolution</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Understanding DNS Resolution: How URLs Translate to IP Addresses</title>
+    <meta name="description" content="Learn how DNS resolution works step-by-step. Discover the 4 main DNS servers (Recursor, Root, TLD, Authoritative) and the anatomy of a URL.">
+    <meta name="keywords" content="DNS resolution, how DNS works, IP address, domain names, DNS recursor, TLD nameserver, authoritative nameserver, URL structure">
+    <meta name="author" content="WebDeveloper">
+    <link rel="canonical" href="https://yourwebsite.com/dns.html">
+
+    <!-- Open Graph / Social Media SEO -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Understanding DNS Resolution: How URLs Translate to IP Addresses">
+    <meta property="og:description" content="A simple guide breaking down the anatomy of a URL and the 4 steps of DNS resolution.">
+    <meta property="og:url" content="https://yourwebsite.com/dns.html">
+    <meta property="og:site_name" content="WebDeveloper">
+
+    <!-- Structured Data (JSON-LD) for Search Engines -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How DNS Translates URLs to IP Addresses",
+      "description": "Learn how DNS resolution works step-by-step, including the DNS hierarchy and URL structure.",
+      "author": {
+        "@type": "Organization",
+        "name": "WebDeveloper"
+      }
+    }
+    </script>
+
     <link rel="stylesheet" href="footer.css">
     <style>
+        :root {
+            --primary-color: #3182ce;
+            --text-color: #2d3748;
+            --heading-color: #1a202c;
+            --bg-light: #edf2f7;
+            --border-color: #e2e8f0;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.6;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             padding: 20px;
-            color: #2d3748;
+            color: var(--text-color);
         }
+
+        /* --- HORIZONTAL SCROLLABLE COURSE NAVIGATION --- */
+        .scroll-nav-container {
+            background-color: #ffffff;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 0;
+            margin-bottom: 25px;
+        }
+
+        .scroll-nav {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 4px 0;
+            scrollbar-width: thin;
+        }
+
+        .scroll-nav::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .scroll-nav::-webkit-scrollbar-thumb {
+            background-color: #cbd5e0;
+            border-radius: 4px;
+        }
+
+        .scroll-nav a {
+            color: #4a5568;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            background-color: var(--bg-light);
+            font-size: 0.95rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .scroll-nav a:hover,
+        .scroll-nav a.active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            box-shadow: 0 2px 4px rgba(49, 130, 206, 0.2);
+        }
+
+        /* --- PAGINATION STYLING --- */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding: 15px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pagination-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        /* --- CONTENT STYLING --- */
         .dns-flow {
-            border-left: 3px solid #3182ce;
+            border-left: 3px solid var(--primary-color);
             padding-left: 25px;
             margin: 20px 0;
         }
+
         .step {
             margin-bottom: 25px;
         }
+
         .step-title {
             font-weight: 700;
-            color: #1a202c;
+            color: var(--heading-color);
             display: block;
             font-size: 1.1rem;
         }
+
         code {
-            background: #edf2f7;
-            padding: 2px 5px;
+            background: var(--bg-light);
+            padding: 2px 6px;
             border-radius: 4px;
             font-family: monospace;
+            font-size: 0.9em;
         }
-/* --- EXISTING STYLING (Your Code) --- */
-a { 
-  text-decoration: none;
-}
-.navbar a.active, 
-.dropdown.active .dropbtn {
-  background-color: #04AA6D; 
-  color: white;
-  font-weight: bold;
-}
-.dropdown-content a.active {
-  background-color: #ddd; 
-  color: #000;
-  font-weight: bold;
-} 
 
-/* --- NEW CODE: SHOW & HIDE LOGIC --- */
-
-/* 1. Position the dropdown container relatively */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* 2. HIDE the dropdown content by default */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 280px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
-  z-index: 1;
-}
-
-/* 3. SHOW the dropdown content when hovering over the container */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Basic styling for dropdown links so they stack vertically */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  display: block;
-}
-
-/* Optional: Add a hover effect to dropdown items */
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
+        h1, h2 {
+            color: var(--heading-color);
+        }
     </style>
 </head>
 <body>
 
+<!-- Updated Course Navigation Bar -->
+<div class="scroll-nav-container">
+    <nav class="scroll-nav" aria-label="Course Categories">
+        <a href="index.html">Home</a>
+        <a href="system.html" class="active" aria-current="page">Fundamentals of Computer</a>
+        <a href="html-course.html">HTML</a>
+        <a href="css-course.html">CSS</a>
+        <a href="javascript-course.html">JavaScript</a>
+        <a href="generative-ai.html">Generative AI</a>
+    </nav>
+</div>
 
-<nav class="navbar">
-  <!-- 1. Move Home HERE so it stays on the main navbar row -->
-  <a href="index.html" class="active">Home</a>
-
-  <!-- 2. Dropdown starts here -->
-  <div class="dropdown">
-    <button class="dropbtn">Topics ▾</button>
-    
-    <!-- Hidden menu items container -->
-    <div class="dropdown-content">
-      <a href="system.html">Module 1: Hardware & System Architecture</a>
-      <a href="computer.html">What is a Computer? (Input, Processing, Output, Storage cycle)</a>
-      <a href="history.html">Computer History</a>
-      <a href="demystifying.html">Inside the Box: Demystifying the CPU, RAM, GPU, and Motherboard</a>
-      <a href="types.html">Storage Types: HDD vs. SSD, and how memory volatility works</a>
-      
-      <a href="operating.html">Module 2: Operating Systems</a>
-      <a href="function.html">What does an OS actually do? (Windows, macOS, Linux)</a>
-      <a href="software.html">System software VS. Application software</a>
-      <a href="files.html">File Systems: Understanding absolute and relative file paths</a>
-      
-      <a href="internet.html">Module 3: Internet & Networking Basics</a>
-      <a href="web.html">How the web works: Clients, Servers, and IP addresses</a>
-      <a href="dns.html">Domain Names(DNS) Moving from IP addresses to readable URLS</a>
-      <a href="server.html">Introduction to Cloud Computing and Web Servers</a>
-    </div>
-  </div>
+<!-- TOP PAGINATION -->
+<nav class="pagination" aria-label="Top Article Pagination">
+    <a href="web.html" class="pagination-btn">&laquo; Previous: How the Web Works</a>
+    <a href="server.html" class="pagination-btn">Next: Cloud & Web Servers &raquo;</a>
 </nav>
 
+<main>
     <article>
-        <h1>How DNS Translates URLS to IP Addresses</h1>
+        <h1>How DNS Translates URLs to IP Addresses</h1>
         
         <section>
             <h2>The Anatomy of a URL</h2>
@@ -168,6 +230,14 @@ a {
             </ol>
         </section>
     </article>
+</main>
+
+<!-- BOTTOM PAGINATION (BEFORE FOOTER) -->
+<nav class="pagination" aria-label="Bottom Article Pagination">
+    <a href="web.html" class="pagination-btn">&laquo; Previous: How the Web Works</a>
+    <a href="server.html" class="pagination-btn">Next: Cloud & Web Servers &raquo;</a>
+</nav>
+
 <footer class="site-footer">
     <div class="footer-container">
         <div class="footer-column brand-info">
@@ -178,9 +248,10 @@ a {
         <div class="footer-column">
             <h4>Tutorials</h4>
             <ul>
-                <li><a href="system.html">Computer Fundamentals</a></li>
-                <li><a href="https://omg10.com/4/9300114">Frontend Development</a></li>
-                <li><a href="https://omg10.com/4/9300114">Generative AI</a></li>
+                <li><a href="computer-fundamentals.html">Fundamentals of Computer</a></li>
+                <li><a href="html-course.html">HTML & CSS</a></li>
+                <li><a href="javascript-course.html">JavaScript</a></li>
+                <li><a href="generative-ai.html">Generative AI</a></li>
             </ul>
         </div>
 
@@ -190,7 +261,6 @@ a {
                 <li><a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123">web hosting</a></li>
                 <li><a href="https://campus.w3schools.com/collections/course-catalog?srsltid=AfmBOopBoElbVhOUm0uT92gL5kB5TD6XNZ1ASGBHrvZfMU5MC1RXi3hm"> Get your certificate</a></li>
                 <li><a href="https://monetag.com/?ref_id=zUg8">Website Monetization</a></li>
-                
             </ul>
         </div>
     </div>
@@ -205,6 +275,8 @@ a {
         </div>
     </div>
 </footer>
+
+<!-- External Scripts -->
 <script>(function(s){s.dataset.zone='11293594',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 <!-- Google tag (gtag.js) -->
