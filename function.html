@@ -250,6 +250,64 @@
             display: block;
         }
 
+        /* --- Pagination Navigation --- */
+        .pagination-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .pagination-nav.top-nav {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .pagination-nav.bottom-nav {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--accent-color);
+        }
+
+        .pagination-btn {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 12px 18px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover,
+        .pagination-btn:focus {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .pagination-btn.next-btn {
+            text-align: right;
+        }
+
+        .pagination-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        .pagination-title {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
         /* --- Layout & Typography --- */
         .container {
             max-width: 800px;
@@ -353,6 +411,12 @@
                 display: block;
                 overflow-x: auto;
             }
+            .pagination-nav {
+                flex-direction: column;
+            }
+            .pagination-btn.next-btn {
+                text-align: left;
+            }
         }
     </style>
 </head>
@@ -398,6 +462,19 @@
     <!-- Main Content Area -->
     <main class="container">
         <article>
+            
+            <!-- Top Article Pagination Navigation -->
+            <nav class="pagination-nav top-nav" aria-label="Top Article Navigation">
+                <a href="operating.html" class="pagination-btn prev-btn">
+                    <span class="pagination-label">&laquo; Previous</span>
+                    <span class="pagination-title">Module 2: Operating Systems</span>
+                </a>
+                <a href="software.html" class="pagination-btn next-btn">
+                    <span class="pagination-label">Next &raquo;</span>
+                    <span class="pagination-title">System vs. Application Software</span>
+                </a>
+            </nav>
+
             <header>
                 <h1>Windows, macOS, &amp; Linux: Technical Operating System Comparison</h1>
                 <p class="subtitle">What do they actually do under the hood?</p>
@@ -498,6 +575,19 @@
                     <li><strong>Linux is an empty warehouse with a massive stack of blueprints, building materials, and power tools.</strong> You can build a cozy studio, a massive factory, or a tiny cabin. It is completely free, but if the sink leaks, you have to grab a wrench and fix it yourself.</li>
                 </ul>
             </section>
+
+            <!-- Bottom Article Pagination Navigation -->
+            <nav class="pagination-nav bottom-nav" aria-label="Bottom Article Navigation">
+                <a href="operating.html" class="pagination-btn prev-btn">
+                    <span class="pagination-label">&laquo; Previous</span>
+                    <span class="pagination-title">Module 2: Operating Systems</span>
+                </a>
+                <a href="software.html" class="pagination-btn next-btn">
+                    <span class="pagination-label">Next &raquo;</span>
+                    <span class="pagination-title">System vs. Application Software</span>
+                </a>
+            </nav>
+
         </article>
     </main>
 
