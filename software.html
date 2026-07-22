@@ -98,14 +98,26 @@
     </script>
 
     <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #212529;
+            --text-muted: #495057;
+            --primary-color: #0d6efd;
+            --accent-color: #e9ecef;
+            --border-color: #dee2e6;
+            --code-bg: #f1f3f5;
+            --navbar-bg: #333;
+            --navbar-active: #04AA6D;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
         }
 
         a { 
@@ -117,19 +129,68 @@
             text-decoration: underline;
         }
 
-        /* --- Navbar & Dropdown --- */
+        /* --- Horizontal Course Navigation --- */
+        .course-nav-container {
+            width: 100%;
+            background-color: #1e293b;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-nav {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 4px 16px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .course-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .course-nav-link {
+            display: inline-block;
+            padding: 8px 18px;
+            background-color: #334155;
+            color: #f8fafc;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 20px;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .course-nav-link:hover,
+        .course-nav-link:focus {
+            background-color: #0284c7;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .course-nav-link.active {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        /* --- Navigation Bar --- */
         .navbar {
-            background-color: #333;
+            background-color: var(--navbar-bg);
             display: flex;
             align-items: center;
             padding: 0 1rem;
-            margin-bottom: 2rem;
-            border-radius: 6px;
         }
 
         .navbar a {
             color: #f2f2f2;
+            text-align: center;
             padding: 14px 16px;
+            text-decoration: none;
             font-size: 1rem;
             display: inline-block;
         }
@@ -143,7 +204,7 @@
 
         .navbar a.active, 
         .dropdown.active .dropbtn {
-            background-color: #04AA6D; 
+            background-color: var(--navbar-active); 
             color: white;
             font-weight: bold;
         }
@@ -176,13 +237,14 @@
             background-color: #f9f9f9;
             min-width: 280px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 100;
+            z-index: 1000;
         }
 
         .dropdown-content a {
             color: black;
             padding: 12px 16px;
             display: block;
+            text-align: left;
         }
 
         .dropdown-content a:hover,
@@ -201,28 +263,101 @@
             display: block;
         }
 
+        /* --- Pagination Controls --- */
+        .pagination-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .pagination-nav.top-nav {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .pagination-nav.bottom-nav {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--accent-color);
+        }
+
+        .pagination-btn {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 12px 18px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover,
+        .pagination-btn:focus {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            text-decoration: none;
+        }
+
+        .pagination-btn.next-btn {
+            text-align: right;
+        }
+
+        .pagination-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        .pagination-title {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
         /* --- Typography & Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
         h1 {
-            color: #1a1a1a;
-            border-bottom: 2px solid #eaeaea;
+            font-size: 2.25rem;
+            color: #111;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            border-bottom: 2px solid var(--accent-color);
             padding-bottom: 10px;
-            font-size: 2.2rem;
-            line-height: 1.25;
         }
 
         h2 {
-            color: #2c3e50;
-            margin-top: 30px;
             font-size: 1.6rem;
+            color: #2c3e50;
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
         }
 
         h3 {
-            color: #34495e;
             font-size: 1.25rem;
+            color: #34495e;
+            margin-top: 1.5rem;
         }
 
         p {
-            margin-bottom: 1.2em;
+            margin-bottom: 1.2rem;
         }
 
         strong {
@@ -232,105 +367,86 @@
         hr {
             border: 0;
             height: 1px;
-            background: #ddd;
-            margin: 40px 0;
+            background: var(--border-color);
+            margin: 2.5rem 0;
         }
 
         /* --- Table Styling --- */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            background: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
         }
 
         th, td {
-            padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         th {
-            background-color: #f4f6f8;
-            color: #333;
-            font-weight: bold;
+            background-color: var(--accent-color);
+            font-weight: 600;
         }
 
         tr:hover {
-            background-color: #fcfcfc;
+            background-color: rgba(13, 110, 253, 0.02);
         }
 
         /* --- Lists --- */
         ul {
-            padding-left: 20px;
+            padding-left: 1.5rem;
             margin-bottom: 1.5rem;
         }
 
         li {
-            margin-bottom: 8px;
+            margin-bottom: 0.6rem;
         }
 
         .step-list {
             list-style-type: decimal;
-            padding-left: 20px;
+            padding-left: 1.5rem;
         }
 
         .step-list li {
-            margin-bottom: 10px;
+            margin-bottom: 0.6rem;
         }
 
-        /* --- Pagination Controls --- */
-        .page-pagination {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 40px 0 20px 0;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .pagination-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            background-color: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            color: #334155;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-
-        .pagination-btn:hover {
-            background-color: #2563eb;
-            color: #ffffff;
-            border-color: #2563eb;
-            text-decoration: none;
-        }
-
+        /* Responsive Styling */
         @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+                margin: 1rem 0.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
             table {
                 display: block;
                 overflow-x: auto;
             }
-
-            .page-pagination {
+            .pagination-nav {
                 flex-direction: column;
-                gap: 12px;
-                align-items: stretch;
             }
-
-            .pagination-btn {
-                justify-content: center;
+            .pagination-btn.next-btn {
+                text-align: left;
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- Horizontal Course Navigation -->
+    <div class="course-nav-container">
+        <nav class="course-nav" aria-label="Course Sections">
+            <a href="computer-fundamentals.html" class="course-nav-link active" aria-current="page">Fundamentals of Computer</a>
+            <a href="html.html" class="course-nav-link">HTML</a>
+            <a href="css.html" class="course-nav-link">CSS</a>
+            <a href="javascript.html" class="course-nav-link">JavaScript</a>
+            <a href="generative-ai.html" class="course-nav-link">Generative AI</a>
+        </nav>
+    </div>
 
     <!-- Main Navigation Bar -->
     <nav class="navbar" aria-label="Main Navigation">
@@ -358,9 +474,22 @@
         </div>
     </nav>
 
-    <!-- Main Article Content -->
-    <main>
+    <!-- Main Article Content Area -->
+    <main class="container">
         <article>
+
+            <!-- Top Pagination Navigation -->
+            <nav class="pagination-nav top-nav" aria-label="Top Article Navigation">
+                <a href="function.html" class="pagination-btn prev-btn" rel="prev">
+                    <span class="pagination-label">&laquo; Previous</span>
+                    <span class="pagination-title">What does an OS actually do?</span>
+                </a>
+                <a href="files.html" class="pagination-btn next-btn" rel="next">
+                    <span class="pagination-label">Next &raquo;</span>
+                    <span class="pagination-title">Understanding File Systems</span>
+                </a>
+            </nav>
+
             <header>
                 <h1>System Software vs. Application Software</h1>
             </header>
@@ -463,17 +592,20 @@
                     <li><strong>User:</strong> Interacts with application software to complete end-user tasks.</li>
                 </ol>
             </section>
-        </article>
 
-        <!-- Previous & Next Navigation Controls -->
-        <nav class="page-pagination" aria-label="Article Pagination">
-            <a href="function.html" class="pagination-btn" rel="prev">
-                &#8592; Previous: What does an OS actually do?
-            </a>
-            <a href="files.html" class="pagination-btn" rel="next">
-                Next: Understanding File Systems &#8594;
-            </a>
-        </nav>
+            <!-- Bottom Pagination Navigation -->
+            <nav class="pagination-nav bottom-nav" aria-label="Bottom Article Navigation">
+                <a href="function.html" class="pagination-btn prev-btn" rel="prev">
+                    <span class="pagination-label">&laquo; Previous</span>
+                    <span class="pagination-title">What does an OS actually do?</span>
+                </a>
+                <a href="files.html" class="pagination-btn next-btn" rel="next">
+                    <span class="pagination-label">Next &raquo;</span>
+                    <span class="pagination-title">Understanding File Systems</span>
+                </a>
+            </nav>
+
+        </article>
     </main>
 
     <!-- Footer Area -->
