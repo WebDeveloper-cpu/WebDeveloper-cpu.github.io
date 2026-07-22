@@ -64,7 +64,7 @@
       gap: 0.25rem;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="password"] {
       background: var(--code-bg);
       border: 1px solid var(--border-color);
       color: var(--text-main);
@@ -74,7 +74,7 @@
       outline: none;
     }
 
-    input[type="text"]:focus {
+    input[type="text"]:focus, input[type="password"]:focus {
       border-color: var(--accent);
     }
 
@@ -204,13 +204,15 @@
       border-radius: 8px;
       width: 550px;
       max-width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
       padding: 1.5rem;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
     }
 
     .modal h2 {
       color: var(--accent);
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .platform-grid {
@@ -335,7 +337,7 @@
   <div class="modal-overlay" id="build-modal">
     <div class="modal">
       <h2>Build Native Executable</h2>
-      <p style="font-size: 0.85rem; color: var(--text-muted);">Compiles directly to native installer binary formats via cloud build pipeline.</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Triggers automatic native builder on GitHub Actions.</p>
 
       <div class="platform-grid">
         <div class="platform-card selected" id="opt-android" onclick="selectPlatform('android', '.apk')">
@@ -356,13 +358,20 @@
         </div>
       </div>
 
+      <!-- GitHub Credentials Integration -->
       <div class="server-config">
-        <label for="build-server-url">Build Server Endpoint API:</label>
-        <input type="text" id="build-server-url" value="https://api.buildserver.example.com/build" placeholder="https://your-build-server.com/build">
+        <label for="gh-user">GitHub Username:</label>
+        <input type="text" id="gh-user" placeholder="e.g. john-doe">
+
+        <label for="gh-repo">GitHub Repository Name:</label>
+        <input type="text" id="gh-repo" placeholder="e.g. web2app-studio">
+
+        <label for="gh-token">GitHub Personal Access Token (PAT):</label>
+        <input type="password" id="gh-token" placeholder="github_pat_11AAAA...">
       </div>
 
       <div class="status-box" id="status-box">
-        <div id="status-text">Initializing cloud build compiler...</div>
+        <div id="status-text">Initializing GitHub Actions trigger...</div>
         <div class="progress-bar">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
@@ -509,78 +518,62 @@ button {
       document.getElementById(`opt-${platform}`).classList.add('selected');
     }
 
-    // Direct Cloud Build Functionality
+    // Direct GitHub Actions API Build Request Function
     async function requestNativeBuild() {
-      const serverUrl = document.getElementById('build-server-url').value;
+      const username = document.getElementById('gh-user').value.trim();
+      const repo = document.getElementById('gh-repo').value.trim();
+      const token = document.getElementById('gh-token').value.trim();
+
       const statusBox = document.getElementById('status-box');
       const statusText = document.getElementById('status-text');
       const progressFill = document.getElementById('progress-fill');
       const compileBtn = document.getElementById('compile-btn');
 
+      if (!username || !repo || !token) {
+        alert('Please enter your GitHub Username, Repository Name, and Token.');
+        return;
+      }
+
       statusBox.classList.add('active');
       compileBtn.disabled = true;
 
-      // Payload prepared for backend compilation service
-      const payload = {
-        platform: currentPlatform,
-        html: htmlEditor.value,
-        css: cssEditor.value,
-        js: jsEditor.value
-      };
-
       try {
-        statusText.innerText = `Packaging assets for ${currentPlatform.toUpperCase()}...`;
-        progressFill.style.width = '25%';
+        statusText.innerText = `Connecting to GitHub Actions REST API...`;
+        progressFill.style.width = '35%';
 
-        // Send build job to server endpoint
-        const response = await fetch(serverUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+        // Send a trigger request to GitHub Actions workflow endpoint
+        const response = await fetch(
+          `https://api.github.com/repos/${username}/${repo}/actions/workflows/build-app.yml/dispatches`,
+          {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/vnd.github+json',
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              ref: 'main',
+              inputs: {
+                platform: currentPlatform
+              }
+            })
+          }
+        );
 
-        statusText.innerText = 'Compiling native source code into executable binary...';
-        progressFill.style.width = '65%';
-
-        if (!response.ok) {
-          throw new Error('Server compilation failed or endpoint unreachable.');
+        if (response.status === 204) {
+          progressFill.style.width = '100%';
+          statusText.innerText = `✅ Build triggered successfully! Open your GitHub repository's "Actions" tab on mobile to download your ${currentExtension} file when complete.`;
+        } else if (response.status === 404) {
+          throw new Error('Workflow file build-app.yml or Repository not found. Make sure the file exists in .github/workflows/');
+        } else if (response.status === 401) {
+          throw new Error('Unauthorized! Check if your Personal Access Token (PAT) is correct and has workflow permissions.');
+        } else {
+          throw new Error(`GitHub API returned error code ${response.status}`);
         }
-
-        // Receive completed native binary file directly (.apk, .exe, .dmg, etc.)
-        const blob = await response.blob();
-        progressFill.style.width = '100%';
-        statusText.innerText = 'Build successful! Initializing direct binary download...';
-
-        // Trigger native file download
-        const downloadUrl = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = `app-release-${currentPlatform}${currentExtension}`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(downloadUrl);
 
       } catch (err) {
-        // Fallback demo for standalone testing without an active server deployment
-        statusText.innerText = `[Demo Mode] Requesting build package for ${currentExtension}...`;
-        
-        let steps = [25, 50, 75, 100];
-        for (let p of steps) {
-          await new Promise(r => setTimeout(r, 600));
-          progressFill.style.width = p + '%';
-        }
-
-        // Direct dummy file download simulation
-        const demoBlob = new Blob([`Dummy Binary Stream for ${currentPlatform}`], { type: 'application/octet-stream' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(demoBlob);
-        a.download = `app-release-${currentPlatform}${currentExtension}`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-
-        statusText.innerText = `Build complete! Downloaded app binary (${currentExtension}).`;
+        statusText.innerText = `❌ Error: ${err.message}`;
+        progressFill.style.background = 'var(--warning)';
       } finally {
         compileBtn.disabled = false;
       }
