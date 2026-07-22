@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web2App Studio & IDE</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --panel-bg: #1e293b;
+      --border-color: #334155;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --code-bg: #020617;
+      --success: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top Bar */
+    header {
+      background-color: var(--panel-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .url-import {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    input[type="text"] {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.4rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+    }
+
+    button {
+      background-color: var(--border-color);
+      color: var(--text-main);
+      border: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #475569;
+    }
+
+    button.btn-primary {
+      background-color: var(--accent);
+      color: #000;
+    }
+
+    button.btn-primary:hover {
+      background-color: var(--accent-hover);
+      color: #fff;
+    }
+
+    /* Main IDE Workspace */
+    .workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Left Editor Panel */
+    .editor-container {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .tab-bar {
+      display: flex;
+      background-color: var(--panel-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .tab {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      border-right: 1px solid var(--border-color);
+    }
+
+    .tab.active {
+      background-color: var(--bg-dark);
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    textarea.code-editor {
+      flex: 1;
+      background-color: var(--code-bg);
+      color: #f1f5f9;
+      border: none;
+      padding: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      resize: none;
+      outline: none;
+      display: none;
+      line-height: 1.5;
+    }
+
+    textarea.code-editor.active {
+      display: block;
+    }
+
+    /* Right Preview Panel */
+    .preview-container {
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+    }
+
+    .preview-header {
+      background-color: var(--panel-bg);
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    iframe#preview-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+    }
+
+    /* Packaging Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      width: 550px;
+      max-width: 90%;
+      padding: 1.5rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal h2 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .platform-card {
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      padding: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .platform-card:hover, .platform-card.selected {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    .platform-card h4 {
+      margin-bottom: 0.25rem;
+    }
+
+    .platform-card p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .instructions-box {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      padding: 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      max-height: 180px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      color: #cbd5e1;
+    }
+
+    .instructions-box ol {
+      padding-left: 1.25rem;
+    }
+
+    .instructions-box li {
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+  </style>
+
+  <!-- JSZip for bundled web project downloads -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <div class="brand">⚙️ Web2App Studio</div>
+    
+    <div class="toolbar">
+      <!-- Import Webpage URL -->
+      <div class="url-import">
+        <input type="text" id="import-url" placeholder="https://example.com">
+        <button onclick="importWebsite()">Import Webpage</button>
+      </div>
+
+      <!-- Export / Package Button -->
+      <button class="btn-primary" onclick="openBuildModal()">📦 Build & Package App</button>
+    </div>
+  </header>
+
+  <div class="container workspace">
+    <!-- Code Editor Column -->
+    <div class="editor-container">
+      <div class="tab-bar">
+        <div class="tab active" onclick="switchTab('html')">HTML</div>
+        <div class="tab" onclick="switchTab('css')">CSS</div>
+        <div class="tab" onclick="switchTab('js')">JavaScript</div>
+      </div>
+
+      <textarea id="html-editor" class="code-editor active" spellcheck="false" placeholder="<!-- HTML goes here -->"></textarea>
+      <textarea id="css-editor" class="code-editor" spellcheck="false" placeholder="/* CSS goes here */"></textarea>
+      <textarea id="js-editor" class="code-editor" spellcheck="false" placeholder="// JavaScript goes here"></textarea>
+    </div>
+
+    <!-- Live Preview Column -->
+    <div class="preview-container">
+      <div class="preview-header">Live Application Output</div>
+      <iframe id="preview-frame"></iframe>
+    </div>
+  </div>
+
+  <!-- Package/Build Modal -->
+  <div class="modal-overlay" id="build-modal">
+    <div class="modal">
+      <h2>Package Your Application</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Select your target operating system to generate native build files or instant standalone packages.</p>
+
+      <div class="platform-grid">
+        <div class="platform-card selected" id="opt-android" onclick="selectPlatform('android')">
+          <h4>📱 Android</h4>
+          <p>APK / Android Studio Project</p>
+        </div>
+        <div class="platform-card" id="opt-ios" onclick="selectPlatform('ios')">
+          <h4>🍎 iOS</h4>
+          <p>Xcode App Project</p>
+        </div>
+        <div class="platform-card" id="opt-desktop" onclick="selectPlatform('desktop')">
+          <h4>💻 Desktop</h4>
+          <p>Windows / macOS / Linux</p>
+        </div>
+        <div class="platform-card" id="opt-pwa" onclick="selectPlatform('pwa')">
+          <h4>🌐 Web / PWA</h4>
+          <p>Installable Web App Package</p>
+        </div>
+      </div>
+
+      <div class="instructions-box" id="platform-instructions">
+        <!-- Dynamic platform build instructions rendered via JS -->
+      </div>
+
+      <div class="modal-actions">
+        <button onclick="closeBuildModal()">Cancel</button>
+        <button class="btn-primary" onclick="downloadPackage()">📥 Download App Package (.zip)</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initial Starter Code
+    const defaultHTML = `<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Mobile App</title>
+</head>
+<body>
+
+  <div class="app-card">
+    <h1>Welcome to My Native App!</h1>
+    <p>Built with HTML, CSS, and JS inside Web2App Studio.</p>
+    <button id="action-btn">Click Me!</button>
+  </div>
+
+</body>
+</html>`;
+
+    const defaultCSS = `body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: #f1f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.app-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+button {
+  background: #38bdf8;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}`;
+
+    const defaultJS = `document.getElementById('action-btn').addEventListener('click', () => {
+  alert('App feature executed successfully!');
+});`;
+
+    // References
+    const htmlEditor = document.getElementById('html-editor');
+    const cssEditor = document.getElementById('css-editor');
+    const jsEditor = document.getElementById('js-editor');
+    const previewFrame = document.getElementById('preview-frame');
+
+    let currentPlatform = 'android';
+
+    // Populate default code
+    htmlEditor.value = defaultHTML;
+    cssEditor.value = defaultCSS;
+    jsEditor.value = defaultJS;
+
+    // Real-time Preview Renderer
+    function updatePreview() {
+      const html = htmlEditor.value;
+      const css = `<style>${cssEditor.value}</style>`;
+      const js = `<script>${jsEditor.value}<\/script>`;
+
+      const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+      previewDoc.open();
+      previewDoc.write(html + css + js);
+      previewDoc.close();
+    }
+
+    // Switch Editor Tabs
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.code-editor').forEach(editor => editor.classList.remove('active'));
+
+      if (tabName === 'html') {
+        htmlEditor.classList.add('active');
+        event.target.classList.add('active');
+      } else if (tabName === 'css') {
+        cssEditor.classList.add('active');
+        event.target.classList.add('active');
+      } else if (tabName === 'js') {
+        jsEditor.classList.add('active');
+        event.target.classList.add('active');
+      }
+    }
+
+    // Import Existing Website via iframe/fetch proxy setup
+    function importWebsite() {
+      const url = document.getElementById('import-url').value;
+      if (!url) return alert('Please enter a valid website URL.');
+
+      htmlEditor.value = `<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html { margin:0; padding:0; height:100%; overflow:hidden; }
+    iframe { width:100%; height:100%; border:none; }
+  </style>
+</head>
+<body>
+  <iframe src="${url}"></iframe>
+</body>
+</html>`;
+      cssEditor.value = '';
+      jsEditor.value = '';
+      updatePreview();
+    }
+
+    // Modal & Platform logic
+    function openBuildModal() {
+      document.getElementById('build-modal').classList.add('active');
+      selectPlatform('android');
+    }
+
+    function closeBuildModal() {
+      document.getElementById('build-modal').classList.remove('active');
+    }
+
+    function selectPlatform(platform) {
+      currentPlatform = platform;
+      document.querySelectorAll('.platform-card').forEach(card => card.classList.remove('selected'));
+      document.getElementById(`opt-${platform}`).classList.add('selected');
+
+      const instructions = document.getElementById('platform-instructions');
+      
+      if (platform === 'android') {
+        instructions.innerHTML = `
+          <strong>Android Packaging Workflow (Capacitor Engine):</strong>
+          <ol>
+            <li>Download the ZIP archive containing your app files and <code>capacitor.config.json</code>.</li>
+            <li>Extract the folder and run: <code>npm install && npx cap add android</code>.</li>
+            <li>Execute <code>npx cap open android</code> to launch Android Studio and build your signed <strong>APK / AAB</strong> package.</li>
+          </ol>`;
+      } else if (platform === 'ios') {
+        instructions.innerHTML = `
+          <strong>iOS Packaging Workflow (Xcode):</strong>
+          <ol>
+            <li>Download the ZIP package.</li>
+            <li>Run <code>npm install && npx cap add ios</code> on a macOS environment.</li>
+            <li>Run <code>npx cap open ios</code> to load Xcode and export your <strong>IPA / App Store</strong> build[cite: 1].</li>
+          </ol>`;
+      } else if (platform === 'desktop') {
+        instructions.innerHTML = `
+          <strong>Desktop Packaging Workflow (Tauri / Electron):</strong>
+          <ol>
+            <li>The bundle includes a pre-configured <code>package.json</code> and Electron runner[cite: 1].</li>
+            <li>Extract files and execute: <code>npm install && npm run build-desktop</code>[cite: 1].</li>
+            <li>Produces native installers for <strong>Windows (.exe), macOS (.dmg), or Linux (.AppImage)</strong>[cite: 1].</li>
+          </ol>`;
+      } else if (platform === 'pwa') {
+        instructions.innerHTML = `
+          <strong>Progressive Web App (PWA):</strong>
+          <ol>
+            <li>Generates a <code>manifest.json</code> and Service Worker file[cite: 1].</li>
+            <li>Upload to any web host (Vercel, GitHub Pages, Netlify)[cite: 1].</li>
+            <li>Users can install it directly onto their phone or desktop via their web browser[cite: 1].</li>
+          </ol>`;
+      }
+    }
+
+    // Download Native Zip Package using JSZip
+    function downloadPackage() {
+      const zip = new JSZip();
+
+      // Combined Index HTML
+      const fullHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+${htmlEditor.value}
+  <script src="app.js"><\/script>
+</body>
+</html>`;
+
+      // 1. Core Web Code Files
+      zip.file("www/index.html", fullHTML);
+      zip.file("www/style.css", cssEditor.value);
+      zip.file("www/app.js", jsEditor.value);
+
+      // 2. Capacitor Configuration for Native Mobile Builds
+      const capConfig = {
+        appId: "com.web2app.studioapp",
+        appName: "GeneratedApp",
+        webDir: "www",
+        bundledWebRuntime: false
+      };
+      zip.file("capacitor.config.json", JSON.stringify(capConfig, null, 2));
+
+      // 3. Desktop Electron Configuration
+      const packageJson = {
+        name: "desktop-app",
+        version: "1.0.0",
+        main: "main.js",
+        scripts: {
+          "start": "electron .",
+          "build-desktop": "electron-packager . MyApp --all"
+        },
+        devDependencies: {
+          "electron": "^28.0.0"
+        }
+      };
+      zip.file("package.json", JSON.stringify(packageJson, null, 2));
+
+      // Main script for Electron
+      const electronMain = `const { app, BrowserWindow } = require('electron');
+function createWindow () {
+  const win = new BrowserWindow({ width: 800, height: 600 });
+  win.loadFile('www/index.html');
+}
+app.whenReady().then(createWindow);`;
+      zip.file("main.js", electronMain);
+
+      // Generate Zip File
+      zip.generateAsync({ type: "blob" }).then(function(content) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = `app-package-${currentPlatform}.zip`;
+        link.click();
+      });
+    }
+
+    // Event Listeners for Live Preview
+    htmlEditor.addEventListener('input', updatePreview);
+    cssEditor.addEventListener('input', updatePreview);
+    jsEditor.addEventListener('input', updatePreview);
+
+    // Initial Load Render
+    updatePreview();
+  </script>
+</body>
+</html>
