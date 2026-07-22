@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabbed Web Development Lab</title>
+
+    <!-- SEO Meta Tags -->
+    <title>Online Code Sandbox & Interactive Web Lab | HTML, CSS, JS</title>
+    <meta name="description" content="Free browser-based web development sandbox. Write, preview, and test HTML, CSS, and JavaScript in real-time with custom media file uploads and instant project export.">
+    <meta name="keywords" content="code sandbox, web development lab, online HTML editor, CSS editor, JavaScript playground, real-time code preview">
+    <meta name="author" content="Code Lab Sandbox">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourwebsite.com/sandbox.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/sandbox.html">
+    <meta property="og:title" content="Online Code Sandbox & Interactive Web Lab">
+    <meta property="og:description" content="Build and experiment with HTML, CSS, and JavaScript live in your browser with media asset support.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://yourwebsite.com/sandbox.html">
+    <meta name="twitter:title" content="Online Code Sandbox & Interactive Web Lab">
+    <meta name="twitter:description" content="Build and experiment with HTML, CSS, and JavaScript live in your browser with media asset support.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200">
+
+    <!-- Structured Data (JSON-LD) for Search Engines -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Code Lab Sandbox",
+      "url": "https://yourwebsite.com/sandbox.html",
+      "description": "An interactive, browser-based frontend development sandbox supporting live rendering and custom media uploads.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -92,7 +132,7 @@
             gap: 10px;
             overflow-y: auto;
         }
-        .asset-sidebar h3 {
+        .asset-sidebar h2 {
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -252,39 +292,39 @@
         </div>
     </header>
 
-    <div class="main-layout">
+    <main class="main-layout">
         <!-- Asset Sidebar Tracking Menu -->
-        <div class="asset-sidebar">
-            <h3>Media Drive</h3>
+        <aside class="asset-sidebar" aria-label="Media Asset Drive">
+            <h2>Media Drive</h2>
             <p style="font-size:0.7rem; color:#a6adc8; margin-bottom:10px;">Click a file's source box to copy its path, then use it in your code.</p>
             <div class="asset-list" id="asset-list-container">
                 <p id="no-assets" style="font-size:0.7rem; color:#585b70; font-style:italic;">No custom files imported yet.</p>
             </div>
-        </div>
+        </aside>
 
         <!-- Interactive Workspace Routing System -->
         <div class="workspace-tabs-container">
             <!-- Navigation Switches -->
-            <nav class="tabs-nav">
-                <button class="tab-button html-btn active-tab" onclick="switchTab('html')">HTML</button>
-                <button class="tab-button css-btn" onclick="switchTab('css')">CSS</button>
-                <button class="tab-button js-btn" onclick="switchTab('js')">JavaScript</button>
+            <nav class="tabs-nav" aria-label="Code Editor Tabs">
+                <button class="tab-button html-btn active-tab" onclick="switchTab('html')" aria-controls="html-panel">HTML</button>
+                <button class="tab-button css-btn" onclick="switchTab('css')" aria-controls="css-panel">CSS</button>
+                <button class="tab-button js-btn" onclick="switchTab('js')" aria-controls="js-panel">JavaScript</button>
             </nav>
 
             <!-- Text Workspace Panels -->
             <div class="editor-workspace">
-                <div id="html-panel" class="panel active-panel">
-                    <textarea id="html-code" oninput="updatePreview()"><main class="card">
+                <section id="html-panel" class="panel active-panel" aria-label="HTML Code Editor">
+                    <textarea id="html-code" aria-label="HTML Source Code" oninput="updatePreview()"><main class="card">
     <h1>Focused Tab Editor</h1>
     <p>Upload a file using the menu above, click its path box to copy, and paste it inside an HTML source tag like this:</p>
     
     <!-- Student Media Example -->
-    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Placeholder" style="width:100%; max-height:150px; object-fit:cover; border-radius:6px;" />
+    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Placeholder Abstract Art" style="width:100%; max-height:150px; object-fit:cover; border-radius:6px;" loading="lazy" />
 </main></textarea>
-                </div>
+                </section>
                 
-                <div id="css-panel" class="panel">
-                    <textarea id="css-code" oninput="updatePreview()">body {
+                <section id="css-panel" class="panel" aria-label="CSS Code Editor">
+                    <textarea id="css-code" aria-label="CSS Stylesheet Code" oninput="updatePreview()">body {
     background-color: #f0f4f8;
     display: flex;
     justify-content: center;
@@ -300,20 +340,20 @@
     text-align: center;
     max-width: 400px;
 }</textarea>
-                </div>
+                </section>
                 
-                <div id="js-panel" class="panel">
-                    <textarea id="js-code" oninput="updatePreview()">console.log('Editor ready!');</textarea>
-                </div>
+                <section id="js-panel" class="panel" aria-label="JavaScript Code Editor">
+                    <textarea id="js-code" aria-label="JavaScript Application Code" oninput="updatePreview()">console.log('Editor ready!');</textarea>
+                </section>
             </div>
 
             <!-- Global Target Preview Engine Container -->
-            <div class="preview-container">
+            <section class="preview-container" aria-label="Live Rendering Preview Window">
                 <div class="preview-title">Live Preview Area</div>
-                <iframe id="preview-window"></iframe>
-            </div>
+                <iframe id="preview-window" title="Live Preview Output Window"></iframe>
+            </section>
         </div>
-    </div>
+    </main>
 
     <script>
         const uploadedAssets = {};
@@ -415,10 +455,9 @@
         // Run application setup
         updatePreview();
     </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
 
-<script src="https://quge5.com/88/tag.min.js" data-zone="261551" async data-cfasync="false"></script>
-
+    <!-- Analytics & Ad Tags -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
+    <script src="https://quge5.com/88/tag.min.js" data-zone="261551" async data-cfasync="false"></script>
 </body>
 </html>
