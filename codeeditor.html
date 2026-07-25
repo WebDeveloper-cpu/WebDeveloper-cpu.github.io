@@ -61,6 +61,38 @@
             overflow: hidden;
         }
 
+        /* Top Hosting Promo Banner */
+        .hosting-promo-banner {
+            background: linear-gradient(90deg, #181825, #1e1e2e);
+            color: #cdd6f4;
+            padding: 8px 16px;
+            text-align: center;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #313244;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            z-index: 11;
+        }
+        .hosting-promo-banner strong {
+            color: #ffffff;
+        }
+        .hosting-btn {
+            background-color: #a6e3a1;
+            color: #11111b;
+            padding: 4px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            transition: opacity 0.2s ease;
+        }
+        .hosting-btn:hover {
+            opacity: 0.9;
+        }
+
         /* Loading Screen Overlay */
         #loading-screen {
             position: fixed;
@@ -327,6 +359,12 @@
         <div class="loading-subtitle">Initializing workspace environment...</div>
     </div>
 
+    <!-- Top Promotional Banner -->
+    <div class="hosting-promo-banner">
+        <span>🚀 Ready to go live? <strong>Host your project or your first website online</strong> with HostAfrica.</span>
+        <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" target="_blank" rel="noopener noreferrer" class="hosting-btn">Get Hosting &rarr;</a>
+    </div>
+
     <header>
         <h1>Code Lab Sandbox</h1>
         
@@ -420,8 +458,8 @@
                 loader.style.opacity = '0';
                 setTimeout(() => {
                     loader.style.display = 'none';
-                }, 500); // Wait for CSS opacity transition to complete
-            }, 4000); // 4000ms = 4 seconds
+                }, 500);
+            }, 4000);
         });
 
         function switchTab(targetLang) {
