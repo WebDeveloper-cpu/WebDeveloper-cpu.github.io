@@ -520,7 +520,18 @@
             });
         }
 
-        function generateFullSource() {
+        function generateFullSource(includeReturnButton = false) {
+            let returnBtnMarkup = '';
+            
+            if (includeReturnButton) {
+                returnBtnMarkup = `
+    <div id="sandbox-return-nav" style="position: fixed; top: 15px; right: 15px; z-index: 999999; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+        <button onclick="window.close()" style="background: #11111b; color: #a6e3a1; border: 2px solid #a6e3a1; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.2s ease;">
+            &larr; Back to Editor
+        </button>
+    </div>`;
+            }
+
             return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -529,6 +540,7 @@
     <style>${document.getElementById('css-code').value}</style>
 </head>
 <body>
+    ${returnBtnMarkup}
     ${document.getElementById('html-code').value}
     <script>${document.getElementById('js-code').value}<\/script>
 </body>
@@ -538,18 +550,18 @@
         function updatePreview() {
             const previewFrame = document.getElementById('preview-window').contentDocument || document.getElementById('preview-window').contentWindow.document;
             previewFrame.open();
-            previewFrame.write(generateFullSource());
+            previewFrame.write(generateFullSource(false));
             previewFrame.close();
         }
 
         function runFullscreen() {
-            const blob = new Blob([generateFullSource()], { type: 'text/html' });
+            const blob = new Blob([generateFullSource(true)], { type: 'text/html' });
             window.open(URL.createObjectURL(blob), '_blank');
         }
 
         function downloadProject() {
             const link = document.createElement('a');
-            link.href = URL.createObjectURL(new Blob([generateFullSource()], { type: 'text/html' }));
+            link.href = URL.createObjectURL(new Blob([generateFullSource(false)], { type: 'text/html' }));
             link.download = 'my-web-project.html';
             document.body.appendChild(link);
             link.click();
