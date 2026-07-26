@@ -26,6 +26,9 @@
     <meta name="twitter:description" content="Build and experiment with HTML, CSS, and JavaScript live in your browser with media asset support.">
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200">
 
+    <!-- JSZip Library for Raw Files Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
     <!-- Structured Data (JSON-LD) for Search Engines -->
     <script type="application/ld+json">
     {
@@ -61,20 +64,28 @@
             overflow: hidden;
         }
 
-        /* Top Hosting Promo Banner */
+        /* Top Hosting Promo Banners */
+        .promo-bar {
+            display: flex;
+            flex-direction: column;
+            z-index: 11;
+        }
         .hosting-promo-banner {
             background: linear-gradient(90deg, #181825, #1e1e2e);
             color: #cdd6f4;
-            padding: 8px 16px;
+            padding: 6px 16px;
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border-bottom: 1px solid #313244;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
             flex-wrap: wrap;
-            z-index: 11;
+        }
+        .monetize-banner {
+            background: linear-gradient(90deg, #2e1e25, #1e1e2e);
+            border-bottom-color: #443132;
         }
         .hosting-promo-banner strong {
             color: #ffffff;
@@ -82,12 +93,15 @@
         .hosting-btn {
             background-color: #a6e3a1;
             color: #11111b;
-            padding: 4px 10px;
+            padding: 3px 8px;
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
             font-size: 0.75rem;
             transition: opacity 0.2s ease;
+        }
+        .monetize-btn {
+            background-color: #f9e2af;
         }
         .hosting-btn:hover {
             opacity: 0.9;
@@ -175,11 +189,11 @@
         }
         .btn-top {
             border: none;
-            padding: 8px 14px;
+            padding: 8px 12px;
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             transition: opacity 0.2s;
         }
         .btn-top:hover {
@@ -187,6 +201,7 @@
         }
         .btn-run { background-color: #a6e3a1; color: #11111b; }
         .btn-download { background-color: #89b4fa; color: #11111b; }
+        .btn-zip { background-color: #f5c2e7; color: #11111b; }
         .btn-save { background-color: #f9e2af; color: #11111b; }
         .btn-load { background-color: #cba6f7; color: #11111b; }
         
@@ -261,6 +276,7 @@
             display: flex;
             flex-direction: column;
             flex: 1;
+            height: 100%;
         }
         .tabs-nav {
             display: flex;
@@ -299,8 +315,9 @@
 
         .editor-workspace {
             background-color: #1e1e2e;
-            height: 45%;
+            flex: 1;
             position: relative;
+            min-height: 200px;
         }
         .panel {
             display: none;
@@ -327,7 +344,7 @@
         
         /* Bottom Frame Window */
         .preview-container {
-            height: 55%;
+            height: 50%;
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -359,10 +376,16 @@
         <div class="loading-subtitle">Initializing workspace environment...</div>
     </div>
 
-    <!-- Top Promotional Banner -->
-    <div class="hosting-promo-banner">
-        <span>🚀 Ready to go live? <strong>Host your project or your first website online</strong> with HostAfrica.</span>
-        <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" target="_blank" rel="noopener noreferrer" class="hosting-btn">Get Hosting &rarr;</a>
+    <!-- Promotional Banners -->
+    <div class="promo-bar">
+        <div class="hosting-promo-banner">
+            <span>🚀 Ready to go live? <strong>Host your website online</strong> with HostAfrica.</span>
+            <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=123" target="_blank" rel="noopener noreferrer" class="hosting-btn">Get Hosting &rarr;</a>
+        </div>
+        <div class="hosting-promo-banner monetize-banner">
+            <span>💰 Turn your code into cash! <strong>Monetize your website audience</strong> with Monetag.</span>
+            <a href="https://monetag.com/?ref_id=zUg8" target="_blank" rel="noopener noreferrer" class="hosting-btn monetize-btn">Start Monetizing &rarr;</a>
+        </div>
     </div>
 
     <header>
@@ -375,12 +398,13 @@
             </div>
             
             <div class="actions">
-                <button class="btn-top btn-save" onclick="saveProjectJSON()">💾 Save Project</button>
-                <button class="btn-top btn-load" onclick="document.getElementById('project-file-input').click()">📂 Load Project</button>
+                <button class="btn-top btn-save" onclick="saveProjectJSON()">💾 Save JSON</button>
+                <button class="btn-top btn-load" onclick="document.getElementById('project-file-input').click()">📂 Load JSON</button>
                 <input type="file" id="project-file-input" accept=".json" style="display: none;" onchange="loadProjectJSON(event)">
                 
                 <button class="btn-top btn-run" onclick="runFullscreen()">Run Fullscreen</button>
-                <button class="btn-top btn-download" onclick="downloadProject()">Export HTML</button>
+                <button class="btn-top btn-download" onclick="downloadProject()">Export Single HTML</button>
+                <button class="btn-top btn-zip" onclick="exportRawFilesZip()">📦 Export Web Zip</button>
             </div>
         </div>
     </header>
@@ -409,10 +433,9 @@
                 <section id="html-panel" class="panel active-panel" aria-label="HTML Code Editor">
                     <textarea id="html-code" aria-label="HTML Source Code" oninput="updatePreview()"><main class="card">
     <h1>Focused Tab Editor</h1>
-    <p>Upload a file using the menu above, click its path box to copy, and paste it inside an HTML source tag like this:</p>
+    <p>Upload a file using the menu above, click its path box to copy, and paste it inside an HTML source tag.</p>
     
-    <!-- Student Media Example -->
-    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Placeholder Abstract Art" style="width:100%; max-height:150px; object-fit:cover; border-radius:6px;" loading="lazy" />
+    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Placeholder Abstract Art" style="width:100%; max-height:150px; object-fit:cover; border-radius:6px; margin-top:15px;" loading="lazy" />
 </main></textarea>
                 </section>
                 
@@ -424,6 +447,7 @@
     align-items: center;
     height: 100vh;
     margin: 0;
+    font-family: sans-serif;
 }
 .card {
     background: white;
@@ -451,15 +475,17 @@
     <script>
         const uploadedAssets = {};
 
-        // 4-Second Loading Screen Timer
+        // Loading Screen Timer
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loading-screen');
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 500);
-            }, 4000);
+                if(loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 500);
+                }
+            }, 1500);
         });
 
         function switchTab(targetLang) {
@@ -507,14 +533,14 @@
                 item.innerHTML = `
                     <div class="asset-name" title="${asset.name}">${asset.name}</div>
                     <div class="src-label">Source URL (src):</div>
-                    <div class="asset-src-box" onclick="copyText('${btoa(asset.url)}')" title="Click to copy path">${asset.url}</div>
+                    <div class="asset-src-box" data-url="${asset.url}" onclick="copyText(this)" title="Click to copy path">${asset.url}</div>
                 `;
                 container.appendChild(item);
             });
         }
 
-        function copyText(b64) {
-            const text = atob(b64);
+        function copyText(element) {
+            const text = element.getAttribute('data-url');
             navigator.clipboard.writeText(text).then(() => {
                 alert('Source path string copied to clipboard!');
             });
@@ -562,13 +588,54 @@
         function downloadProject() {
             const link = document.createElement('a');
             link.href = URL.createObjectURL(new Blob([generateFullSource(false)], { type: 'text/html' }));
-            link.download = 'my-web-project.html';
+            link.download = 'index.html';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
 
-        // SAVE & LOAD JSON PROJECT DATA
+        // Export Raw Source Files in ZIP (Ready for HostAfrica Deployment)
+        function exportRawFilesZip() {
+            if (typeof JSZip === 'undefined') {
+                alert('JSZip library is still loading. Please try again in a moment.');
+                return;
+            }
+
+            const zip = new JSZip();
+            const htmlRaw = document.getElementById('html-code').value;
+            const cssRaw = document.getElementById('css-code').value;
+            const jsRaw = document.getElementById('js-code').value;
+
+            // Form standalone index.html linking external CSS/JS
+            const standaloneHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Web Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+${htmlRaw}
+    <script src="script.js"><\/script>
+</body>
+</html>`;
+
+            zip.file("index.html", standaloneHTML);
+            zip.file("style.css", cssRaw);
+            zip.file("script.js", jsRaw);
+
+            zip.generateAsync({ type: "blob" }).then(function(content) {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = "web-project-files.zip";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+
+        // Save & Load Project JSON
         function saveProjectJSON() {
             const projectData = {
                 html: document.getElementById('html-code').value,
@@ -609,13 +676,8 @@
             event.target.value = '';
         }
 
-        // Run application setup
+        // Initialize preview window
         updatePreview();
     </script>
-
-    <!-- Analytics & Ad Tags -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBDWMPSJ0D"></script>
-    
-
 </body>
 </html>
