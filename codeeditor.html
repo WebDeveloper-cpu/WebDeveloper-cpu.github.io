@@ -12,7 +12,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://yourwebsite.com/sandbox.html">
 
-    <!-- Web App Manifest (Embedded Data URI for single-file PWA install support) -->
+    <!-- Web App Manifest (Embedded Data URI for PWA install capability) -->
     <link rel="manifest" href='data:application/manifest+json,{"name":"Code Lab Sandbox","short_name":"CodeLab","start_url":".","display":"standalone","background_color":"#1e1e2e","theme_color":"#11111b","icons":[{"src":"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=192","sizes":"192x192","type":"image/png"}]}'>
     <meta name="theme-color" content="#11111b">
 
@@ -208,7 +208,7 @@
         .btn-zip { background-color: #f5c2e7; color: #11111b; }
         .btn-save { background-color: #f9e2af; color: #11111b; }
         .btn-load { background-color: #cba6f7; color: #11111b; }
-        .btn-install { background-color: #fab387; color: #11111b; }
+        .btn-add-screen { background-color: #fab387; color: #11111b; }
         
         /* Layout Structure */
         .main-layout {
@@ -370,87 +370,6 @@
             border: none;
             background-color: #ffffff;
         }
-
-        /* "Add to Screen" Popup Modal Styling */
-        .pwa-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(17, 17, 27, 0.8);
-            backdrop-filter: blur(4px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-        }
-        .pwa-modal-card {
-            background-color: #1e1e2e;
-            border: 2px solid #a6e3a1;
-            border-radius: 12px;
-            padding: 24px;
-            max-width: 420px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            animation: popupFade 0.3s ease-out;
-        }
-        @keyframes popupFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .pwa-icon-badge {
-            width: 60px;
-            height: 60px;
-            background-color: #11111b;
-            border: 2px solid #a6e3a1;
-            border-radius: 14px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            margin: 0 auto;
-        }
-        .pwa-modal-title {
-            color: #ffffff;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        .pwa-modal-desc {
-            color: #a6adc8;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-        .pwa-modal-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 5px;
-        }
-        .pwa-btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: 6px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: opacity 0.2s;
-        }
-        .pwa-btn-install {
-            background-color: #a6e3a1;
-            color: #11111b;
-        }
-        .pwa-btn-dismiss {
-            background-color: #313244;
-            color: #cdd6f4;
-        }
-        .pwa-btn:hover {
-            opacity: 0.9;
-        }
     </style>
 </head>
 <body>
@@ -484,7 +403,7 @@
             </div>
             
             <div class="actions">
-                <button class="btn-top btn-install" id="header-install-btn" style="display:none;" onclick="triggerInstallPrompt()">📲 Add to Screen</button>
+                <button class="btn-top btn-add-screen" id="add-to-screen-btn" onclick="addToHomeScreen()">📲 Add to Screen</button>
                 <button class="btn-top btn-save" onclick="saveProjectJSON()">💾 Save JSON</button>
                 <button class="btn-top btn-load" onclick="document.getElementById('project-file-input').click()">📂 Load JSON</button>
                 <input type="file" id="project-file-input" accept=".json" style="display: none;" onchange="loadProjectJSON(event)">
@@ -559,70 +478,38 @@
         </div>
     </main>
 
-    <!-- Add to Home Screen Modal Popup -->
-    <div id="pwa-install-modal" class="pwa-modal-overlay">
-        <div class="pwa-modal-card">
-            <div class="pwa-icon-badge">📱</div>
-            <div class="pwa-modal-title">Add Code Lab to Screen</div>
-            <div class="pwa-modal-desc">Install Code Lab Sandbox on your home screen for quick offline access and a seamless full-screen app experience.</div>
-            <div class="pwa-modal-actions">
-                <button class="pwa-btn pwa-btn-dismiss" onclick="closeInstallModal()">Not Now</button>
-                <button class="pwa-btn pwa-btn-install" onclick="triggerInstallPrompt()">Add to Screen</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         const uploadedAssets = {};
         let deferredPrompt = null;
 
-        // Register Inline Dummy Service Worker for PWA Criteria
+        // Register Dummy Service Worker required for PWA installation capability
         if ('serviceWorker' in navigator) {
             const swCode = `self.addEventListener('fetch', function(event) {});`;
             const blob = new Blob([swCode], { type: 'text/javascript' });
             const swUrl = URL.createObjectURL(blob);
-            navigator.serviceWorker.register(swUrl).catch(err => console.log('SW registration note:', err));
+            navigator.serviceWorker.register(swUrl).catch(err => console.log('SW register info:', err));
         }
 
-        // PWA Install Event Hook
+        // Capture browser install event
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-
-            // Show top-bar install button
-            const headerBtn = document.getElementById('header-install-btn');
-            if (headerBtn) headerBtn.style.display = 'inline-block';
-
-            // Show pop-up banner after 3 seconds if not previously dismissed in session
-            if (!sessionStorage.getItem('pwaModalDismissed')) {
-                setTimeout(() => {
-                    const modal = document.getElementById('pwa-install-modal');
-                    if (modal) modal.style.display = 'flex';
-                }, 3000);
-            }
         });
 
-        function triggerInstallPrompt() {
-            closeInstallModal();
+        // Triggered directly by the "📲 Add to Screen" button click
+        function addToHomeScreen() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                        const headerBtn = document.getElementById('header-install-btn');
-                        if (headerBtn) headerBtn.style.display = 'none';
+                        console.log('User installed the application.');
                     }
                     deferredPrompt = null;
                 });
             } else {
-                alert('To add this app to your screen:\n\n• Mobile (Safari): Tap Share ➔ "Add to Home Screen"\n• Mobile (Chrome): Tap menu (⋮) ➔ "Add to Home Screen"\n• Desktop Chrome: Click install icon in the address bar');
+                // Fallback instructions for unsupported browsers, iOS/Safari, or already-installed apps
+                alert('To add Code Lab Sandbox to your screen:\n\n• Safari (iPhone/iPad): Tap the Share icon ➔ "Add to Home Screen"\n• Chrome (Android): Tap menu (⋮) ➔ "Add to Home screen" / "Install app"\n• Desktop Browser: Click the install icon in the address bar');
             }
-        }
-
-        function closeInstallModal() {
-            const modal = document.getElementById('pwa-install-modal');
-            if (modal) modal.style.display = 'none';
-            sessionStorage.setItem('pwaModalDismissed', 'true');
         }
 
         // Loading Screen Timer
