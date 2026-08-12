@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Finance & Crypto Hub</title>
@@ -79,21 +78,21 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
     }
 
     .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid var(--input-border);
-      border-top: 5px solid var(--btn-bg);
+      width: 44px;
+      height: 44px;
+      border: 4px solid var(--input-border);
+      border-top: 4px solid var(--btn-bg);
       border-radius: 50%;
-      animation: spin 1s linear infinite;
+      animation: spin 0.8s linear infinite;
     }
 
     .loader-text {
-      margin-top: 16px;
-      font-size: 1rem;
+      margin-top: 14px;
+      font-size: 0.95rem;
       font-weight: 600;
       color: var(--text-color);
       letter-spacing: 0.5px;
@@ -271,7 +270,7 @@
 </head>
 <body>
 
-  <!-- 5-Second Loader Overlay -->
+  <!-- Optimized 1.5-Second Loader Overlay -->
   <div id="loader-overlay">
     <div class="spinner"></div>
     <div class="loader-text">Loading Finance Hub...</div>
@@ -585,14 +584,15 @@
 
     // --- 3. LOADER LOGIC ---
     function initLoader() {
+      // Set to 1.5 seconds (1500ms) to ensure smooth UX and fast ad initialization
       setTimeout(() => {
         const loader = document.getElementById('loader-overlay');
         if (loader) {
           loader.style.opacity = '0';
           loader.style.visibility = 'hidden';
-          setTimeout(() => loader.remove(), 500); // Remove from DOM after fade out
+          setTimeout(() => loader.remove(), 400);
         }
-      }, 5000); // 5000ms = 5 seconds
+      }, 1500);
     }
 
     // App Startup Execution
@@ -604,7 +604,9 @@
       initLoader();
     };
   </script>
-  
-<script>(function(s){s.dataset.zone='11559877',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+  <!-- MONETAG AD SCRIPT (Properly placed inside <body> before closing tag) -->
+  <script>(function(s){s.dataset.zone='11560080',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 </body>
 </html>
