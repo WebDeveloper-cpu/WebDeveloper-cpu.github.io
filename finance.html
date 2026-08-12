@@ -270,7 +270,7 @@
 </head>
 <body>
 
-  <!-- Optimized 1.5-Second Loader Overlay -->
+  <!-- Optimized 1-Second Loader Overlay -->
   <div id="loader-overlay">
     <div class="spinner"></div>
     <div class="loader-text">Loading Finance Hub...</div>
@@ -584,7 +584,7 @@
 
     // --- 3. LOADER LOGIC ---
     function initLoader() {
-      // Set to 1.5 seconds (1500ms) to ensure smooth UX and fast ad initialization
+      // Set to 1 second (1000ms) to ensure smooth UX and fast ad initialization
       setTimeout(() => {
         const loader = document.getElementById('loader-overlay');
         if (loader) {
@@ -592,7 +592,7 @@
           loader.style.visibility = 'hidden';
           setTimeout(() => loader.remove(), 400);
         }
-      }, 1500);
+      }, 1000);
     }
 
     // App Startup Execution
