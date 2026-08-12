@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Finance & Crypto Hub</title>
+  <style>
+    /* CSS Theme Variables */
+    :root {
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-color: #1a1a1a;
+      --label-color: #64748b;
+      --input-bg: #f8fafc;
+      --input-border: #e2e8f0;
+      --header-bg: #0f172a;
+      --nav-bg: #1e293b;
+      --tab-text: #94a3b8;
+      --tab-active: #38bdf8;
+      --btn-bg: #0284c7;
+      --btn-active: #0369a1;
+      --result-bg: #f0f9ff;
+      --result-border: #bae6fd;
+      --result-label: #0369a1;
+      --result-val: #0c4a6e;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-color: #f8fafc;
+      --label-color: #94a3b8;
+      --input-bg: #334155;
+      --input-border: #475569;
+      --header-bg: #020617;
+      --nav-bg: #0f172a;
+      --tab-text: #64748b;
+      --tab-active: #38bdf8;
+      --btn-bg: #0284c7;
+      --btn-active: #0369a1;
+      --result-bg: #1e293b;
+      --result-border: #0284c7;
+      --result-label: #38bdf8;
+      --result-val: #f8fafc;
+    }
+
+    /* Base Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Fullscreen Loader Styles */
+    #loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid var(--input-border);
+      border-top: 5px solid var(--btn-bg);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .loader-text {
+      margin-top: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-color);
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Header & Theme Switcher */
+    header {
+      background: var(--header-bg);
+      color: #ffffff;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .app-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .theme-toggle-btn {
+      background: var(--nav-bg);
+      border: 1px solid #334155;
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Navigation Tabs */
+    nav {
+      display: flex;
+      background: var(--nav-bg);
+      border-bottom: 1px solid #334155;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 12px 8px;
+      background: none;
+      border: none;
+      color: var(--tab-text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      color: var(--tab-active);
+      border-bottom-color: var(--tab-active);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Cards & Controls */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+      transition: background-color 0.25s ease;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--label-color);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--input-border);
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      background: var(--input-bg);
+      color: var(--text-color);
+      user-select: auto;
+      -webkit-user-select: auto;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--tab-active);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--btn-bg);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:active {
+      background: var(--btn-active);
+    }
+
+    .result-box {
+      margin-top: 20px;
+      background: var(--result-bg);
+      border: 1px solid var(--result-border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .result-box .label {
+      font-size: 0.85rem;
+      color: var(--result-label);
+      font-weight: 600;
+    }
+
+    .result-box .value {
+      font-size: 1.5rem;
+      color: var(--result-val);
+      font-weight: 800;
+      margin-top: 4px;
+      word-break: break-word;
+    }
+
+    .status-text {
+      font-size: 0.75rem;
+      color: var(--label-color);
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 5-Second Loader Overlay -->
+  <div id="loader-overlay">
+    <div class="spinner"></div>
+    <div class="loader-text">Loading Finance Hub...</div>
+  </div>
+
+  <header>
+    <div class="app-title">Finance & Crypto Hub</div>
+    <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+    </button>
+  </header>
+
+  <nav>
+    <button class="tab-btn active" id="tab-btn-currency" onclick="switchTab(event, 'currency')">Converter</button>
+    <button class="tab-btn" id="tab-btn-investment" onclick="switchTab(event, 'investment')">Investment</button>
+    <button class="tab-btn" id="tab-btn-loan" onclick="switchTab(event, 'loan')">Loan/EMI</button>
+  </nav>
+
+  <main>
+    <!-- TAB 1: CONVERTER -->
+    <div id="currency" class="tab-content active">
+      <div class="card">
+        <div class="form-group">
+          <label>Amount</label>
+          <input type="number" id="cur-amount" value="1" placeholder="Enter amount" oninput="saveInputs()">
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label>From</label>
+            <select id="cur-from" onchange="saveInputs()">
+              <optgroup label="Crypto">
+                <option value="BTC" selected>Bitcoin (BTC)</option>
+                <option value="USDT">Tether (USDT)</option>
+              </optgroup>
+              <optgroup label="Fiat">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="NGN">NGN (₦)</option>
+                <option value="CAD">CAD ($)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <select id="cur-to" onchange="saveInputs()">
+              <optgroup label="Fiat">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="NGN" selected>NGN (₦)</option>
+                <option value="CAD">CAD ($)</option>
+              </optgroup>
+              <optgroup label="Crypto">
+                <option value="BTC">Bitcoin (BTC)</option>
+                <option value="USDT">Tether (USDT)</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn" onclick="convertCurrency()">Convert Live</button>
+
+        <div class="result-box">
+          <div class="label">Converted Amount</div>
+          <div class="value" id="cur-result">0.00</div>
+        </div>
+        <div class="status-text" id="rate-status">Ready</div>
+      </div>
+    </div>
+
+    <!-- TAB 2: INVESTMENT -->
+    <div id="investment" class="tab-content">
+      <div class="card">
+        <div class="form-group">
+          <label>Starting Principal</label>
+          <input type="number" id="inv-principal" value="1000" placeholder="e.g. 1000" oninput="saveInputs()">
+        </div>
+        <div class="form-group">
+          <label>Annual Return Rate (%)</label>
+          <input type="number" id="inv-rate" value="10" placeholder="e.g. 10" oninput="saveInputs()">
+        </div>
+        <div class="form-group">
+          <label>Time Period (Years)</label>
+          <input type="number" id="inv-years" value="5" placeholder="e.g. 5" oninput="saveInputs()">
+        </div>
+
+        <button class="btn" onclick="calculateInvestment()">Calculate Future Value</button>
+
+        <div class="result-box">
+          <div class="label">Total Estimated Value</div>
+          <div class="value" id="inv-result">$1,610.51</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: LOAN -->
+    <div id="loan" class="tab-content">
+      <div class="card">
+        <div class="form-group">
+          <label>Loan Amount</label>
+          <input type="number" id="loan-amount" value="5000" placeholder="e.g. 5000" oninput="saveInputs()">
+        </div>
+        <div class="form-group">
+          <label>Annual Interest Rate (%)</label>
+          <input type="number" id="loan-rate" value="12" placeholder="e.g. 12" oninput="saveInputs()">
+        </div>
+        <div class="form-group">
+          <label>Loan Duration (Months)</label>
+          <input type="number" id="loan-months" value="12" placeholder="e.g. 12" oninput="saveInputs()">
+        </div>
+
+        <button class="btn" onclick="calculateLoan()">Calculate Monthly Payment</button>
+
+        <div class="result-box">
+          <div class="label">Monthly Payment (EMI)</div>
+          <div class="value" id="loan-result">$444.24</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const CRYPTO_MAP = { 'BTC': 'bitcoin', 'USDT': 'tether' };
+
+    // --- 1. LOCALSTORAGE & THEME ENGINE ---
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+      localStorage.setItem('hub_theme', newTheme);
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const icon = document.getElementById('themeIcon');
+      const text = document.getElementById('themeText');
+      
+      if (theme === 'dark') {
+        icon.innerText = '☀️';
+        text.innerText = 'Light';
+      } else {
+        icon.innerText = '🌙';
+        text.innerText = 'Dark';
+      }
+    }
+
+    function switchTab(evt, tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      
+      if (evt) {
+        evt.currentTarget.classList.add('active');
+      } else {
+        document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+      }
+
+      localStorage.setItem('hub_active_tab', tabId);
+    }
+
+    // Save field inputs automatically
+    function saveInputs() {
+      const state = {
+        curAmount: document.getElementById('cur-amount').value,
+        curFrom: document.getElementById('cur-from').value,
+        curTo: document.getElementById('cur-to').value,
+        invPrincipal: document.getElementById('inv-principal').value,
+        invRate: document.getElementById('inv-rate').value,
+        invYears: document.getElementById('inv-years').value,
+        loanAmount: document.getElementById('loan-amount').value,
+        loanRate: document.getElementById('loan-rate').value,
+        loanMonths: document.getElementById('loan-months').value
+      };
+      localStorage.setItem('hub_form_data', JSON.stringify(state));
+    }
+
+    // Restore saved data on load
+    function loadSavedState() {
+      // Theme restore
+      const savedTheme = localStorage.getItem('hub_theme') || 'light';
+      applyTheme(savedTheme);
+
+      // Tab restore
+      const savedTab = localStorage.getItem('hub_active_tab') || 'currency';
+      switchTab(null, savedTab);
+
+      // Form inputs restore
+      const savedData = localStorage.getItem('hub_form_data');
+      if (savedData) {
+        try {
+          const state = JSON.parse(savedData);
+          if (state.curAmount) document.getElementById('cur-amount').value = state.curAmount;
+          if (state.curFrom) document.getElementById('cur-from').value = state.curFrom;
+          if (state.curTo) document.getElementById('cur-to').value = state.curTo;
+          if (state.invPrincipal) document.getElementById('inv-principal').value = state.invPrincipal;
+          if (state.invRate) document.getElementById('inv-rate').value = state.invRate;
+          if (state.invYears) document.getElementById('inv-years').value = state.invYears;
+          if (state.loanAmount) document.getElementById('loan-amount').value = state.loanAmount;
+          if (state.loanRate) document.getElementById('loan-rate').value = state.loanRate;
+          if (state.loanMonths) document.getElementById('loan-months').value = state.loanMonths;
+        } catch (e) {
+          console.error("Could not parse saved form state", e);
+        }
+      }
+    }
+
+    // --- 2. CALCULATORS ---
+    async function convertCurrency() {
+      const amount = parseFloat(document.getElementById('cur-amount').value);
+      const from = document.getElementById('cur-from').value;
+      const to = document.getElementById('cur-to').value;
+      const resultEl = document.getElementById('cur-result');
+      const statusEl = document.getElementById('rate-status');
+
+      if (isNaN(amount) || amount <= 0) {
+        resultEl.innerText = "0.00";
+        return;
+      }
+
+      if (from === to) {
+        resultEl.innerText = `${to} ${amount.toLocaleString()}`;
+        statusEl.innerText = "Same currency selected";
+        return;
+      }
+
+      statusEl.innerText = "Fetching live rates...";
+
+      try {
+        const isFromCrypto = Boolean(CRYPTO_MAP[from]);
+        const isToCrypto = Boolean(CRYPTO_MAP[to]);
+
+        if (isFromCrypto) {
+          const coinId = CRYPTO_MAP[from];
+          const targetFiat = isToCrypto ? 'usd' : to.toLowerCase();
+          
+          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${targetFiat}`);
+          const data = await res.json();
+          let rate = data[coinId][targetFiat];
+
+          if (isToCrypto) {
+            const targetCoinId = CRYPTO_MAP[to];
+            const targetRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${targetCoinId}&vs_currencies=usd`);
+            const targetData = await targetRes.json();
+            const targetUsdPrice = targetData[targetCoinId]['usd'];
+            rate = rate / targetUsdPrice;
+          }
+
+          const total = amount * rate;
+          const maxDecimals = isToCrypto ? 6 : 2;
+          resultEl.innerText = `${to} ${total.toLocaleString(undefined, { maximumFractionDigits: maxDecimals })}`;
+          statusEl.innerText = `1 ${from} ≈ ${rate.toLocaleString()} ${to} (CoinGecko)`;
+        } else if (isToCrypto) {
+          const coinId = CRYPTO_MAP[to];
+          const baseFiat = from.toLowerCase();
+
+          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${baseFiat}`);
+          const data = await res.json();
+          const cryptoPriceInFiat = data[coinId][baseFiat];
+
+          const rate = 1 / cryptoPriceInFiat;
+          const total = amount * rate;
+
+          resultEl.innerText = `${to} ${total.toFixed(6)}`;
+          statusEl.innerText = `1 ${from} ≈ ${rate.toFixed(8)} ${to} (CoinGecko)`;
+        } else {
+          const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+          const data = await res.json();
+          const rate = data.rates[to];
+          const total = amount * rate;
+
+          resultEl.innerText = `${to} ${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          statusEl.innerText = `1 ${from} = ${rate.toFixed(4)} ${to} (Exchange Rate API)`;
+        }
+      } catch (err) {
+        statusEl.innerText = "Error fetching rates. Check connection.";
+      }
+    }
+
+    function calculateInvestment() {
+      const P = parseFloat(document.getElementById('inv-principal').value);
+      const r = parseFloat(document.getElementById('inv-rate').value) / 100;
+      const t = parseFloat(document.getElementById('inv-years').value);
+
+      if (isNaN(P) || isNaN(r) || isNaN(t)) return;
+
+      const A = P * Math.pow((1 + r), t);
+      document.getElementById('inv-result').innerText = A.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function calculateLoan() {
+      const P = parseFloat(document.getElementById('loan-amount').value);
+      const annualRate = parseFloat(document.getElementById('loan-rate').value);
+      const n = parseFloat(document.getElementById('loan-months').value);
+
+      if (isNaN(P) || isNaN(annualRate) || isNaN(n)) return;
+
+      const r = (annualRate / 100) / 12;
+      let emi = 0;
+      
+      if (r === 0) {
+        emi = P / n;
+      } else {
+        emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      }
+
+      document.getElementById('loan-result').innerText = emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // --- 3. LOADER LOGIC ---
+    function initLoader() {
+      setTimeout(() => {
+        const loader = document.getElementById('loader-overlay');
+        if (loader) {
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+          setTimeout(() => loader.remove(), 500); // Remove from DOM after fade out
+        }
+      }, 5000); // 5000ms = 5 seconds
+    }
+
+    // App Startup Execution
+    window.onload = () => {
+      loadSavedState();
+      convertCurrency();
+      calculateInvestment();
+      calculateLoan();
+      initLoader();
+    };
+  </script>
+  
+<script>(function(s){s.dataset.zone='11559877',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</body>
+</html>
