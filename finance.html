@@ -270,7 +270,7 @@
 </head>
 <body>
 
-  <!-- Optimized 1-Second Loader Overlay -->
+  <!-- Fullscreen Loader Overlay -->
   <div id="loader-overlay">
     <div class="spinner"></div>
     <div class="loader-text">Loading Finance Hub...</div>
@@ -452,15 +452,12 @@
 
     // Restore saved data on load
     function loadSavedState() {
-      // Theme restore
       const savedTheme = localStorage.getItem('hub_theme') || 'light';
       applyTheme(savedTheme);
 
-      // Tab restore
       const savedTab = localStorage.getItem('hub_active_tab') || 'currency';
       switchTab(null, savedTab);
 
-      // Form inputs restore
       const savedData = localStorage.getItem('hub_form_data');
       if (savedData) {
         try {
@@ -582,31 +579,35 @@
       document.getElementById('loan-result').innerText = emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // --- 3. LOADER LOGIC ---
-    function initLoader() {
-      // Set to 1 second (1000ms) to ensure smooth UX and fast ad initialization
-      setTimeout(() => {
-        const loader = document.getElementById('loader-overlay');
-        if (loader) {
-          loader.style.opacity = '0';
-          loader.style.visibility = 'hidden';
-          setTimeout(() => loader.remove(), 400);
-        }
-      }, 1000);
+    // --- 3. FAIL-SAFE LOADER LOGIC ---
+    function dismissLoader() {
+      const loader = document.getElementById('loader-overlay');
+      if (loader && loader.style.opacity !== '0') {
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+        setTimeout(() => loader.remove(), 400);
+      }
     }
 
-    // App Startup Execution
-    window.onload = () => {
+    // Fast Execution using DOMContentLoaded instead of window.onload
+    document.addEventListener('DOMContentLoaded', () => {
       loadSavedState();
-      convertCurrency();
       calculateInvestment();
       calculateLoan();
-      initLoader();
-    };
+      
+      // Attempt live conversion asynchronously
+      convertCurrency().catch(console.error);
+
+      // Force loader dismissal after 600ms regardless of external ad/network status
+      setTimeout(dismissLoader, 600);
+    });
+
+    // Hard fallback: Force hide loader after 1.5 seconds if DOMContentLoaded is delayed
+    setTimeout(dismissLoader, 1500);
   </script>
 
-  <!-- MONETAG AD SCRIPT (Properly placed inside <body> before closing tag) -->
-  <script>(function(s){s.dataset.zone='11560080',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  <!-- MONETAG AD SCRIPT (Loaded asynchronously to avoid blocking render) -->
+  <script async src="https://nap5k.com/tag.min.js" data-zone="11560080"></script>
 
 </body>
 </html>
