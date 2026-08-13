@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance & Crypto Hub - Android App</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .features {
+            text-align: left;
+            margin-bottom: 28px;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .download-btn {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.5);
+        }
+
+        .download-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .footer-note {
+            margin-top: 16px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="app-icon">📱</div>
+    <span class="badge">v1.0 • Android APK</span>
+    <h1>Finance & Crypto Hub</h1>
+    <p class="subtitle">Manage money, investments, and crypto seamlessly with real-time currency conversion and loan calculation tools.</p>
+
+    <div class="features">
+        <div class="feature-item">
+            <span class="feature-icon">⚡</span>
+            <span><strong>Live Conversion:</strong> Instant conversion between Crypto (BTC, USDT) & Fiat (NGN, USD, EUR, GBP, CAD).</span>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">📊</span>
+            <span><strong>Portfolio Tracking:</strong> Track and estimate total investment returns effortlessly.</span>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">🧮</span>
+            <span><strong>Loan & EMI Calculator:</strong> Calculate exact monthly repayments with ease.</span>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">🌙</span>
+            <span><strong>Light & Dark Mode:</strong> Seamless native theme support.</span>
+        </div>
+    </div>
+
+    <!-- UPDATE THIS LINK TO YOUR ACTUAL APK URL -->
+    <a href="Finance_Calculator-4.apk" class="download-btn" download>
+        Download APK Directly
+    </a>
+
+    <p class="footer-note">Direct Android package download. Safe & secure.</p>
+</div>
+
+</body>
+</html>
