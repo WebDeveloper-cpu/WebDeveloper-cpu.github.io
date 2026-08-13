@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Universal Image & PDF Converter</title>
+  <!-- PDF.js Library for PDF parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 2rem; display: flex; justify-content: center; }
+    .container { max-width: 900px; width: 100%; }
+    
+    header { text-align: center; margin-bottom: 2rem; }
+    header h1 { font-size: 2rem; color: var(--text); margin-bottom: 0.5rem; }
+    header p { color: var(--text-muted); }
+
+    .drop-zone {
+      border: 2px dashed var(--primary);
+      border-radius: 12px;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      background-color: #f0f3ff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .drop-zone:hover, .drop-zone.dragover { background-color: #e0e7ff; border-color: var(--primary-hover); }
+    .drop-zone p { margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
+    .drop-zone input { display: none; }
+
+    .app-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    @media (max-width: 768px) { .app-body { grid-template-columns: 1fr; } }
+
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+    .card h2 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text); }
+
+    .preview-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .preview-container img, .preview-container canvas { max-width: 100%; max-height: 250px; object-fit: contain; }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text); }
+    .form-group select, .form-group input[type="number"], .form-group input[type="range"] {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+    }
+    
+    .row { display: flex; gap: 1rem; }
+    .row .form-group { flex: 1; }
+
+    .btn {
+      width: 100%;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 1rem;
+    }
+    .btn:hover { background-color: var(--primary-hover); }
+    .btn:disabled { background-color: #a5b4fc; cursor: not-allowed; }
+
+    .pdf-controls { display: none; margin-bottom: 1rem; }
+    .pdf-controls.active { display: block; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Universal Converter</h1>
+    <p>Convert images to different formats or render PDF pages into high-res images directly in your browser.</p>
+  </header>
+
+  <!-- Upload Area -->
+  <div class="drop-zone" id="dropZone">
+    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--primary)">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"></path>
+    </svg>
+    <h3>Click or Drag & Drop File Here</h3>
+    <p>Supports PNG, JPG, WEBP, BMP, and PDF files</p>
+    <input type="file" id="fileInput" accept="image/*,.pdf" />
+  </div>
+
+  <div class="app-body">
+    <!-- Left: Preview Section -->
+    <div class="card">
+      <h2>Preview</h2>
+      
+      <!-- PDF Page Controls -->
+      <div class="pdf-controls" id="pdfControls">
+        <div class="form-group">
+          <label>PDF Page Selection</label>
+          <div class="row">
+            <button type="button" id="prevPage" style="padding: 0 10px;">&lt;</button>
+            <span id="pageNumDisplay" style="line-height:2.2; font-size: 0.9rem;">Page 1 of 1</span>
+            <button type="button" id="nextPage" style="padding: 0 10px;">&gt;</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-container">
+        <p id="placeholderText" style="color: var(--text-muted);">No file selected</p>
+        <canvas id="previewCanvas" style="display: none;"></canvas>
+      </div>
+    </div>
+
+    <!-- Right: Conversion Options -->
+    <div class="card">
+      <h2>Settings</h2>
+      
+      <div class="form-group">
+        <label for="formatSelect">Target Format</label>
+        <select id="formatSelect">
+          <option value="image/png">PNG</option>
+          <option value="image/jpeg">JPEG</option>
+          <option value="image/webp">WEBP</option>
+          <option value="image/bmp">BMP</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="widthInput">Width (px)</label>
+          <input type="number" id="widthInput" placeholder="Auto" />
+        </div>
+        <div class="form-group">
+          <label for="heightInput">Height (px)</label>
+          <input type="number" id="heightInput" placeholder="Auto" />
+        </div>
+      </div>
+
+      <div class="form-group" id="qualityGroup">
+        <label for="qualityInput">Quality: <span id="qualityVal">90</span>%</label>
+        <input type="range" id="qualityInput" min="10" max="100" value="90" />
+      </div>
+
+      <button class="btn" id="downloadBtn" disabled>Convert & Download</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // PDF.js worker setup
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  // UI Elements
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const previewCanvas = document.getElementById('previewCanvas');
+  const placeholderText = document.getElementById('placeholderText');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const formatSelect = document.getElementById('formatSelect');
+  const qualityInput = document.getElementById('qualityInput');
+  const qualityVal = document.getElementById('qualityVal');
+  const widthInput = document.getElementById('widthInput');
+  const heightInput = document.getElementById('heightInput');
+  const pdfControls = document.getElementById('pdfControls');
+  const prevPageBtn = document.getElementById('prevPage');
+  const nextPageBtn = document.getElementById('nextPage');
+  const pageNumDisplay = document.getElementById('pageNumDisplay');
+
+  // State Variables
+  let loadedImage = null;
+  let loadedPdf = null;
+  let pdfCurrentPage = 1;
+  let pdfTotalPages = 1;
+  let originalWidth = 0;
+  let originalHeight = 0;
+  let fileName = 'converted-image';
+
+  // Event Listeners for Drag & Drop
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', (e) => { if (e.target.files.length) handleFile(e.target.files[0]); });
+
+  qualityInput.addEventListener('input', (e) => qualityVal.textContent = e.target.value);
+
+  // Maintain aspect ratio calculations on width/height change
+  widthInput.addEventListener('input', () => {
+    if (originalWidth && widthInput.value) {
+      heightInput.value = Math.round((widthInput.value / originalWidth) * originalHeight);
+    }
+  });
+  heightInput.addEventListener('input', () => {
+    if (originalHeight && heightInput.value) {
+      widthInput.value = Math.round((heightInput.value / originalHeight) * originalWidth);
+    }
+  });
+
+  // Handle uploaded files
+  function handleFile(file) {
+    fileName = file.name.substring(0, file.name.lastIndexOf('.')) || 'converted';
+    pdfControls.classList.remove('active');
+    loadedImage = null;
+    loadedPdf = null;
+
+    if (file.type === 'application/pdf') {
+      processPDF(file);
+    } else if (file.type.startsWith('image/')) {
+      processImage(file);
+    } else {
+      alert('Unsupported file type. Please upload an image or a PDF.');
+    }
+  }
+
+  // Process standard images
+  function processImage(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        loadedImage = img;
+        originalWidth = img.width;
+        originalHeight = img.height;
+        widthInput.value = img.width;
+        heightInput.value = img.height;
+
+        renderCanvas(img.width, img.height, (ctx) => {
+          ctx.drawImage(img, 0, 0);
+        });
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Process PDF Files
+  function processPDF(file) {
+    const reader = new FileReader();
+    reader.onload = async function() {
+      const typedarray = new Uint8Array(this.result);
+      loadedPdf = await pdfjsLib.getDocument(typedarray).promise;
+      pdfTotalPages = loadedPdf.numPages;
+      pdfCurrentPage = 1;
+      
+      pdfControls.classList.add('active');
+      renderPdfPage(pdfCurrentPage);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  // Render specific page of PDF
+  async function renderPdfPage(pageNo) {
+    pageNumDisplay.textContent = `Page ${pageNo} of ${pdfTotalPages}`;
+    const page = await loadedPdf.getPage(pageNo);
+    const viewport = page.getViewport({ scale: 2.0 }); // Render at higher resolution
+
+    originalWidth = Math.round(viewport.width);
+    originalHeight = Math.round(viewport.height);
+    widthInput.value = originalWidth;
+    heightInput.value = originalHeight;
+
+    previewCanvas.width = originalWidth;
+    previewCanvas.height = originalHeight;
+    const ctx = previewCanvas.getContext('2d');
+
+    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+    
+    placeholderText.style.display = 'none';
+    previewCanvas.style.display = 'block';
+    downloadBtn.disabled = false;
+  }
+
+  // PDF Pagination Controls
+  prevPageBtn.addEventListener('click', () => {
+    if (loadedPdf && pdfCurrentPage > 1) {
+      pdfCurrentPage--;
+      renderPdfPage(pdfCurrentPage);
+    }
+  });
+  nextPageBtn.addEventListener('click', () => {
+    if (loadedPdf && pdfCurrentPage < pdfTotalPages) {
+      pdfCurrentPage++;
+      renderPdfPage(pdfCurrentPage);
+    }
+  });
+
+  // Helper function to render image onto canvas
+  function renderCanvas(width, height, drawCallback) {
+    previewCanvas.width = width;
+    previewCanvas.height = height;
+    const ctx = previewCanvas.getContext('2d');
+    
+    // Fill white background (useful for transparent PNG to JPG conversion)
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, width, height);
+    
+    drawCallback(ctx);
+
+    placeholderText.style.display = 'none';
+    previewCanvas.style.display = 'block';
+    downloadBtn.disabled = false;
+  }
+
+  // Handle Download/Conversion Trigger
+  downloadBtn.addEventListener('click', () => {
+    const targetFormat = formatSelect.value;
+    const quality = parseFloat(qualityInput.value) / 100;
+    
+    const targetWidth = parseInt(widthInput.value) || originalWidth;
+    const targetHeight = parseInt(heightInput.value) || originalHeight;
+
+    // Create an offscreen canvas to scale and render the final export
+    const exportCanvas = document.createElement('canvas');
+    exportCanvas.width = targetWidth;
+    exportCanvas.height = targetHeight;
+    const ctx = exportCanvas.getContext('2d');
+
+    // Solid white background for formats like JPEG that don't support transparency
+    if (targetFormat === 'image/jpeg' || targetFormat === 'image/bmp') {
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, targetWidth, targetHeight);
+    }
+
+    // Draw from preview canvas to export canvas
+    ctx.drawImage(previewCanvas, 0, 0, targetWidth, targetHeight);
+
+    // Get file extension based on MIME type
+    const extensionMap = {
+      'image/png': 'png',
+      'image/jpeg': 'jpg',
+      'image/webp': 'webp',
+      'image/bmp': 'bmp'
+    };
+
+    // Convert canvas content to downloadable Blob URL
+    const mimeType = targetFormat;
+    const fileUrl = exportCanvas.toDataURL(mimeType, quality);
+
+    // Trigger download link
+    const downloadLink = document.createElement('a');
+    const suffix = loadedPdf ? `-page${pdfCurrentPage}` : '';
+    downloadLink.download = `${fileName}${suffix}.${extensionMap[mimeType]}`;
+    downloadLink.href = fileUrl;
+    downloadLink.click();
+  });
+</script>
+
+</body>
+</html>
