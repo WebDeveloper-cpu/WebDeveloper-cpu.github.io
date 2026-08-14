@@ -108,17 +108,27 @@
             font-size: 1.1rem;
         }
 
-        .download-btn {
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
             display: block;
             width: 100%;
-            background: var(--primary);
-            color: white;
             text-decoration: none;
             padding: 16px;
             border-radius: 12px;
             font-weight: 600;
             font-size: 1rem;
             transition: background 0.2s ease, transform 0.1s ease;
+            text-align: center;
+        }
+
+        .download-btn {
+            background: var(--primary);
+            color: white;
             box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.5);
         }
 
@@ -126,7 +136,17 @@
             background: var(--primary-hover);
         }
 
-        .download-btn:active {
+        .home-btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn:active {
             transform: scale(0.98);
         }
 
@@ -164,13 +184,23 @@
         </div>
     </div>
 
-    <!-- UPDATE THIS LINK TO YOUR ACTUAL APK URL -->
-    <a href="Finance_Calculator-4.apk" class="download-btn" download>
-        Download APK Directly
-    </a>
+    <div class="btn-group">
+        <!-- DOWNLOAD LINK -->
+        <a href="Finance_Calculator-4.apk" class="btn download-btn" download>
+            Download APK Directly
+        </a>
+
+        <!-- HOME LINK (Underneath Download) -->
+        <a href="index.html" class="btn home-btn">
+            ← Return to Home
+        </a>
+    </div>
 
     <p class="footer-note">Direct Android package download. Safe & secure.</p>
 </div>
+
+<!-- Monetag Script -->
+<script>(function(s){s.dataset.zone='11572273',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
 </html>
