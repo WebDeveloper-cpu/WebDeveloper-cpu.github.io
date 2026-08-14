@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
- <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-08QYX345WY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-08QYX345WY');
-</script> 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Finance & Crypto Hub</title>
@@ -32,6 +23,8 @@
       --result-border: #bae6fd;
       --result-label: #0369a1;
       --result-val: #0c4a6e;
+      --share-wa: #25d366;
+      --share-btn: #0f172a;
     }
 
     [data-theme="dark"] {
@@ -51,6 +44,8 @@
       --result-border: #0284c7;
       --result-label: #38bdf8;
       --result-val: #f8fafc;
+      --share-wa: #25d366;
+      --share-btn: #334155;
     }
 
     /* Base Reset */
@@ -275,6 +270,45 @@
       text-align: center;
       margin-top: 10px;
     }
+
+    /* Social Share Card Styles */
+    .share-card {
+      border: 1px dashed var(--btn-bg);
+      text-align: center;
+    }
+
+    .share-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .share-desc {
+      font-size: 0.8rem;
+      color: var(--label-color);
+      margin-bottom: 14px;
+    }
+
+    .share-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .share-btn-native {
+      background: var(--btn-bg);
+      color: #fff;
+    }
+
+    .share-btn-wa {
+      background: var(--share-wa);
+      color: #fff;
+    }
+
+    .share-btn-copy {
+      background: var(--share-btn);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -401,9 +435,23 @@
         </div>
       </div>
     </div>
+
+    <!-- SHARE CARD SECTION -->
+    <div class="card share-card">
+      <div class="share-title">📲 Share App With Friends</div>
+      <div class="share-desc">Help others calculate crypto & finance rates offline/online!</div>
+      <div class="share-btn-group">
+        <button class="btn share-btn-native" onclick="triggerNativeShare()">📲 Share via App/Xender/Socials</button>
+        <button class="btn share-btn-wa" onclick="shareToWhatsApp()">💬 Share on WhatsApp</button>
+        <button class="btn share-btn-copy" id="copyBtn" onclick="copyAppUrl()">📋 Copy Download Link</button>
+      </div>
+    </div>
   </main>
 
   <script>
+    const APP_SHARE_URL = "https://webdeveloper-cpu.github.io/Finance_Calculator-4.apk";
+    const APP_SHARE_TEXT = "Download this free Finance & Crypto Hub APK to convert currencies, calculate crypto, and compute investments live!";
+
     const CRYPTO_MAP = { 'BTC': 'bitcoin', 'USDT': 'tether' };
 
     // --- 1. LOCALSTORAGE & THEME ENGINE ---
@@ -588,7 +636,40 @@
       document.getElementById('loan-result').innerText = emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // --- 3. FAIL-SAFE LOADER LOGIC ---
+    // --- 3. SOCIAL SHARE LOGIC ---
+    async function triggerNativeShare() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'Finance & Crypto Hub',
+            text: APP_SHARE_TEXT,
+            url: APP_SHARE_URL
+          });
+        } catch (err) {
+          console.log('Share canceled or failed', err);
+        }
+      } else {
+        copyAppUrl();
+      }
+    }
+
+    function shareToWhatsApp() {
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(APP_SHARE_TEXT + "\n\n" + APP_SHARE_URL)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    function copyAppUrl() {
+      navigator.clipboard.writeText(APP_SHARE_URL).then(() => {
+        const btn = document.getElementById('copyBtn');
+        const oldText = btn.innerText;
+        btn.innerText = "✅ Link Copied!";
+        setTimeout(() => { btn.innerText = oldText; }, 2000);
+      }).catch(err => {
+        alert("Link: " + APP_SHARE_URL);
+      });
+    }
+
+    // --- 4. FAIL-SAFE LOADER LOGIC ---
     function dismissLoader() {
       const loader = document.getElementById('loader-overlay');
       if (loader && loader.style.opacity !== '0') {
