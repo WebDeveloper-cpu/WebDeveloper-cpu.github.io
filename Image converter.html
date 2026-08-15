@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-08QYX345WY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-08QYX345WY');
-</script>
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Universal Image & PDF Converter</title>
+  <title>Universal Document, Image & PDF Converter</title>
+  
   <!-- PDF.js Library for PDF parsing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Mammoth.js Library for .docx parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  
   <style>
     :root {
       --primary: #4f46e5;
@@ -35,10 +29,22 @@
     header h1 { font-size: 2rem; color: var(--text); margin-bottom: 0.5rem; }
     header p { color: var(--text-muted); }
 
+    .tabs { display: flex; gap: 1rem; margin-bottom: 1rem; justify-content: center; }
+    .tab-btn {
+      padding: 0.6rem 1.2rem;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
     .drop-zone {
       border: 2px dashed var(--primary);
       border-radius: 12px;
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       background-color: #f0f3ff;
       cursor: pointer;
@@ -47,6 +53,18 @@
     .drop-zone:hover, .drop-zone.dragover { background-color: #e0e7ff; border-color: var(--primary-hover); }
     .drop-zone p { margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
     .drop-zone input { display: none; }
+
+    .gdoc-box {
+      display: none;
+      background: white;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+    .gdoc-box.active { display: block; }
+    .gdoc-input-group { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .gdoc-input-group input { flex: 1; padding: 0.6rem; border: 1px solid var(--border); border-radius: 6px; }
 
     .app-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
     @media (max-width: 768px) { .app-body { grid-template-columns: 1fr; } }
@@ -98,15 +116,34 @@
 
     .pdf-controls { display: none; margin-bottom: 1rem; }
     .pdf-controls.active { display: block; }
+
+    .gdoc-links { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+    .gdoc-link-btn {
+      display: inline-block;
+      text-align: center;
+      padding: 0.6rem;
+      background: #e0e7ff;
+      color: var(--primary);
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .gdoc-link-btn:hover { background: #c7d2fe; }
   </style>
 </head>
 <body>
 
 <div class="container">
   <header>
-    <h1>Universal Converter</h1>
-    <p>Convert images to different formats or render PDF pages into high-res images directly in your browser.</p>
+    <h1>Universal File & Document Converter</h1>
+    <p>Convert images, Word documents, PDFs, and Google Docs directly in your browser.</p>
   </header>
+
+  <!-- Input Mode Selector -->
+  <div class="tabs">
+    <button class="tab-btn active" id="tabUpload">Upload File (Image/PDF/Docx)</button>
+    <button class="tab-btn" id="tabGDoc">Google Doc URL</button>
+  </div>
 
   <!-- Upload Area -->
   <div class="drop-zone" id="dropZone">
@@ -114,8 +151,19 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"></path>
     </svg>
     <h3>Click or Drag & Drop File Here</h3>
-    <p>Supports PNG, JPG, WEBP, BMP, and PDF files</p>
-    <input type="file" id="fileInput" accept="image/*,.pdf" />
+    <p>Supports PNG, JPG, WEBP, BMP, PDF, and DOCX files</p>
+    <input type="file" id="fileInput" accept="image/*,.pdf,.docx,.txt" />
+  </div>
+
+  <!-- Google Docs Link Form -->
+  <div class="gdoc-box" id="gdocBox">
+    <h3>Convert Google Doc via Link</h3>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:0.2rem;">Make sure the Google Doc sharing permission is set to "Anyone with the link can view".</p>
+    <div class="gdoc-input-group">
+      <input type="url" id="gdocUrlInput" placeholder="https://docs.google.com/document/d/.../edit" />
+      <button class="btn" id="parseGDocBtn" style="margin-top:0; width:auto;">Process Link</button>
+    </div>
+    <div class="gdoc-links" id="gdocDownloadLinks"></div>
   </div>
 
   <div class="app-body">
@@ -148,10 +196,10 @@
       <div class="form-group">
         <label for="formatSelect">Target Format</label>
         <select id="formatSelect">
-          <option value="image/png">PNG</option>
-          <option value="image/jpeg">JPEG</option>
-          <option value="image/webp">WEBP</option>
-          <option value="image/bmp">BMP</option>
+          <option value="image/png">PNG Image</option>
+          <option value="image/jpeg">JPEG Image</option>
+          <option value="image/webp">WEBP Image</option>
+          <option value="image/bmp">BMP Image</option>
         </select>
       </div>
 
@@ -196,6 +244,13 @@
   const nextPageBtn = document.getElementById('nextPage');
   const pageNumDisplay = document.getElementById('pageNumDisplay');
 
+  const tabUpload = document.getElementById('tabUpload');
+  const tabGDoc = document.getElementById('tabGDoc');
+  const gdocBox = document.getElementById('gdocBox');
+  const parseGDocBtn = document.getElementById('parseGDocBtn');
+  const gdocUrlInput = document.getElementById('gdocUrlInput');
+  const gdocDownloadLinks = document.getElementById('gdocDownloadLinks');
+
   // State Variables
   let loadedImage = null;
   let loadedPdf = null;
@@ -203,9 +258,24 @@
   let pdfTotalPages = 1;
   let originalWidth = 0;
   let originalHeight = 0;
-  let fileName = 'converted-image';
+  let fileName = 'converted-document';
 
-  // Event Listeners for Drag & Drop
+  // Tabs Toggle
+  tabUpload.addEventListener('click', () => {
+    tabUpload.classList.add('active');
+    tabGDoc.classList.remove('active');
+    dropZone.style.display = 'block';
+    gdocBox.classList.remove('active');
+  });
+
+  tabGDoc.addEventListener('click', () => {
+    tabGDoc.classList.add('active');
+    tabUpload.classList.remove('active');
+    dropZone.style.display = 'none';
+    gdocBox.classList.add('active');
+  });
+
+  // Drag & Drop Handling
   dropZone.addEventListener('click', () => fileInput.click());
   dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
@@ -218,7 +288,7 @@
 
   qualityInput.addEventListener('input', (e) => qualityVal.textContent = e.target.value);
 
-  // Maintain aspect ratio calculations on width/height change
+  // Aspect Ratio Handling
   widthInput.addEventListener('input', () => {
     if (originalWidth && widthInput.value) {
       heightInput.value = Math.round((widthInput.value / originalWidth) * originalHeight);
@@ -237,16 +307,22 @@
     loadedImage = null;
     loadedPdf = null;
 
+    const ext = file.name.split('.').pop().toLowerCase();
+
     if (file.type === 'application/pdf') {
       processPDF(file);
     } else if (file.type.startsWith('image/')) {
       processImage(file);
+    } else if (ext === 'docx') {
+      processDOCX(file);
+    } else if (ext === 'txt') {
+      processTXT(file);
     } else {
-      alert('Unsupported file type. Please upload an image or a PDF.');
+      alert('Unsupported file type. Please upload an Image, PDF, DOCX, or TXT file.');
     }
   }
 
-  // Process standard images
+  // Process Images
   function processImage(file) {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -267,6 +343,60 @@
     reader.readAsDataURL(file);
   }
 
+  // Process DOCX Files via Mammoth.js -> Canvas
+  function processDOCX(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      mammoth.convertToHtml({ arrayBuffer: e.target.result })
+        .then((result) => {
+          renderTextOrHtmlToCanvas(result.value);
+        })
+        .catch((err) => alert('Error reading DOCX file: ' + err.message));
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  // Process Plain Text Files
+  function processTXT(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      renderTextOrHtmlToCanvas(`<pre style="font-family:sans-serif;">${e.target.result}</pre>`);
+    };
+    reader.readAsText(file);
+  }
+
+  // Render HTML content directly onto the preview canvas
+  function renderTextOrHtmlToCanvas(htmlContent) {
+    const canvasWidth = 800;
+    const canvasHeight = 1000;
+    originalWidth = canvasWidth;
+    originalHeight = canvasHeight;
+    widthInput.value = canvasWidth;
+    heightInput.value = canvasHeight;
+
+    const svgString = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="${canvasWidth}" height="${canvasHeight}">
+        <foreignObject width="100%" height="100%">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: sans-serif; padding: 40px; background: white; height: 100%; box-sizing: border-box; color: #1e293b; font-size: 16px; line-height: 1.5;">
+            ${htmlContent}
+          </div>
+        </foreignObject>
+      </svg>
+    `;
+
+    const img = new Image();
+    const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+
+    img.onload = () => {
+      renderCanvas(canvasWidth, canvasHeight, (ctx) => {
+        ctx.drawImage(img, 0, 0);
+      });
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+  }
+
   // Process PDF Files
   function processPDF(file) {
     const reader = new FileReader();
@@ -282,11 +412,11 @@
     reader.readAsArrayBuffer(file);
   }
 
-  // Render specific page of PDF
+  // Render specific PDF Page
   async function renderPdfPage(pageNo) {
     pageNumDisplay.textContent = `Page ${pageNo} of ${pdfTotalPages}`;
     const page = await loadedPdf.getPage(pageNo);
-    const viewport = page.getViewport({ scale: 2.0 }); // Render at higher resolution
+    const viewport = page.getViewport({ scale: 2.0 });
 
     originalWidth = Math.round(viewport.width);
     originalHeight = Math.round(viewport.height);
@@ -304,7 +434,7 @@
     downloadBtn.disabled = false;
   }
 
-  // PDF Pagination Controls
+  // PDF Pagination
   prevPageBtn.addEventListener('click', () => {
     if (loadedPdf && pdfCurrentPage > 1) {
       pdfCurrentPage--;
@@ -318,13 +448,32 @@
     }
   });
 
-  // Helper function to render image onto canvas
+  // Handle Google Doc Direct Conversion Links
+  parseGDocBtn.addEventListener('click', () => {
+    const url = gdocUrlInput.value.trim();
+    const docIdMatch = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
+
+    if (!docIdMatch || !docIdMatch[1]) {
+      alert('Invalid Google Doc URL. Please make sure it follows the format: https://docs.google.com/document/d/YOUR_DOC_ID/edit');
+      return;
+    }
+
+    const docId = docIdMatch[1];
+    gdocDownloadLinks.innerHTML = `
+      <p style="font-weight:600; font-size:0.9rem;">Direct Download / Export Links:</p>
+      <a class="gdoc-link-btn" href="https://docs.google.com/document/d/${docId}/export?format=pdf" target="_blank">Download as PDF (.pdf)</a>
+      <a class="gdoc-link-btn" href="https://docs.google.com/document/d/${docId}/export?format=docx" target="_blank">Download as Word (.docx)</a>
+      <a class="gdoc-link-btn" href="https://docs.google.com/document/d/${docId}/export?format=txt" target="_blank">Download as Text (.txt)</a>
+      <a class="gdoc-link-btn" href="https://docs.google.com/document/d/${docId}/export?format=odt" target="_blank">Download as OpenDocument (.odt)</a>
+    `;
+  });
+
+  // Helper function to render onto canvas
   function renderCanvas(width, height, drawCallback) {
     previewCanvas.width = width;
     previewCanvas.height = height;
     const ctx = previewCanvas.getContext('2d');
     
-    // Fill white background (useful for transparent PNG to JPG conversion)
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, width, height);
     
@@ -335,7 +484,7 @@
     downloadBtn.disabled = false;
   }
 
-  // Handle Download/Conversion Trigger
+  // Handle Conversion Download & Monetag SmartLink
   downloadBtn.addEventListener('click', () => {
     const targetFormat = formatSelect.value;
     const quality = parseFloat(qualityInput.value) / 100;
@@ -343,22 +492,18 @@
     const targetWidth = parseInt(widthInput.value) || originalWidth;
     const targetHeight = parseInt(heightInput.value) || originalHeight;
 
-    // Create an offscreen canvas to scale and render the final export
     const exportCanvas = document.createElement('canvas');
     exportCanvas.width = targetWidth;
     exportCanvas.height = targetHeight;
     const ctx = exportCanvas.getContext('2d');
 
-    // Solid white background for formats like JPEG that don't support transparency
     if (targetFormat === 'image/jpeg' || targetFormat === 'image/bmp') {
       ctx.fillStyle = "#FFFFFF";
       ctx.fillRect(0, 0, targetWidth, targetHeight);
     }
 
-    // Draw from preview canvas to export canvas
     ctx.drawImage(previewCanvas, 0, 0, targetWidth, targetHeight);
 
-    // Get file extension based on MIME type
     const extensionMap = {
       'image/png': 'png',
       'image/jpeg': 'jpg',
@@ -366,19 +511,22 @@
       'image/bmp': 'bmp'
     };
 
-    // Convert canvas content to downloadable Blob URL
     const mimeType = targetFormat;
     const fileUrl = exportCanvas.toDataURL(mimeType, quality);
 
-    // Trigger download link
+    // 1. Trigger File Download First
     const downloadLink = document.createElement('a');
     const suffix = loadedPdf ? `-page${pdfCurrentPage}` : '';
     downloadLink.download = `${fileName}${suffix}.${extensionMap[mimeType]}`;
     downloadLink.href = fileUrl;
     downloadLink.click();
+
+    // 2. Trigger Monetag SmartLink after a 300ms delay
+    setTimeout(() => {
+      window.open('https://omg10.com/4/9797691', '_blank');
+    }, 300);
   });
 </script>
 
-<script>(function(s){s.dataset.zone='11572273',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </body>
 </html>
