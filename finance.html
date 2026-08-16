@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Finance & Crypto Hub</title>
+  <title>Currency Exchange Hub</title>
   <style>
     /* CSS Theme Variables */
     :root {
@@ -23,8 +23,10 @@
       --result-border: #bae6fd;
       --result-label: #0369a1;
       --result-val: #0c4a6e;
-      --share-wa: #25d366;
-      --share-btn: #0f172a;
+      --bottom-bar-bg: #ffffff;
+      --bottom-bar-border: #e2e8f0;
+      --ad-bg: #f1f5f9;
+      --ad-border: #cbd5e1;
     }
 
     [data-theme="dark"] {
@@ -44,8 +46,10 @@
       --result-border: #0284c7;
       --result-label: #38bdf8;
       --result-val: #f8fafc;
-      --share-wa: #25d366;
-      --share-btn: #334155;
+      --bottom-bar-bg: #0f172a;
+      --bottom-bar-border: #1e293b;
+      --ad-bg: #020617;
+      --ad-border: #1e293b;
     }
 
     /* Base Reset */
@@ -66,6 +70,8 @@
       flex-direction: column;
       height: 100vh;
       overflow: hidden;
+      padding-top: 56px;     /* Reserve space for top header */
+      padding-bottom: 120px; /* Reserve space so bottom nav & ad never cover content */
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
@@ -107,21 +113,47 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Header & Theme Switcher */
-    header {
+    /* Fixed App Header */
+    .app-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
       background: var(--header-bg);
       color: #ffffff;
-      padding: 14px 16px;
+      padding: 0 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .app-title {
       font-size: 1.1rem;
       font-weight: 700;
       letter-spacing: 0.5px;
+    }
+
+    .header-icon-btn {
+      background: var(--nav-bg);
+      border: 1px solid #334155;
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .theme-toggle-btn {
@@ -137,36 +169,12 @@
       gap: 6px;
     }
 
-    /* Navigation Tabs */
-    nav {
-      display: flex;
-      background: var(--nav-bg);
-      border-bottom: 1px solid #334155;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 12px 8px;
-      background: none;
-      border: none;
-      color: var(--tab-text);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.2s ease;
-    }
-
-    .tab-btn.active {
-      color: var(--tab-active);
-      border-bottom-color: var(--tab-active);
-    }
-
-    /* Main Container */
+    /* Scrollable Workspace / Main Container */
     main {
       flex: 1;
       overflow-y: auto;
       padding: 16px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .tab-content {
@@ -177,7 +185,7 @@
       display: block;
     }
 
-    /* Cards & Controls */
+    /* Cards & Form Elements */
     .card {
       background: var(--card-bg);
       border-radius: 12px;
@@ -271,43 +279,80 @@
       margin-top: 10px;
     }
 
-    /* Social Share Card Styles */
-    .share-card {
-      border: 1px dashed var(--btn-bg);
-      text-align: center;
-    }
-
-    .share-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .share-desc {
-      font-size: 0.8rem;
-      color: var(--label-color);
-      margin-bottom: 14px;
-    }
-
-    .share-btn-group {
+    /* Isolated Fixed Bottom Container (Nav + Reserved Ad Unit) */
+    .bottom-fixed-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      z-index: 1000;
+      background-color: var(--bottom-bar-bg);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     }
 
-    .share-btn-native {
-      background: var(--btn-bg);
-      color: #fff;
+    /* Fixed Bottom Navigation Bar */
+    .app-bottom-bar {
+      height: 56px;
+      background-color: var(--bottom-bar-bg);
+      border-top: 1px solid var(--bottom-bar-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
     }
 
-    .share-btn-wa {
-      background: var(--share-wa);
-      color: #fff;
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--tab-text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      background: none;
+      border: none;
+      width: 33.33%;
+      height: 100%;
+      cursor: pointer;
+      transition: color 0.2s ease;
     }
 
-    .share-btn-copy {
-      background: var(--share-btn);
-      color: #fff;
+    .nav-item.active {
+      color: var(--tab-active);
+      font-weight: 700;
+    }
+
+    .nav-icon {
+      font-size: 1.1rem;
+      margin-bottom: 2px;
+    }
+
+    /* Dedicated Non-Overlapping Ad Slot Zone */
+    .monetag-reserved-ad-zone {
+      width: 100%;
+      min-height: 50px;
+      background-color: var(--ad-bg);
+      border-top: 1px solid var(--ad-border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Force Monetag push ads to remain strictly inside the reserved container */
+    .monetag-reserved-ad-zone div,
+    div[class*="monetag"],
+    div[id*="monetag"],
+    .m-inpage-push {
+      position: relative !important;
+      top: auto !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      margin: 0 auto !important;
+      z-index: 1001 !important;
     }
   </style>
 </head>
@@ -316,22 +361,21 @@
   <!-- Fullscreen Loader Overlay -->
   <div id="loader-overlay">
     <div class="spinner"></div>
-    <div class="loader-text">Loading Finance Hub...</div>
+    <div class="loader-text">Loading Currency Exchange...</div>
   </div>
 
-  <header>
-    <div class="app-title">Finance & Crypto Hub</div>
-    <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
-      <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
-    </button>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-title">Currency Exchange</div>
+    <div class="header-actions">
+      <button class="header-icon-btn" onclick="window.location.reload()" title="Refresh">🔄</button>
+      <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+        <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+      </button>
+    </div>
   </header>
 
-  <nav>
-    <button class="tab-btn active" id="tab-btn-currency" onclick="switchTab(event, 'currency')">Converter</button>
-    <button class="tab-btn" id="tab-btn-investment" onclick="switchTab(event, 'investment')">Investment</button>
-    <button class="tab-btn" id="tab-btn-loan" onclick="switchTab(event, 'loan')">Loan/EMI</button>
-  </nav>
-
+  <!-- Interactive Workspace -->
   <main>
     <!-- TAB 1: CONVERTER -->
     <div id="currency" class="tab-content active">
@@ -435,23 +479,35 @@
         </div>
       </div>
     </div>
-
-    <!-- SHARE CARD SECTION -->
-    <div class="card share-card">
-      <div class="share-title">📲 Share App With Friends</div>
-      <div class="share-desc">Help others calculate crypto & finance rates offline/online!</div>
-        <button class="btn share-btn-copy" id="copyBtn" onclick="copyAppUrl()">📋 Copy Download Link</button>
-      </div>
-    </div>
   </main>
 
-  <script>
-    const APP_SHARE_URL = "https://webdeveloper-cpu.github.io/Finance_Calculator-4.apk";
-    const APP_SHARE_TEXT = "Download this free Finance & Crypto Hub APK to convert currencies, calculate crypto, and compute investments live!";
+  <!-- Bottom Fixed Container -->
+  <div class="bottom-fixed-wrapper">
+    <nav class="app-bottom-bar">
+      <button class="nav-item active" id="tab-btn-currency" onclick="switchTab(event, 'currency')">
+        <span class="nav-icon">💱</span>
+        <span>Exchange</span>
+      </button>
+      <button class="nav-item" id="tab-btn-investment" onclick="switchTab(event, 'investment')">
+        <span class="nav-icon">📈</span>
+        <span>Investment</span>
+      </button>
+      <button class="nav-item" id="tab-btn-loan" onclick="switchTab(event, 'loan')">
+        <span class="nav-icon">🏦</span>
+        <span>Loan / EMI</span>
+      </button>
+    </nav>
 
+    <!-- Isolated Non-Overlapping Ad Slot Container -->
+    <div class="monetag-reserved-ad-zone" id="monetag-ad-slot">
+      <!-- MONETAG IN-PAGE PUSH SCRIPT -->
+<script>(function(s){s.dataset.zone='11591593',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
+  </div>
+
+  <script>
     const CRYPTO_MAP = { 'BTC': 'bitcoin', 'USDT': 'tether' };
 
-    // --- 1. LOCALSTORAGE & THEME ENGINE ---
     function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -475,20 +531,20 @@
 
     function switchTab(evt, tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 
       document.getElementById(tabId).classList.add('active');
       
       if (evt) {
         evt.currentTarget.classList.add('active');
       } else {
-        document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+        const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+        if (activeBtn) activeBtn.classList.add('active');
       }
 
       localStorage.setItem('hub_active_tab', tabId);
     }
 
-    // Save field inputs automatically
     function saveInputs() {
       const state = {
         curAmount: document.getElementById('cur-amount').value,
@@ -504,7 +560,6 @@
       localStorage.setItem('hub_form_data', JSON.stringify(state));
     }
 
-    // Restore saved data on load
     function loadSavedState() {
       const savedTheme = localStorage.getItem('hub_theme') || 'light';
       applyTheme(savedTheme);
@@ -531,7 +586,6 @@
       }
     }
 
-    // --- 2. CALCULATORS ---
     async function convertCurrency() {
       const amount = parseFloat(document.getElementById('cur-amount').value);
       const from = document.getElementById('cur-from').value;
@@ -633,40 +687,6 @@
       document.getElementById('loan-result').innerText = emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // --- 3. SOCIAL SHARE LOGIC ---
-    async function triggerNativeShare() {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: 'Finance & Crypto Hub',
-            text: APP_SHARE_TEXT,
-            url: APP_SHARE_URL
-          });
-        } catch (err) {
-          console.log('Share canceled or failed', err);
-        }
-      } else {
-        copyAppUrl();
-      }
-    }
-
-    function shareToWhatsApp() {
-      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(APP_SHARE_TEXT + "\n\n" + APP_SHARE_URL)}`;
-      window.open(waUrl, '_blank');
-    }
-
-    function copyAppUrl() {
-      navigator.clipboard.writeText(APP_SHARE_URL).then(() => {
-        const btn = document.getElementById('copyBtn');
-        const oldText = btn.innerText;
-        btn.innerText = "✅ Link Copied!";
-        setTimeout(() => { btn.innerText = oldText; }, 2000);
-      }).catch(err => {
-        alert("Link: " + APP_SHARE_URL);
-      });
-    }
-
-    // --- 4. FAIL-SAFE LOADER LOGIC ---
     function dismissLoader() {
       const loader = document.getElementById('loader-overlay');
       if (loader && loader.style.opacity !== '0') {
@@ -676,25 +696,17 @@
       }
     }
 
-    // Fast Execution using DOMContentLoaded instead of window.onload
     document.addEventListener('DOMContentLoaded', () => {
       loadSavedState();
       calculateInvestment();
       calculateLoan();
       
-      // Attempt live conversion asynchronously
       convertCurrency().catch(console.error);
-
-      // Force loader dismissal after 600ms regardless of external ad/network status
       setTimeout(dismissLoader, 600);
     });
 
-    // Hard fallback: Force hide loader after 1.5 seconds if DOMContentLoaded is delayed
     setTimeout(dismissLoader, 1500);
   </script>
-
-  <!-- MONETAG AD SCRIPT (Loaded asynchronously to avoid blocking render) -->
-  <script async src="https://nap5k.com/tag.min.js" data-zone="11560080"></script>
 
 </body>
 </html>
