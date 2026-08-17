@@ -14,6 +14,8 @@
       --input-bg: #f8fafc;
       --input-border: #e2e8f0;
       --header-bg: #0f172a;
+      --action-bar-bg: #1e293b;
+      --action-bar-border: #334155;
       --nav-bg: #1e293b;
       --tab-text: #94a3b8;
       --tab-active: #38bdf8;
@@ -37,6 +39,8 @@
       --input-bg: #334155;
       --input-border: #475569;
       --header-bg: #020617;
+      --action-bar-bg: #0f172a;
+      --action-bar-border: #1e293b;
       --nav-bg: #0f172a;
       --tab-text: #64748b;
       --tab-active: #38bdf8;
@@ -70,7 +74,7 @@
       flex-direction: column;
       height: 100vh;
       overflow: hidden;
-      padding-top: 56px;     /* Reserve space for top header */
+      padding-top: 100px;    /* Reserve space for Title Bar (50px) + Action Bar (50px) */
       padding-bottom: 120px; /* Reserve space so bottom nav & ad never cover content */
       transition: background-color 0.25s ease, color 0.25s ease;
     }
@@ -113,60 +117,66 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Fixed App Header */
-    .app-header {
+    /* Fixed Header Container */
+    .header-wrapper {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      height: 56px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    /* 1. Main Title Bar */
+    .app-header {
+      height: 50px;
       background: var(--header-bg);
       color: #ffffff;
       padding: 0 16px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      z-index: 1000;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .app-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .header-icon-btn {
-      background: var(--nav-bg);
-      border: 1px solid #334155;
-      color: #ffffff;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
       font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .theme-toggle-btn {
-      background: var(--nav-bg);
-      border: 1px solid #334155;
+    /* 2. Sub-Header Action Bar (Positioned under Title Bar) */
+    .header-action-bar {
+      height: 50px;
+      background: var(--action-bar-bg);
+      border-top: 1px solid var(--action-bar-border);
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .action-btn-item {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #ffffff;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.8rem;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .action-btn-item:active {
+      background: rgba(255, 255, 255, 0.22);
+      transform: scale(0.97);
     }
 
     /* Scrollable Workspace / Main Container */
@@ -364,16 +374,24 @@
     <div class="loader-text">Loading Currency Exchange...</div>
   </div>
 
-  <!-- Header -->
-  <header class="app-header">
-    <div class="app-title">Currency Exchange</div>
-    <div class="header-actions">
-      <button class="header-icon-btn" onclick="window.location.reload()" title="Refresh">🔄</button>
-      <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
-        <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+  <!-- Header Section -->
+  <div class="header-wrapper">
+    <!-- Title Bar -->
+    <header class="app-header">
+      <div class="app-title" id="app-title-text">Calculate Currency Exchange</div>
+    </header>
+
+    <!-- Sub-Bar for Action Buttons directly under Title -->
+    <div class="header-action-bar">
+      <button class="action-btn-item" onclick="window.location.reload()">
+        <span>🔄</span> <span>Refresh Page</span>
+      </button>
+
+      <button class="action-btn-item" id="themeToggle" onclick="toggleTheme()">
+        <span id="themeIcon">🌙</span> <span id="themeText">Dark Theme</span>
       </button>
     </div>
-  </header>
+  </div>
 
   <!-- Interactive Workspace -->
   <main>
@@ -501,7 +519,7 @@
     <!-- Isolated Non-Overlapping Ad Slot Container -->
     <div class="monetag-reserved-ad-zone" id="monetag-ad-slot">
       <!-- MONETAG IN-PAGE PUSH SCRIPT -->
-<script>(function(s){s.dataset.zone='11591593',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+      <script>(function(s){s.dataset.zone='11591593',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     </div>
   </div>
 
@@ -522,10 +540,23 @@
       
       if (theme === 'dark') {
         icon.innerText = '☀️';
-        text.innerText = 'Light';
+        text.innerText = 'Light Theme';
       } else {
         icon.innerText = '🌙';
-        text.innerText = 'Dark';
+        text.innerText = 'Dark Theme';
+      }
+    }
+
+    function updateTitle(tabId) {
+      const titleEl = document.getElementById('app-title-text');
+      if (!titleEl) return;
+
+      if (tabId === 'currency') {
+        titleEl.innerText = 'Calculate Currency Exchange';
+      } else if (tabId === 'investment') {
+        titleEl.innerText = 'Calculate Investment';
+      } else if (tabId === 'loan') {
+        titleEl.innerText = 'Calculate Loan / Equated Monthly Installment (EMI)';
       }
     }
 
@@ -542,6 +573,7 @@
         if (activeBtn) activeBtn.classList.add('active');
       }
 
+      updateTitle(tabId);
       localStorage.setItem('hub_active_tab', tabId);
     }
 
