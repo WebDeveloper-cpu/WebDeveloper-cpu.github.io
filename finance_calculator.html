@@ -1,206 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance & Crypto Hub - Android App</title>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #10b981;
-            --border: #334155;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exchange Currency Calculator - Complete Financial & Exchange Suite</title>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+    :root {
+      --primary-color: #0d6efd;
+      --secondary-color: #0b5ed7;
+      --accent-color: #198754;
+      --dark-bg: #0f172a;
+      --card-bg: #1e293b;
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+    }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+    body {
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
 
-        .container {
-            max-width: 500px;
-            width: 100%;
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 32px 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border);
-            text-align: center;
-        }
+    /* Header & Navigation */
+    header {
+      background-color: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #334155;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .app-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            margin: 0 auto 20px auto;
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
-        }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
 
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+    .home-link {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        p.subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-            line-height: 1.5;
-        }
+    .home-link:hover {
+      color: var(--primary-color);
+    }
 
-        .badge {
-            display: inline-block;
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--accent);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
+    /* Hero Section */
+    .hero {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
 
-        .features {
-            text-align: left;
-            margin-bottom: 28px;
-            background: rgba(15, 23, 42, 0.6);
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--text-main);
-        }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto 2rem auto;
+    }
 
-        .feature-item:last-child {
-            margin-bottom: 0;
-        }
+    /* CTA Buttons */
+    .cta-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
-        .feature-icon {
-            margin-right: 10px;
-            font-size: 1.1rem;
-        }
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
 
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+    }
 
-        .btn {
-            display: block;
-            width: 100%;
-            text-decoration: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: background 0.2s ease, transform 0.1s ease;
-            text-align: center;
-        }
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+    }
 
-        .download-btn {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.5);
-        }
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid #475569;
+      color: var(--text-light);
+    }
 
-        .download-btn:hover {
-            background: var(--primary-hover);
-        }
+    .btn-secondary:hover {
+      background-color: #334155;
+      transform: translateY(-2px);
+    }
 
-        .home-btn {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border);
-        }
+    /* Main App Features Grid */
+    .features-section {
+      max-width: 1100px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
 
-        .home-btn:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+    }
 
-        .btn:active {
-            transform: scale(0.98);
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
 
-        .footer-note {
-            margin-top: 16px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-    </style>
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 2rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--primary-color);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: #e2e8f0;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* Interactive Section */
+    .app-preview-card {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .download-counter {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      border-top: 1px solid #334155;
+      margin-top: 4rem;
+    }
+
+    footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="app-icon">📱</div>
-    <span class="badge">v1.0 • Android APK</span>
-    <h1>Finance & Crypto Hub</h1>
-    <p class="subtitle">Manage money, investments, and crypto seamlessly with real-time currency conversion and loan calculation tools.</p>
+  <!-- Header -->
+  <header>
+    <a href="https://webdeveloper-cpu.github.io/" class="logo">WebDeveloper Hub</a>
+    <a href="https://webdeveloper-cpu.github.io/" class="home-link">
+      <span>🏠</span> Back to Home
+    </a>
+  </header>
 
-    <div class="features">
-        <div class="feature-item">
-            <span class="feature-icon">⚡</span>
-            <span><strong>Live Conversion:</strong> Instant conversion between Crypto (BTC, USDT) & Fiat (NGN, USD, EUR, GBP, CAD).</span>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">📊</span>
-            <span><strong>Portfolio Tracking:</strong> Track and estimate total investment returns effortlessly.</span>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">🧮</span>
-            <span><strong>Loan & EMI Calculator:</strong> Calculate exact monthly repayments with ease.</span>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">🌙</span>
-            <span><strong>Light & Dark Mode:</strong> Seamless native theme support.</span>
-        </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Exchange Currency Calculator</h1>
+    <p>Your ultimate exchange and financial calculation toolkit. Convert live fiat and crypto rates, estimate portfolio values, and calculate monthly loan payments seamlessly.</p>
+    
+    <div class="cta-container">
+      <a href="https://webdeveloper-cpu.github.io/Currency_exchange-3.apk" class="btn btn-primary" id="downloadBtn">
+        <span>📲</span> Download APK Package
+      </a>
+      <a href="https://webdeveloper-cpu.github.io/finance.html" target="_blank" class="btn btn-secondary">
+        <span>🌐</span> Open Web App Version
+      </a>
     </div>
+  </section>
 
-    <div class="btn-group">
-        <!-- DOWNLOAD LINK -->
-        <a href="https://webdeveloper-cpu.github.io/Currency_Exchange-Calculator.apk" class="btn download-btn" download>
-            Download APK Directly
-        </a>
+  <!-- App Overview & Features -->
+  <section class="features-section">
+    <h2 class="section-title">Why Use Exchange Currency Calculator?</h2>
+    
+    <div class="grid">
+      <!-- Feature 1 -->
+      <div class="card">
+        <div class="card-icon">💱</div>
+        <h3>Live Currency & Crypto Rates</h3>
+        <p>Instantly calculate conversion rates between cryptocurrencies like Bitcoin (BTC) and Tether (USDT), along with global fiat currencies including USD, EUR, GBP, NGN, and CAD.</p>
+      </div>
 
-        <!-- HOME LINK (Underneath Download) -->
-        <a href="index.html" class="btn home-btn">
-            ← Return to Home
-        </a>
+      <!-- Feature 2 -->
+      <div class="card">
+        <div class="card-icon">📈</div>
+        <h3>Portfolio Estimator</h3>
+        <p>Track your digital assets and calculate overall portfolio valuations dynamically to manage investments with accuracy.</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="card">
+        <div class="card-icon">🏦</div>
+        <h3>Loan & EMI Calculation</h3>
+        <p>Calculate monthly EMI payments, total interest costs, and schedule payments easily before making borrowing decisions.</p>
+      </div>
     </div>
+  </section>
 
-    <p class="footer-note">Direct Android package download. Safe & secure.</p>
-</div>
+  <!-- Highlight Banner -->
+  <section class="app-preview-card">
+    <h2>Download Exchange Currency Calculator Today</h2>
+    <p style="color: #94a3b8; margin: 1rem 0;">Get fast calculations packed into a lightweight, offline-ready Android APK.</p>
+    <a href="https://webdeveloper-cpu.github.io/Currency_exchange-3.apk" class="btn btn-primary">
+      <span>📥</span> Download Android App (.APK)
+    </a>
+    <div class="download-counter" id="statusMessage">
+      Ready for direct download & installation.
+    </div>
+  </section>
 
-<!-- Monetag Script -->
-<script>(function(s){s.dataset.zone='11572273',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 <a href="https://webdeveloper-cpu.github.io/">WebDeveloper Hub</a>. Powered by Exchange Currency Calculator.</p>
+  </footer>
 
+  <!-- Interactive JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const downloadBtn = document.getElementById('downloadBtn');
+      const statusMessage = document.getElementById('statusMessage');
+
+      downloadBtn.addEventListener('click', () => {
+        statusMessage.textContent = '🚀 Thank you for downloading Exchange Currency Calculator! Your APK file is downloading...';
+        statusMessage.style.color = '#60a5fa';
+      });
+    });
+  </script>
 </body>
 </html>
