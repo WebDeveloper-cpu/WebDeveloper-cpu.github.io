@@ -347,35 +347,77 @@
         <div class="card">
           <div class="form-group">
             <label>Amount</label>
-            <input type="number" id="cur-amount" value="1" placeholder="Enter amount" oninput="saveInputs(); convertCurrency();">
+            <input type="text" inputmode="decimal" id="cur-amount" value="1" placeholder="Enter amount" oninput="formatInput(this); saveInputs();">
           </div>
 
           <div class="grid-2">
             <div class="form-group">
               <label>From</label>
-              <select id="cur-from" onchange="saveInputs(); convertCurrency();">
+              <select id="cur-from" onchange="saveInputs();">
+                <optgroup label="Major African Currencies">
+                  <option value="NGN">Nigeria - Naira (₦)</option>
+                  <option value="ZAR">South Africa - Rand (R)</option>
+                  <option value="EGP">Egypt - Pound (EGP)</option>
+                  <option value="KES">Kenya - Shilling (KSh)</option>
+                  <option value="GHS">Ghana - Cedi (₵)</option>
+                  <option value="XOF">West Africa - CFA Franc (XOF)</option>
+                  <option value="XAF">Central Africa - CFA Franc (XAF)</option>
+                  <option value="MAD">Morocco - Dirham (MAD)</option>
+                  <option value="DZD">Algeria - Dinar (DZD)</option>
+                  <option value="TND">Tunisia - Dinar (TND)</option>
+                  <option value="ETB">Ethiopia - Birr (ETB)</option>
+                  <option value="TZS">Tanzania - Shilling (TZS)</option>
+                  <option value="UGX">Uganda - Shilling (UGX)</option>
+                  <option value="RWF">Rwanda - Franc (RWF)</option>
+                  <option value="ZMW">Zambia - Kwacha (ZMW)</option>
+                  <option value="BWP">Botswana - Pula (BWP)</option>
+                  <option value="AOA">Angola - Kwanza (AOA)</option>
+                  <option value="MUR">Mauritius - Rupee (MUR)</option>
+                </optgroup>
+                <optgroup label="Global Fiat">
+                  <option value="USD">USD - US Dollar ($)</option>
+                  <option value="EUR">EUR - Euro (€)</option>
+                  <option value="GBP">GBP - British Pound (£)</option>
+                  <option value="CAD">CAD - Canadian Dollar ($)</option>
+                  <option value="AED">AED - UAE Dirham (AED)</option>
+                  <option value="CNY">CNY - Chinese Yuan (¥)</option>
+                </optgroup>
                 <optgroup label="Crypto">
                   <option value="BTC" selected>Bitcoin (BTC)</option>
                   <option value="USDT">Tether (USDT)</option>
-                </optgroup>
-                <optgroup label="Fiat">
-                  <option value="USD">USD ($)</option>
-                  <option value="EUR">EUR (€)</option>
-                  <option value="GBP">GBP (£)</option>
-                  <option value="NGN">NGN (₦)</option>
-                  <option value="CAD">CAD ($)</option>
                 </optgroup>
               </select>
             </div>
             <div class="form-group">
               <label>To</label>
-              <select id="cur-to" onchange="saveInputs(); convertCurrency();">
-                <optgroup label="Fiat">
-                  <option value="USD">USD ($)</option>
-                  <option value="EUR">EUR (€)</option>
-                  <option value="GBP">GBP (£)</option>
-                  <option value="NGN" selected>NGN (₦)</option>
-                  <option value="CAD">CAD ($)</option>
+              <select id="cur-to" onchange="saveInputs();">
+                <optgroup label="Major African Currencies">
+                  <option value="NGN" selected>Nigeria - Naira (₦)</option>
+                  <option value="ZAR">South Africa - Rand (R)</option>
+                  <option value="EGP">Egypt - Pound (EGP)</option>
+                  <option value="KES">Kenya - Shilling (KSh)</option>
+                  <option value="GHS">Ghana - Cedi (₵)</option>
+                  <option value="XOF">West Africa - CFA Franc (XOF)</option>
+                  <option value="XAF">Central Africa - CFA Franc (XAF)</option>
+                  <option value="MAD">Morocco - Dirham (MAD)</option>
+                  <option value="DZD">Algeria - Dinar (DZD)</option>
+                  <option value="TND">Tunisia - Dinar (TND)</option>
+                  <option value="ETB">Ethiopia - Birr (ETB)</option>
+                  <option value="TZS">Tanzania - Shilling (TZS)</option>
+                  <option value="UGX">Uganda - Shilling (UGX)</option>
+                  <option value="RWF">Rwanda - Franc (RWF)</option>
+                  <option value="ZMW">Zambia - Kwacha (ZMW)</option>
+                  <option value="BWP">Botswana - Pula (BWP)</option>
+                  <option value="AOA">Angola - Kwanza (AOA)</option>
+                  <option value="MUR">Mauritius - Rupee (MUR)</option>
+                </optgroup>
+                <optgroup label="Global Fiat">
+                  <option value="USD">USD - US Dollar ($)</option>
+                  <option value="EUR">EUR - Euro (€)</option>
+                  <option value="GBP">GBP - British Pound (£)</option>
+                  <option value="CAD">CAD - Canadian Dollar ($)</option>
+                  <option value="AED">AED - UAE Dirham (AED)</option>
+                  <option value="CNY">CNY - Chinese Yuan (¥)</option>
                 </optgroup>
                 <optgroup label="Crypto">
                   <option value="BTC">Bitcoin (BTC)</option>
@@ -404,22 +446,22 @@
         <div class="card">
           <div class="form-group">
             <label>Starting Principal</label>
-            <input type="number" id="inv-principal" value="1000" oninput="saveInputs(); calculateInvestment();">
+            <input type="text" inputmode="decimal" id="inv-principal" value="1,000" oninput="formatInput(this); saveInputs();">
           </div>
           <div class="form-group">
             <label>Annual Return Rate (%)</label>
-            <input type="number" id="inv-rate" value="10" oninput="saveInputs(); calculateInvestment();">
+            <input type="text" inputmode="decimal" id="inv-rate" value="10" oninput="formatInput(this); saveInputs();">
           </div>
           <div class="form-group">
             <label>Time Period (Years)</label>
-            <input type="number" id="inv-years" value="5" oninput="saveInputs(); calculateInvestment();">
+            <input type="text" inputmode="decimal" id="inv-years" value="5" oninput="formatInput(this); saveInputs();">
           </div>
 
           <button class="btn" onclick="handleButtonClick(event, calculateInvestment)">Calculate Future Value</button>
 
           <div class="result-box">
             <div class="label">Total Estimated Value</div>
-            <div class="value" id="inv-result">$1,610.51</div>
+            <div class="value" id="inv-result">1,610.51</div>
           </div>
 
           <a href="https://app.gotechafrica.com/go-invite?mref=7936" onclick="openInFrame(event, this.href)" class="affiliate-btn">
@@ -433,22 +475,22 @@
         <div class="card">
           <div class="form-group">
             <label>Loan Amount</label>
-            <input type="number" id="loan-amount" value="5000" oninput="saveInputs(); calculateLoan();">
+            <input type="text" inputmode="decimal" id="loan-amount" value="5,000" oninput="formatInput(this); saveInputs();">
           </div>
           <div class="form-group">
             <label>Annual Interest Rate (%)</label>
-            <input type="number" id="loan-rate" value="12" oninput="saveInputs(); calculateLoan();">
+            <input type="text" inputmode="decimal" id="loan-rate" value="12" oninput="formatInput(this); saveInputs();">
           </div>
           <div class="form-group">
             <label>Loan Duration (Months)</label>
-            <input type="number" id="loan-months" value="12" oninput="saveInputs(); calculateLoan();">
+            <input type="text" inputmode="decimal" id="loan-months" value="12" oninput="formatInput(this); saveInputs();">
           </div>
 
           <button class="btn" onclick="handleButtonClick(event, calculateLoan)">Calculate Monthly Payment</button>
 
           <div class="result-box">
             <div class="label">Monthly Payment (EMI)</div>
-            <div class="value" id="loan-result">$444.24</div>
+            <div class="value" id="loan-result">444.24</div>
           </div>
 
           <a href="https://app.gotechafrica.com/go-invite?mref=7936" onclick="openInFrame(event, this.href)" class="affiliate-btn">
@@ -481,6 +523,40 @@
     const iframe = document.getElementById('app-frame');
     const nativeWorkspace = document.getElementById('native-workspace');
     const smartlinkUrl = "https://omg10.com/4/9317445";
+
+    // Format input strings to include commas live as the user types
+    function formatInput(input) {
+      const cursorOffset = input.value.length - input.selectionEnd;
+      let val = input.value.replace(/[^0-9.]/g, ''); // Remove non-numeric chars except dot
+      
+      const parts = val.split('.');
+      if (parts.length > 2) {
+        val = parts[0] + '.' + parts.slice(1).join('');
+      }
+
+      if (parts[0]) {
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+
+      input.value = parts.join('.');
+      
+      // Preserve cursor position relative to the end of the input
+      const newPos = Math.max(0, input.value.length - cursorOffset);
+      input.setSelectionRange(newPos, newPos);
+    }
+
+    // Parse input back into a float for mathematical calculations
+    function parseInputValue(id) {
+      const val = document.getElementById(id).value.replace(/,/g, '');
+      return parseFloat(val);
+    }
+
+    function formatNumber(num) {
+      return num.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
 
     function handleButtonClick(event, calcFunction) {
       if (typeof calcFunction === 'function') {
@@ -575,28 +651,28 @@
     }
 
     function calculateInvestment() {
-      const P = parseFloat(document.getElementById('inv-principal').value);
-      const r = parseFloat(document.getElementById('inv-rate').value) / 100;
-      const t = parseFloat(document.getElementById('inv-years').value);
+      const P = parseInputValue('inv-principal');
+      const r = parseInputValue('inv-rate') / 100;
+      const t = parseInputValue('inv-years');
       if (!isNaN(P) && !isNaN(r) && !isNaN(t)) {
         const A = P * Math.pow((1 + r), t);
-        document.getElementById('inv-result').innerText = A.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('inv-result').innerText = formatNumber(A);
       }
     }
 
     function calculateLoan() {
-      const P = parseFloat(document.getElementById('loan-amount').value);
-      const annualRate = parseFloat(document.getElementById('loan-rate').value);
-      const n = parseFloat(document.getElementById('loan-months').value);
+      const P = parseInputValue('loan-amount');
+      const annualRate = parseInputValue('loan-rate');
+      const n = parseInputValue('loan-months');
       if (!isNaN(P) && !isNaN(annualRate) && !isNaN(n)) {
         const r = (annualRate / 100) / 12;
         const emi = r === 0 ? P / n : (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-        document.getElementById('loan-result').innerText = emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('loan-result').innerText = formatNumber(emi);
       }
     }
 
     async function convertCurrency() {
-      const amount = parseFloat(document.getElementById('cur-amount').value);
+      const amount = parseInputValue('cur-amount');
       const from = document.getElementById('cur-from').value;
       const to = document.getElementById('cur-to').value;
       if (isNaN(amount) || amount <= 0) return;
@@ -605,9 +681,11 @@
         const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
         const data = await res.json();
         const rate = data.rates[to];
-        document.getElementById('cur-result').innerText = `${to} ${(amount * rate).toLocaleString()}`;
+        const converted = amount * rate;
+        document.getElementById('cur-result').innerText = `${to} ${formatNumber(converted)}`;
+        document.getElementById('rate-status').innerText = 'Live exchange rates updated';
       } catch (e) {
-        document.getElementById('rate-status').innerText = 'Offline mode';
+        document.getElementById('rate-status').innerText = 'Offline mode - showing cached rates';
       }
     }
   </script>
