@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>webdeveloper-cpu</title>
-  <meta name="description" content="Download original apps, utilities, and web tools directly.">
+  <meta name="description" content="Access original web apps, utilities, and tools directly.">
   <style>
     /* Reset & Base Styles */
     * {
@@ -54,6 +54,36 @@
     header p {
       color: var(--text-muted);
       font-size: 1rem;
+    }
+
+    /* Install App Banner */
+    .install-instructions {
+      background-color: var(--card-bg);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .install-instructions h3 {
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .install-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .install-step strong {
+      color: var(--text-main);
     }
 
     /* Search & Filter Bar */
@@ -135,7 +165,7 @@
     /* App Grid */
     .section-title {
       font-size: 1.4rem;
-      margin-bottom: 16px;
+      margin: 30px 0 16px;
       border-bottom: 2px solid var(--border-color);
       padding-bottom: 8px;
     }
@@ -267,9 +297,31 @@
     <!-- Header -->
     <header>
       <h1>webdeveloper-cpu</h1>
-      <p>Search for "webdeveloper-cpu" in Bing,Yahoo,DuckDuckGo,Ecosia and Quant search engine </p>
-      <p>Download original apps, utilities, and web tools directly.</p>
+      <p>Search for "webdeveloper-cpu" in Bing, Yahoo, DuckDuckGo, Ecosia and Qwant search engines</p>
+      <p>Access original web apps, utilities, and tools directly in your browser.</p>
     </header>
+
+    <!-- Installation Instructions Banner -->
+    <div class="install-instructions">
+      <h3>📱 How to Add This Web App to Your Screen</h3>
+      <div class="install-grid">
+        <div class="install-step">
+          <strong>Opera Mini:</strong><br>
+          1. Tap the <strong>Opera Icon (O)</strong> or menu button at the bottom.<br>
+          2. Select <strong>"Add to Home screen"</strong> or tap the <strong>+ (Plus)</strong> icon next to the address bar.
+        </div>
+        <div class="install-step">
+          <strong>Android (Chrome / Edge):</strong><br>
+          1. Tap the menu icon (⋮) in the top right.<br>
+          2. Tap <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.
+        </div>
+        <div class="install-step">
+          <strong>iPhone / iPad (Safari):</strong><br>
+          1. Tap the <strong>Share</strong> button (Square with arrow up).<br>
+          2. Scroll down and select <strong>"Add to Home Screen"</strong>.
+        </div>
+      </div>
+    </div>
 
     <!-- Search Box -->
     <div class="search-box">
@@ -287,7 +339,7 @@
     </div>
 
     <!-- Main Apps Section -->
-    <h2 class="section-title">Available Apps</h2>
+    <h2 class="section-title">Available Web Apps</h2>
     <div class="app-grid" id="appGrid">
 
       <!-- App Card 1 -->
@@ -297,19 +349,18 @@
             <div class="app-icon">💰</div>
             <div class="app-title-group">
               <h2>Exchange Currency Calculator</h2>
-              <span class="app-badge">v4.0 - Updated</span>
+              <span class="app-badge">v4.0 - Live</span>
             </div>
           </div>
           <p class="app-desc">All-in-one financial dashboard, fiat converter, and crypto calculation utility.</p>
         </div>
         <div>
           <div class="app-meta">
-            <span>Size: ~5.2 MB</span>
-            <span>Platform: Android / Web</span>
+            <span>Runs in Browser</span>
+            <span>Platform: Any Device</span>
           </div>
           <div class="btn-group">
-            <a href="https://webdeveloper-cpu.github.io/Currency_exchange-3.apk" class="btn btn-primary" download>Download APK</a>
-            <a href="https://webdeveloper-cpu.github.io/finance_calculator.html" target="_blank" class="btn btn-secondary">Info</a>
+            <a href="https://webdeveloper-cpu.github.io/finance.html" target="_blank" class="btn btn-primary">Open App</a>
           </div>
         </div>
       </div>
@@ -329,16 +380,93 @@
         <div>
           <div class="app-meta">
             <span>Runs in Browser</span>
-            <span>Platform: Any</span>
+            <span>Platform: Any Device</span>
           </div>
           <div class="btn-group">
-            <a href="codeeditor.html" class="btn btn-primary">Launch App</a>
-            <a href="https://github.com" target="_blank" class="btn btn-secondary">Info</a>
+            <a href="codeeditor.html" class="btn btn-primary">Open App</a>
           </div>
         </div>
       </div>
 
+    </div>
+
+    <!-- Recommended Partners & Referrals Section -->
+    <h2 class="section-title">Recommended Platforms & Services</h2>
+    <div class="app-grid">
+
+      <!-- HostAfrica Referral Card -->
+      <div class="app-card">
+        <div>
+          <div class="app-header">
+            <div class="app-icon">🌐</div>
+            <div class="app-title-group">
+              <h2>HOSTAFRICA Hosting</h2>
+              <span class="app-badge">Cloud & Hosting</span>
+            </div>
+          </div>
+          <p class="app-desc">Reliable cloud servers, web hosting, and domain registration tailored for developers.</p>
         </div>
+        <div>
+          <div class="btn-group">
+            <a href="https://panel.hostafrica.com/?aff=3440" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visit HOSTAFRICA</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cleva Referral Card -->
+      <div class="app-card">
+        <div>
+          <div class="app-header">
+            <div class="app-icon">💳</div>
+            <div class="app-title-group">
+              <h2>Cleva Banking</h2>
+              <span class="app-badge">USD Account</span>
+            </div>
+          </div>
+          <p class="app-desc">Open a USD account to receive international payments and manage global funds seamlessly.</p>
+        </div>
+        <div>
+          <div class="btn-group">
+            <a href="https://app.getcleva.com/refer/CHUK6191" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Join Cleva</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deriv Referral Card -->
+      <div class="app-card">
+        <div>
+          <div class="app-header">
+            <div class="app-icon">📈</div>
+            <div class="app-title-group">
+              <h2>Deriv Trading</h2>
+              <span class="app-badge">Forex & Crypto</span>
+            </div>
+          </div>
+          <p class="app-desc">Trade synthetic indices, Forex, and commodities on a powerful trading platform.</p>
+        </div>
+        <div>
+          <div class="btn-group">
+            <a href="https://t.deriv.link?t=9LES59QKZERG" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Start Trading</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GoTechAfrica Referral Card -->
+      <div class="app-card">
+        <div>
+          <div class="app-header">
+            <div class="app-icon">⚡</div>
+            <div class="app-title-group">
+              <h2>GoTechAfrica</h2>
+              <span class="app-badge">Tech Platform</span>
+            </div>
+          </div>
+          <p class="app-desc">Connect with digital services and tech solutions tailored for developers and businesses.</p>
+        </div>
+        <div>
+          <div class="btn-group">
+            <a href="https://app.gotechafrica.com/go-invite?mref=7936" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Explore GoTech</a>
+          </div>
         </div>
       </div>
 
@@ -363,7 +491,7 @@
   <script>
     function filterApps() {
       const input = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('.app-card');
+      const cards = document.querySelectorAll('#appGrid .app-card');
 
       cards.forEach(card => {
         const title = card.querySelector('h2').textContent.toLowerCase();

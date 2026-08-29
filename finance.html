@@ -82,7 +82,7 @@
       color: #ffffff;
       padding: 0 16px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
     }
 
@@ -90,10 +90,23 @@
       font-size: 1rem;
       font-weight: 700;
       letter-spacing: 0.4px;
-      text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .home-link-btn {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--tab-active);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .header-action-bar {
@@ -162,6 +175,46 @@
       display: block;
     }
 
+    /* Info & Search Description Banner */
+    .info-banner {
+      background: var(--card-bg);
+      border-left: 4px solid var(--tab-active);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      color: var(--label-color);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    /* Install App Banner */
+    .install-instructions {
+      background: var(--card-bg);
+      border: 1px solid var(--tab-active);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .install-instructions h3 {
+      color: var(--tab-active);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .install-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--label-color);
+    }
+
+    .install-step strong {
+      color: var(--text-color);
+    }
+
     .card {
       background: var(--card-bg);
       border-radius: 12px;
@@ -214,14 +267,45 @@
       cursor: pointer;
     }
 
+    /* Universal Section Referral Box Styling */
+    .referral-box {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px dashed var(--tab-active);
+      text-align: center;
+    }
+
+    .referral-box.cleva-box {
+      background: rgba(99, 102, 241, 0.08);
+      border-color: #6366f1;
+    }
+
+    .referral-box.deriv-box {
+      background: rgba(239, 68, 68, 0.08);
+      border-color: #ef4444;
+    }
+
+    .referral-box.hosting-box {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: #10b981;
+    }
+
+    .referral-prompt {
+      font-size: 0.83rem;
+      color: var(--label-color);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
     .affiliate-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-top: 14px;
       padding: 12px 16px;
-      background: #6366f1;
+      background: #0284c7;
       color: #ffffff;
       text-decoration: none;
       font-size: 0.88rem;
@@ -229,6 +313,18 @@
       border-radius: 8px;
       text-align: center;
       cursor: pointer;
+    }
+
+    .affiliate-btn.cleva-btn {
+      background: #4f46e5;
+    }
+
+    .affiliate-btn.deriv-btn {
+      background: #dc2626;
+    }
+
+    .affiliate-btn.hosting-btn {
+      background: #059669;
     }
 
     .result-box {
@@ -310,10 +406,10 @@
 </head>
 <body>
 
-  <!-- Top Fixed Header -->
   <div class="header-wrapper">
     <header class="app-header">
       <div class="app-title" id="app-title-text">Calculate Currency Exchange</div>
+      <a href="index.html" class="home-link-btn">🏠 Home</a>
     </header>
 
     <div class="header-action-bar">
@@ -327,6 +423,9 @@
       </div>
 
       <div class="action-group">
+        <button class="action-btn-item" onclick="shareApp()">
+          <span>🔗</span> <span>Share</span>
+        </button>
         <button class="action-btn-item" onclick="reloadFrame()">
           <span>🔄</span>
         </button>
@@ -337,12 +436,37 @@
     </div>
   </div>
 
-  <!-- Main Scrollable Container (Frame & Native Tabs) -->
   <div class="content-viewport">
     <iframe id="app-frame" name="app-frame"></iframe>
 
     <div id="native-workspace">
-      <!-- TAB 1: CONVERTER -->
+      <div style="padding: 16px 16px 0 16px;">
+        <div class="info-banner">
+          Search for <strong>"webdeveloper-cpu"</strong> in Bing, Yahoo, DuckDuckGo, Ecosia, and Qwant search engines. Access original web apps, utilities, and tools directly in your browser.
+        </div>
+
+        <div class="install-instructions">
+          <h3>📱 How to Add This Web Page as an App to Your Screen</h3>
+          <div class="install-grid">
+            <div class="install-step">
+              <strong>Opera Mini:</strong><br>
+              1. Tap the <strong>Opera Icon (O)</strong> or bottom menu.<br>
+              2. Select <strong>"Add to Home screen"</strong> or tap the <strong>+</strong> icon.
+            </div>
+            <div class="install-step">
+              <strong>Android (Chrome / Edge):</strong><br>
+              1. Tap the top menu icon (⋮).<br>
+              2. Tap <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.
+            </div>
+            <div class="install-step">
+              <strong>iPhone / iPad (Safari):</strong><br>
+              1. Tap the <strong>Share</strong> icon (Square with arrow up).<br>
+              2. Choose <strong>"Add to Home Screen"</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="currency" class="tab-content active">
         <div class="card">
           <div class="form-group">
@@ -435,13 +559,36 @@
           </div>
           <div class="status-text" id="rate-status">Ready</div>
 
-          <a href="https://app.gotechafrica.com/go-invite?mref=7936" onclick="openInFrame(event, this.href)" class="affiliate-btn">
-            <span>🚀</span> <span>Explore Tech Opportunities at GoTech Africa</span>
-          </a>
+          <div class="referral-box cleva-box">
+            <p class="referral-prompt">💳 <strong>Receive USD Direct to Your Virtual Account:</strong> Open a free US Dollar bank account instantly with Cleva to receive international payments, freelance earnings, and swap USD to Naira at competitive real-time market rates!</p>
+            <a href="https://app.getcleva.com/refer/CHUK6191" target="_blank" class="affiliate-btn cleva-btn">
+              <span>⚡</span> <span>Open Free USD Account on Cleva</span>
+            </a>
+          </div>
+
+          <div class="referral-box deriv-box">
+            <p class="referral-prompt">📊 <strong>Trade Forex, Crypto & Synthetic Indices 24/7:</strong> Start trading online with Deriv's low spreads, instant automated deposits/withdrawals, and free demo account loaded with $10,000 virtual funds.</p>
+            <a href="https://t.deriv.link?t=9LES59QKZERG" target="_blank" class="affiliate-btn deriv-btn">
+              <span>🚀</span> <span>Claim $10,000 Free Demo on Deriv</span>
+            </a>
+          </div>
+
+          <div class="referral-box hosting-box">
+            <p class="referral-prompt">🌍 <strong>Build & Host Your Next Web App:</strong> Get fast, reliable Cloud & cPanel hosting across Africa with HOSTAFRICA. High performance, 99.9% uptime, and free SSL included.</p>
+            <a href="https://www.hostafrica.com/?aff=4410" target="_blank" class="affiliate-btn hosting-btn">
+              <span>🌐</span> <span>Get Started with HOSTAFRICA</span>
+            </a>
+          </div>
+
+          <div class="referral-box">
+            <p class="referral-prompt">💡 <strong>Monetize Your Web Traffic:</strong> Turn site visitors into daily passive income with Monetag high-CPM ads, SmartLinks, and fast payouts.</p>
+            <a href="https://monetag.com/?ref_id=zUg8" target="_blank" class="affiliate-btn">
+              <span>💰</span> <span>Join Monetag & Start Earning</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- TAB 2: INVESTMENT -->
       <div id="investment" class="tab-content">
         <div class="card">
           <div class="form-group">
@@ -464,13 +611,36 @@
             <div class="value" id="inv-result">1,610.51</div>
           </div>
 
-          <a href="https://app.gotechafrica.com/go-invite?mref=7936" onclick="openInFrame(event, this.href)" class="affiliate-btn">
-            <span>🚀</span> <span>Explore Tech Opportunities at GoTech Africa</span>
-          </a>
+          <div class="referral-box deriv-box">
+            <p class="referral-prompt">📈 <strong>Multiply Your Wealth Trading Global Markets:</strong> Trade Multipliers, Indices, and Forex on Deriv's powerful platform with risk-management protection tools built right in.</p>
+            <a href="https://t.deriv.link?t=9LES59QKZERG" target="_blank" class="affiliate-btn deriv-btn">
+              <span>📊</span> <span>Start Trading Multipliers on Deriv</span>
+            </a>
+          </div>
+
+          <div class="referral-box cleva-box">
+            <p class="referral-prompt">💵 <strong>Protect Savings Against Inflation:</strong> Save and hold foreign earnings in a US Dollar account with Cleva and convert to local currency whenever exchange rates spike.</p>
+            <a href="https://app.getcleva.com/refer/CHUK6191" target="_blank" class="affiliate-btn cleva-btn">
+              <span>🏦</span> <span>Create USD Account (Code: CHUK6191)</span>
+            </a>
+          </div>
+
+          <div class="referral-box hosting-box">
+            <p class="referral-prompt">🚀 <strong>Launch Your Online Business:</strong> Host your blogs, portfolio, or web applications on HOSTAFRICA with high-speed SSD storage and 24/7 expert support.</p>
+            <a href="https://www.hostafrica.com/?aff=4410" target="_blank" class="affiliate-btn hosting-btn">
+              <span>⚡</span> <span>Claim Hosting Offer on HOSTAFRICA</span>
+            </a>
+          </div>
+
+          <div class="referral-box">
+            <p class="referral-prompt">💡 <strong>Monetize Your Web Traffic:</strong> Turn site visitors into daily passive income with Monetag high-CPM ads, SmartLinks, and fast payouts.</p>
+            <a href="https://monetag.com/?ref_id=zUg8" target="_blank" class="affiliate-btn">
+              <span>💰</span> <span>Join Monetag & Start Earning</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- TAB 3: LOAN -->
       <div id="loan" class="tab-content">
         <div class="card">
           <div class="form-group">
@@ -493,15 +663,38 @@
             <div class="value" id="loan-result">444.24</div>
           </div>
 
-          <a href="https://app.gotechafrica.com/go-invite?mref=7936" onclick="openInFrame(event, this.href)" class="affiliate-btn">
-            <span>🚀</span> <span>Explore Tech Opportunities at GoTech Africa</span>
-          </a>
+          <div class="referral-box cleva-box">
+            <p class="referral-prompt">💳 <strong>Need Global Foreign Payment Solutions?</strong> Get virtual USD debit cards and receive international client wire transfers instantly via Cleva.</p>
+            <a href="https://app.getcleva.com/refer/CHUK6191" target="_blank" class="affiliate-btn cleva-btn">
+              <span>📲</span> <span>Sign Up Cleva (Code: CHUK6191)</span>
+            </a>
+          </div>
+
+          <div class="referral-box deriv-box">
+            <p class="referral-prompt">⚡ <strong>Earn Daily Yields in Global Financial Markets:</strong> Access automated trading bots and micro-trade contracts with initial stakes starting at just $1 on Deriv.</p>
+            <a href="https://t.deriv.link?t=9LES59QKZERG" target="_blank" class="affiliate-btn deriv-btn">
+              <span>🤖</span> <span>Explore Automated Trading on Deriv</span>
+            </a>
+          </div>
+
+          <div class="referral-box hosting-box">
+            <p class="referral-prompt">🚀 <strong>Reliable Web Hosting:</strong> Get local domain registration and top-tier cloud hosting in Africa powered by HOSTAFRICA infrastructure.</p>
+            <a href="https://www.hostafrica.com/?aff=4410" target="_blank" class="affiliate-btn hosting-btn">
+              <span>🌐</span> <span>Explore HOSTAFRICA Solutions</span>
+            </a>
+          </div>
+
+          <div class="referral-box">
+            <p class="referral-prompt">💡 <strong>Monetize Your Web Traffic:</strong> Turn site visitors into daily passive income with Monetag high-CPM ads, SmartLinks, and fast payouts.</p>
+            <a href="https://monetag.com/?ref_id=zUg8" target="_blank" class="affiliate-btn">
+              <span>💰</span> <span>Join Monetag & Start Earning</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Bottom Navigation Bar -->
   <div class="bottom-fixed-wrapper">
     <nav class="app-bottom-bar">
       <button class="nav-item active" id="tab-btn-currency" onclick="switchTab('currency')">
@@ -524,10 +717,32 @@
     const nativeWorkspace = document.getElementById('native-workspace');
     const smartlinkUrl = "https://omg10.com/4/9317445";
 
-    // Format input strings to include commas live as the user types
+    const cryptoMapping = {
+      'BTC': 'bitcoin',
+      'USDT': 'tether'
+    };
+
+    function shareApp() {
+      const shareData = {
+        title: 'Currency Exchange Hub',
+        text: 'Check out Currency Exchange Hub for real-time currency conversion, investment planning, and loan calculation tools!',
+        url: 'https://webdeveloper-cpu.github.io/finance.html'
+      };
+
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(shareData.url).then(() => {
+          alert('Link copied to clipboard: ' + shareData.url);
+        }).catch(() => {
+          prompt('Copy this link:', shareData.url);
+        });
+      }
+    }
+
     function formatInput(input) {
       const cursorOffset = input.value.length - input.selectionEnd;
-      let val = input.value.replace(/[^0-9.]/g, ''); // Remove non-numeric chars except dot
+      let val = input.value.replace(/[^0-9.]/g, '');
       
       const parts = val.split('.');
       if (parts.length > 2) {
@@ -539,22 +754,19 @@
       }
 
       input.value = parts.join('.');
-      
-      // Preserve cursor position relative to the end of the input
       const newPos = Math.max(0, input.value.length - cursorOffset);
       input.setSelectionRange(newPos, newPos);
     }
 
-    // Parse input back into a float for mathematical calculations
     function parseInputValue(id) {
       const val = document.getElementById(id).value.replace(/,/g, '');
       return parseFloat(val);
     }
 
-    function formatNumber(num) {
+    function formatNumber(num, decimals = 2) {
       return num.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
       });
     }
 
@@ -675,17 +887,78 @@
       const amount = parseInputValue('cur-amount');
       const from = document.getElementById('cur-from').value;
       const to = document.getElementById('cur-to').value;
+      const resultBox = document.getElementById('cur-result');
+      const statusText = document.getElementById('rate-status');
+
       if (isNaN(amount) || amount <= 0) return;
 
+      statusText.innerText = 'Fetching live rates...';
+
+      const isFromCrypto = cryptoMapping.hasOwnProperty(from);
+      const isToCrypto = cryptoMapping.hasOwnProperty(to);
+
       try {
-        const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
-        const data = await res.json();
-        const rate = data.rates[to];
-        const converted = amount * rate;
-        document.getElementById('cur-result').innerText = `${to} ${formatNumber(converted)}`;
-        document.getElementById('rate-status').innerText = 'Live exchange rates updated';
+        if (isFromCrypto && isToCrypto) {
+          const fromId = cryptoMapping[from];
+          const toId = cryptoMapping[to];
+          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${fromId},${toId}&vs_currencies=usd`);
+          const data = await res.json();
+          const fromUsd = data[fromId].usd;
+          const toUsd = data[toId].usd;
+          const rate = fromUsd / toUsd;
+          const converted = amount * rate;
+          const decimals = to === 'BTC' ? 8 : 4;
+          resultBox.innerText = `${to} ${formatNumber(converted, decimals)}`;
+          statusText.innerText = 'Live crypto exchange rates updated';
+        } 
+        else if (isFromCrypto && !isToCrypto) {
+          const cryptoId = cryptoMapping[from];
+          const cgRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoId}&vs_currencies=usd`);
+          const cgData = await cgRes.json();
+          const cryptoInUsd = cgData[cryptoId].usd;
+
+          if (to === 'USD') {
+            const converted = amount * cryptoInUsd;
+            resultBox.innerText = `USD ${formatNumber(converted, 2)}`;
+          } else {
+            const fiatRes = await fetch(`https://open.er-api.com/v6/latest/USD`);
+            const fiatData = await fiatRes.json();
+            const usdToTargetRate = fiatData.rates[to];
+            const converted = amount * cryptoInUsd * usdToTargetRate;
+            resultBox.innerText = `${to} ${formatNumber(converted, 2)}`;
+          }
+          statusText.innerText = 'Live crypto-to-fiat exchange rates updated';
+        } 
+        else if (!isFromCrypto && isToCrypto) {
+          const cryptoId = cryptoMapping[to];
+          const cgRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoId}&vs_currencies=usd`);
+          const cgData = await cgRes.json();
+          const cryptoInUsd = cgData[cryptoId].usd;
+
+          if (from === 'USD') {
+            const converted = amount / cryptoInUsd;
+            const decimals = to === 'BTC' ? 8 : 4;
+            resultBox.innerText = `${to} ${formatNumber(converted, decimals)}`;
+          } else {
+            const fiatRes = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+            const fiatData = await fiatRes.json();
+            const amountInUsd = amount * fiatData.rates['USD'];
+            const converted = amountInUsd / cryptoInUsd;
+            const decimals = to === 'BTC' ? 8 : 4;
+            resultBox.innerText = `${to} ${formatNumber(converted, decimals)}`;
+          }
+          statusText.innerText = 'Live fiat-to-crypto exchange rates updated';
+        } 
+        else {
+          const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+          const data = await res.json();
+          const rate = data.rates[to];
+          const converted = amount * rate;
+          resultBox.innerText = `${to} ${formatNumber(converted, 2)}`;
+          statusText.innerText = 'Live fiat exchange rates updated';
+        }
       } catch (e) {
-        document.getElementById('rate-status').innerText = 'Offline mode - showing cached rates';
+        statusText.innerText = 'Error fetching live market rates. Please check connection.';
       }
     }
   </script>
