@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script data-goatcounter="https://chukwuchimezie.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://chukwuchimezie.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Universal Document, Image & PDF Converter</title>
   
+  <title>Universal Document, Image & PDF Converter | Free Browser Tool</title>
+  <meta name="description" content="Convert images, Word DOCX, PDFs, and Google Docs directly in your browser. Fast, free, and secure client-side file conversion tool." />
+  <meta name="keywords" content="PDF converter, DOCX to PNG, image converter, Google Doc converter, convert PDF to image, free online file converter" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://chukwuchimezie.github.io/file-converter/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://chukwuchimezie.github.io/file-converter/" />
+  <meta property="og:title" content="Universal Document, Image & PDF Converter" />
+  <meta property="og:description" content="Convert PNG, JPG, WEBP, PDF, DOCX, and Google Docs instantly in your browser without uploading files to external servers." />
+  <meta property="og:image" content="https://chukwuchimezie.github.io/file-converter/preview-banner.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Universal Document, Image & PDF Converter" />
+  <meta name="twitter:description" content="Fast, browser-based document and image converter. Convert PDFs, DOCX files, and images easily." />
+  <meta name="twitter:image" content="https://chukwuchimezie.github.io/file-converter/preview-banner.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Universal Document, Image & PDF Converter",
+    "url": "https://chukwuchimezie.github.io/file-converter/",
+    "description": "In-browser universal file converter for images, PDF documents, Word files, and Google Docs links.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
   
@@ -34,7 +67,10 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1rem;
+      gap: 0.5rem;
     }
+
+    .nav-group { display: flex; gap: 0.5rem; }
     
     .nav-btn {
       background: white;
@@ -44,11 +80,14 @@
       cursor: pointer;
       font-weight: 600;
       color: var(--text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
       transition: background 0.2s;
     }
     .nav-btn:hover { background: #e2e8f0; }
 
-    /* Webview Iframe Container below Navigation */
     .webview-wrapper {
       display: none;
       width: 100%;
@@ -60,11 +99,7 @@
       overflow: hidden;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
-    .webview-wrapper iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .webview-wrapper iframe { width: 100%; height: 100%; border: none; }
 
     .tabs { display: flex; gap: 1rem; margin-bottom: 1rem; justify-content: center; }
     .tab-btn {
@@ -151,6 +186,13 @@
     .btn:hover { background-color: var(--primary-hover); }
     .btn:disabled { background-color: #a5b4fc; cursor: not-allowed; }
 
+    .btn-secondary-action {
+      background-color: white;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary-action:hover { background-color: #e0e7ff; }
+
     .pdf-controls { display: none; margin-bottom: 1rem; }
     .pdf-controls.active { display: block; }
 
@@ -167,7 +209,16 @@
     }
     .gdoc-link-btn:hover { background: #c7d2fe; }
 
-    /* Affiliate Links Container */
+    .seo-info-card {
+      margin-top: 1.5rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .seo-info-card h2 { font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--text); }
+    .seo-info-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
+
     .affiliate-card {
       margin-top: 1.5rem;
       background: white;
@@ -197,18 +248,8 @@
       border-color: var(--primary);
       box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
     }
-    .aff-title {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text);
-      margin-bottom: 0.3rem;
-    }
-    .aff-desc {
-      font-size: 0.825rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin-bottom: 0.8rem;
-    }
+    .aff-title { font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 0.3rem; }
+    .aff-desc { font-size: 0.825rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0.8rem; }
     .aff-link {
       display: inline-block;
       text-align: center;
@@ -221,64 +262,67 @@
       font-size: 0.825rem;
       transition: all 0.2s ease;
     }
-    .aff-link:hover {
-      background: var(--primary);
-      color: white;
-    }
+    .aff-link:hover { background: var(--primary); color: white; }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="nav-controls">
-    <button class="nav-btn" onclick="history.back()">&larr; Back</button>
-    <button class="nav-btn" onclick="history.forward()">Forward &rarr;</button>
-  </div>
+<main class="container">
+  <nav class="nav-controls" aria-label="Main Navigation">
+    <div class="nav-group">
+      <button class="nav-btn" onclick="history.back()">&larr; Back</button>
+      <button class="nav-btn" onclick="history.forward()">Forward &rarr;</button>
+    </div>
+    <div class="nav-group">
+      <a href="index.html" class="nav-btn">🏠 Home</a>
+      <button class="nav-btn" onclick="shareApp()">🔗 Share App</button>
+    </div>
+  </nav>
 
-  <div class="webview-wrapper" id="webviewWrapper">
+  <section class="webview-wrapper" id="webviewWrapper">
     <iframe id="docIframe" title="Document Preview Webview"></iframe>
-  </div>
+  </section>
 
   <header>
     <h1>Universal File & Document Converter</h1>
     <p>Convert images, Word documents, PDFs, and Google Docs directly in your browser.</p>
   </header>
 
-  <div class="tabs">
-    <button class="tab-btn active" id="tabUpload">Upload File (Image/PDF/Docx)</button>
-    <button class="tab-btn" id="tabGDoc">Google Doc URL</button>
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" id="tabUpload" role="tab">Upload File (Image/PDF/Docx)</button>
+    <button class="tab-btn" id="tabGDoc" role="tab">Google Doc URL</button>
   </div>
 
-  <div class="drop-zone" id="dropZone">
-    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--primary)">
+  <section class="drop-zone" id="dropZone">
+    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--primary)" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"></path>
     </svg>
-    <h3>Click or Drag & Drop File Here</h3>
+    <h2>Click or Drag & Drop File Here</h2>
     <p>Supports PNG, JPG, WEBP, BMP, PDF, and DOCX files</p>
-    <input type="file" id="fileInput" accept="image/*,.pdf,.docx,.txt" />
-  </div>
+    <input type="file" id="fileInput" accept="image/*,.pdf,.docx,.txt" aria-label="Upload file for conversion" />
+  </section>
 
-  <div class="gdoc-box" id="gdocBox">
-    <h3>Convert Google Doc via Link</h3>
+  <section class="gdoc-box" id="gdocBox">
+    <h2>Convert Google Doc via Link</h2>
     <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:0.2rem;">Make sure the Google Doc sharing permission is set to "Anyone with the link can view".</p>
     <div class="gdoc-input-group">
-      <input type="url" id="gdocUrlInput" placeholder="https://docs.google.com/document/d/.../edit" />
+      <input type="url" id="gdocUrlInput" placeholder="https://docs.google.com/document/d/.../edit" aria-label="Google Doc URL input" />
       <button class="btn" id="parseGDocBtn" style="margin-top:0; width:auto;">Process Link</button>
     </div>
     <div class="gdoc-links" id="gdocDownloadLinks"></div>
-  </div>
+  </section>
 
-  <div class="app-body">
+  <section class="app-body">
     <div class="card">
-      <h2>Preview</h2>
+      <h2>Document Preview</h2>
       
       <div class="pdf-controls" id="pdfControls">
         <div class="form-group">
           <label>PDF Page Selection</label>
           <div class="row">
-            <button type="button" id="prevPage" style="padding: 0 10px;">&lt;</button>
+            <button type="button" id="prevPage" style="padding: 0 10px;" aria-label="Previous page">&lt;</button>
             <span id="pageNumDisplay" style="line-height:2.2; font-size: 0.9rem;">Page 1 of 1</span>
-            <button type="button" id="nextPage" style="padding: 0 10px;">&gt;</button>
+            <button type="button" id="nextPage" style="padding: 0 10px;" aria-label="Next page">&gt;</button>
           </div>
         </div>
       </div>
@@ -290,7 +334,7 @@
     </div>
 
     <div class="card">
-      <h2>Settings</h2>
+      <h2>Conversion Settings</h2>
       
       <div class="form-group">
         <label for="formatSelect">Target Format</label>
@@ -319,10 +363,16 @@
       </div>
 
       <button class="btn" id="downloadBtn" disabled>Convert & Download</button>
+      <button class="btn btn-secondary-action" onclick="shareApp()">📤 Share This Tool</button>
     </div>
-  </div>
+  </section>
 
-  <div class="affiliate-card">
+  <section class="seo-info-card">
+    <h2>Fast & Secure Online Document Conversion</h2>
+    <p>Convert your Word documents (DOCX), PDF pages, plain text, and digital images directly inside your web browser. No software installation required, and no privacy concerns since processing happens locally on your device.</p>
+  </section>
+
+  <aside class="affiliate-card">
     <h2>Recommended Tools & Services</h2>
     <p class="subtitle">Hand-picked services to enhance your online trading, hosting, banking, and monetization.</p>
     
@@ -367,14 +417,12 @@
         <a class="aff-link" href="https://monetag.com/?ref_id=zUg8" target="_blank" rel="noopener">Start Earning &rarr;</a>
       </div>
     </div>
-  </div>
-</div>
+  </aside>
+</main>
 
 <script>
-  // PDF.js worker setup
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  // UI Elements
   const dropZone = document.getElementById('dropZone');
   const fileInput = document.getElementById('fileInput');
   const previewCanvas = document.getElementById('previewCanvas');
@@ -400,7 +448,6 @@
   const webviewWrapper = document.getElementById('webviewWrapper');
   const docIframe = document.getElementById('docIframe');
 
-  // State Variables
   let loadedImage = null;
   let loadedPdf = null;
   let pdfCurrentPage = 1;
@@ -409,7 +456,21 @@
   let originalHeight = 0;
   let fileName = 'converted-document';
 
-  // Tabs Toggle
+  function shareApp() {
+    const shareData = {
+      title: 'Universal Document, Image & PDF Converter',
+      text: 'Convert images, Word documents, PDFs, and Google Docs directly in your browser!',
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      navigator.share(shareData).catch((err) => console.log('Share canceled:', err));
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('App link copied to clipboard!');
+    }
+  }
+
   tabUpload.addEventListener('click', () => {
     tabUpload.classList.add('active');
     tabGDoc.classList.remove('active');
@@ -424,7 +485,6 @@
     gdocBox.classList.add('active');
   });
 
-  // Drag & Drop Handling
   dropZone.addEventListener('click', () => fileInput.click());
   dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
@@ -437,7 +497,6 @@
 
   qualityInput.addEventListener('input', (e) => qualityVal.textContent = e.target.value);
 
-  // Aspect Ratio Handling
   widthInput.addEventListener('input', () => {
     if (originalWidth && widthInput.value) {
       heightInput.value = Math.round((widthInput.value / originalWidth) * originalHeight);
@@ -449,7 +508,6 @@
     }
   });
 
-  // Handle uploaded files
   function handleFile(file) {
     fileName = file.name.substring(0, file.name.lastIndexOf('.')) || 'converted';
     pdfControls.classList.remove('active');
@@ -471,7 +529,6 @@
     }
   }
 
-  // Process Images
   function processImage(file) {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -492,7 +549,6 @@
     reader.readAsDataURL(file);
   }
 
-  // Process DOCX Files via Mammoth.js -> Canvas
   function processDOCX(file) {
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -505,7 +561,6 @@
     reader.readAsArrayBuffer(file);
   }
 
-  // Process Plain Text Files
   function processTXT(file) {
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -514,7 +569,6 @@
     reader.readAsText(file);
   }
 
-  // Render HTML content directly onto the preview canvas
   function renderTextOrHtmlToCanvas(htmlContent) {
     const canvasWidth = 800;
     const canvasHeight = 1000;
@@ -546,7 +600,6 @@
     img.src = url;
   }
 
-  // Process PDF Files
   function processPDF(file) {
     const reader = new FileReader();
     reader.onload = async function() {
@@ -561,7 +614,6 @@
     reader.readAsArrayBuffer(file);
   }
 
-  // Render specific PDF Page
   async function renderPdfPage(pageNo) {
     pageNumDisplay.textContent = `Page ${pageNo} of ${pdfTotalPages}`;
     const page = await loadedPdf.getPage(pageNo);
@@ -583,7 +635,6 @@
     downloadBtn.disabled = false;
   }
 
-  // PDF Pagination
   prevPageBtn.addEventListener('click', () => {
     if (loadedPdf && pdfCurrentPage > 1) {
       pdfCurrentPage--;
@@ -597,7 +648,6 @@
     }
   });
 
-  // Handle Google Doc Direct Conversion Links & Webview Preview
   parseGDocBtn.addEventListener('click', () => {
     const url = gdocUrlInput.value.trim();
     const docIdMatch = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
@@ -609,7 +659,6 @@
 
     const docId = docIdMatch[1];
     
-    // Display preview inside top webview iframe
     docIframe.src = `https://docs.google.com/document/d/${docId}/preview`;
     webviewWrapper.style.display = 'block';
 
@@ -622,7 +671,6 @@
     `;
   });
 
-  // Helper function to render onto canvas
   function renderCanvas(width, height, drawCallback) {
     previewCanvas.width = width;
     previewCanvas.height = height;
@@ -638,7 +686,6 @@
     downloadBtn.disabled = false;
   }
 
-  // Handle Conversion Download & Monetag SmartLink
   downloadBtn.addEventListener('click', () => {
     const targetFormat = formatSelect.value;
     const quality = parseFloat(qualityInput.value) / 100;
@@ -668,14 +715,12 @@
     const mimeType = targetFormat;
     const fileUrl = exportCanvas.toDataURL(mimeType, quality);
 
-    // 1. Trigger File Download First
     const downloadLink = document.createElement('a');
     const suffix = loadedPdf ? `-page${pdfCurrentPage}` : '';
     downloadLink.download = `${fileName}${suffix}.${extensionMap[mimeType]}`;
     downloadLink.href = fileUrl;
     downloadLink.click();
 
-    // 2. Trigger Monetag SmartLink after a 300ms delay
     setTimeout(() => {
       window.open('https://omg10.com/4/9797691', '_blank');
     }, 300);
