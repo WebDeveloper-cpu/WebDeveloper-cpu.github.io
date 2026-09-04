@@ -285,7 +285,22 @@
 
   <header>
     <h1>Universal File & Document Converter</h1>
-    <p>Convert images, Word documents, PDFs, and Google Docs directly in your browser.</p>
+    <p>Convert images, Word documents, PDFs, and Google Docs directly in your browser.</p><br>
+    
+    <p> Search for "webdeveloper-cpu" in Bing, Yahoo, DuckDuckGo, Ecosia and Qwant search engines </p>
+
+<p>Access original web apps, utilities, and tools directly in your browser.  </p> <br>
+
+<p style="border: 5px solid blue"> 📱 How to Add This Web App to Your Screen <br>
+Opera Mini:
+1. Tap the Opera Icon (O) or menu button at the bottom.<br>
+2. Select "Add to Home screen" or tap the + (Plus) icon next to the address bar.
+Android (Chrome / Edge): <br>
+1. Tap the menu icon (⋮) in the top right. <br>
+2. Tap "Add to Home screen" or "Install app".<br>
+iPhone / iPad (Safari):
+1. Tap the Share button (Square with arrow up). <br>
+2. Scroll down and select "Add to Home Screen".  </p>
   </header>
 
   <div class="tabs" role="tablist">
@@ -496,17 +511,6 @@
   fileInput.addEventListener('change', (e) => { if (e.target.files.length) handleFile(e.target.files[0]); });
 
   qualityInput.addEventListener('input', (e) => qualityVal.textContent = e.target.value);
-
-  widthInput.addEventListener('input', () => {
-    if (originalWidth && widthInput.value) {
-      heightInput.value = Math.round((widthInput.value / originalWidth) * originalHeight);
-    }
-  });
-  heightInput.addEventListener('input', () => {
-    if (originalHeight && heightInput.value) {
-      widthInput.value = Math.round((heightInput.value / originalHeight) * originalWidth);
-    }
-  });
 
   function handleFile(file) {
     fileName = file.name.substring(0, file.name.lastIndexOf('.')) || 'converted';
