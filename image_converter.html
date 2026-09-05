@@ -1,44 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script data-goatcounter="https://chukwuchimezie.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Universal Document, Image & PDF Converter | Free Browser Tool</title>
-  <meta name="description" content="Convert images, Word DOCX, PDFs, and Google Docs directly in your browser. Fast, free, and secure client-side file conversion tool." />
-  <meta name="keywords" content="PDF converter, DOCX to PNG, image converter, Google Doc converter, convert PDF to image, free online file converter" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://chukwuchimezie.github.io/file-converter/" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://chukwuchimezie.github.io/file-converter/" />
-  <meta property="og:title" content="Universal Document, Image & PDF Converter" />
-  <meta property="og:description" content="Convert PNG, JPG, WEBP, PDF, DOCX, and Google Docs instantly in your browser without uploading files to external servers." />
-  <meta property="og:image" content="https://chukwuchimezie.github.io/file-converter/preview-banner.png" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Universal Document, Image & PDF Converter" />
-  <meta name="twitter:description" content="Fast, browser-based document and image converter. Convert PDFs, DOCX files, and images easily." />
-  <meta name="twitter:image" content="https://chukwuchimezie.github.io/file-converter/preview-banner.png" />
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Universal Document, Image & PDF Converter",
-    "url": "https://chukwuchimezie.github.io/file-converter/",
-    "description": "In-browser universal file converter for images, PDF documents, Word files, and Google Docs links.",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  }
-  </script>
+  <title>Universal Document, Image & PDF Converter</title>
+  <meta name="description" content="Convert images, Word DOCX, PDFs, and Google Docs directly in your app. Fast, free, and secure client-side file conversion tool." />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
@@ -55,38 +22,12 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 2rem; display: flex; justify-content: center; }
+    body { background-color: var(--bg); color: var(--text); padding: 1.5rem; display: flex; justify-content: center; }
     .container { max-width: 900px; width: 100%; }
     
-    header { text-align: center; margin-bottom: 2rem; }
-    header h1 { font-size: 2rem; color: var(--text); margin-bottom: 0.5rem; }
-    header p { color: var(--text-muted); }
-
-    .nav-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      gap: 0.5rem;
-    }
-
-    .nav-group { display: flex; gap: 0.5rem; }
-    
-    .nav-btn {
-      background: white;
-      border: 1px solid var(--border);
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      transition: background 0.2s;
-    }
-    .nav-btn:hover { background: #e2e8f0; }
+    header { text-align: center; margin-bottom: 1.5rem; }
+    header h1 { font-size: 1.8rem; color: var(--text); margin-bottom: 0.5rem; }
+    header p { color: var(--text-muted); font-size: 0.95rem; }
 
     .webview-wrapper {
       display: none;
@@ -186,13 +127,6 @@
     .btn:hover { background-color: var(--primary-hover); }
     .btn:disabled { background-color: #a5b4fc; cursor: not-allowed; }
 
-    .btn-secondary-action {
-      background-color: white;
-      color: var(--primary);
-      border: 1px solid var(--primary);
-    }
-    .btn-secondary-action:hover { background-color: #e0e7ff; }
-
     .pdf-controls { display: none; margin-bottom: 1rem; }
     .pdf-controls.active { display: block; }
 
@@ -208,99 +142,14 @@
       font-weight: 600;
     }
     .gdoc-link-btn:hover { background: #c7d2fe; }
-
-    .seo-info-card {
-      margin-top: 1.5rem;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-    }
-    .seo-info-card h2 { font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--text); }
-    .seo-info-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
-
-    .affiliate-card {
-      margin-top: 1.5rem;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-    }
-    .affiliate-card h2 { font-size: 1.1rem; margin-bottom: 0.25rem; color: var(--text); }
-    .affiliate-card p.subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; }
-    
-    .affiliate-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-    }
-    .aff-item {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1rem;
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-    .aff-item:hover {
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
-    }
-    .aff-title { font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 0.3rem; }
-    .aff-desc { font-size: 0.825rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0.8rem; }
-    .aff-link {
-      display: inline-block;
-      text-align: center;
-      padding: 0.5rem 0.75rem;
-      background: #e0e7ff;
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 6px;
-      font-size: 0.825rem;
-      transition: all 0.2s ease;
-    }
-    .aff-link:hover { background: var(--primary); color: white; }
   </style>
 </head>
 <body>
 
 <main class="container">
-  <nav class="nav-controls" aria-label="Main Navigation">
-    <div class="nav-group">
-      <button class="nav-btn" onclick="history.back()">&larr; Back</button>
-      <button class="nav-btn" onclick="history.forward()">Forward &rarr;</button>
-    </div>
-    <div class="nav-group">
-      <a href="index.html" class="nav-btn">🏠 Home</a>
-      <button class="nav-btn" onclick="shareApp()">🔗 Share App</button>
-    </div>
-  </nav>
-
-  <section class="webview-wrapper" id="webviewWrapper">
-    <iframe id="docIframe" title="Document Preview Webview"></iframe>
-  </section>
-
   <header>
     <h1>Universal File & Document Converter</h1>
-    <p>Convert images, Word documents, PDFs, and Google Docs directly in your browser.</p><br>
-    
-    <p> Search for "webdeveloper-cpu" in Bing, Yahoo, DuckDuckGo, Ecosia and Qwant search engines </p>
-
-<p>Access original web apps, utilities, and tools directly in your browser.  </p> <br>
-
-<p style="border: 5px solid blue"> 📱 How to Add This Web App to Your Screen <br>
-Opera Mini:
-1. Tap the Opera Icon (O) or menu button at the bottom.<br>
-2. Select "Add to Home screen" or tap the + (Plus) icon next to the address bar.
-Android (Chrome / Edge): <br>
-1. Tap the menu icon (⋮) in the top right. <br>
-2. Tap "Add to Home screen" or "Install app".<br>
-iPhone / iPad (Safari):
-1. Tap the Share button (Square with arrow up). <br>
-2. Scroll down and select "Add to Home Screen".  </p>
+    <p>Convert images, Word documents, PDFs, and Google Docs locally on your device.</p>
   </header>
 
   <div class="tabs" role="tablist">
@@ -312,19 +161,23 @@ iPhone / iPad (Safari):
     <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--primary)" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"></path>
     </svg>
-    <h2>Click or Drag & Drop File Here</h2>
+    <h2>Tap or Drag File Here</h2>
     <p>Supports PNG, JPG, WEBP, BMP, PDF, and DOCX files</p>
     <input type="file" id="fileInput" accept="image/*,.pdf,.docx,.txt" aria-label="Upload file for conversion" />
   </section>
 
   <section class="gdoc-box" id="gdocBox">
     <h2>Convert Google Doc via Link</h2>
-    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:0.2rem;">Make sure the Google Doc sharing permission is set to "Anyone with the link can view".</p>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:0.2rem;">Make sure sharing permission is set to "Anyone with the link can view".</p>
     <div class="gdoc-input-group">
       <input type="url" id="gdocUrlInput" placeholder="https://docs.google.com/document/d/.../edit" aria-label="Google Doc URL input" />
       <button class="btn" id="parseGDocBtn" style="margin-top:0; width:auto;">Process Link</button>
     </div>
     <div class="gdoc-links" id="gdocDownloadLinks"></div>
+  </section>
+
+  <section class="webview-wrapper" id="webviewWrapper">
+    <iframe id="docIframe" title="Document Preview Webview"></iframe>
   </section>
 
   <section class="app-body">
@@ -377,62 +230,9 @@ iPhone / iPad (Safari):
         <input type="range" id="qualityInput" min="10" max="100" value="90" />
       </div>
 
-      <button class="btn" id="downloadBtn" disabled>Convert & Download</button>
-      <button class="btn btn-secondary-action" onclick="shareApp()">📤 Share This Tool</button>
+      <button class="btn" id="downloadBtn" disabled>Convert & Save</button>
     </div>
   </section>
-
-  <section class="seo-info-card">
-    <h2>Fast & Secure Online Document Conversion</h2>
-    <p>Convert your Word documents (DOCX), PDF pages, plain text, and digital images directly inside your web browser. No software installation required, and no privacy concerns since processing happens locally on your device.</p>
-  </section>
-
-  <aside class="affiliate-card">
-    <h2>Recommended Tools & Services</h2>
-    <p class="subtitle">Hand-picked services to enhance your online trading, hosting, banking, and monetization.</p>
-    
-    <div class="affiliate-grid">
-      <div class="aff-item">
-        <div>
-          <div class="aff-title">Deriv Trading</div>
-          <div class="aff-desc">Trade Forex, Synthetic Indices, Stocks, and Commodities with tight spreads on a reliable platform.</div>
-        </div>
-        <a class="aff-link" href="https://t.deriv.link?t=9LES59QKZERG" target="_blank" rel="noopener">Start Trading &rarr;</a>
-      </div>
-
-      <div class="aff-item">
-        <div>
-          <div class="aff-title">HostAfrica Hosting</div>
-          <div class="aff-desc">High-speed web hosting, VPS, and cloud infrastructure optimized for maximum uptime.</div>
-        </div>
-        <a class="aff-link" href="https://panel.hostafrica.com/?aff=3440" target="_blank" rel="noopener">Get Hosting &rarr;</a>
-      </div>
-
-      <div class="aff-item">
-        <div>
-          <div class="aff-title">Cleva Banking</div>
-          <div class="aff-desc">Open a global USD account to receive international payments and manage foreign income easily.</div>
-        </div>
-        <a class="aff-link" href="https://app.getcleva.com/refer/CHUK6191" target="_blank" rel="noopener">Open Account &rarr;</a>
-      </div>
-
-      <div class="aff-item">
-        <div>
-          <div class="aff-title">GoTech Africa</div>
-          <div class="aff-desc">Access tech education, cloud services, and digital transformation solutions tailored for Africa.</div>
-        </div>
-        <a class="aff-link" href="https://app.gotechafrica.com/go-invite?mref=7936" target="_blank" rel="noopener">Join Community &rarr;</a>
-      </div>
-
-      <div class="aff-item">
-        <div>
-          <div class="aff-title">Monetag Network</div>
-          <div class="aff-desc">Monetize your website or app traffic with native ads, smart links, and high CPM rates.</div>
-        </div>
-        <a class="aff-link" href="https://monetag.com/?ref_id=zUg8" target="_blank" rel="noopener">Start Earning &rarr;</a>
-      </div>
-    </div>
-  </aside>
 </main>
 
 <script>
@@ -470,21 +270,6 @@ iPhone / iPad (Safari):
   let originalWidth = 0;
   let originalHeight = 0;
   let fileName = 'converted-document';
-
-  function shareApp() {
-    const shareData = {
-      title: 'Universal Document, Image & PDF Converter',
-      text: 'Convert images, Word documents, PDFs, and Google Docs directly in your browser!',
-      url: window.location.href
-    };
-
-    if (navigator.share) {
-      navigator.share(shareData).catch((err) => console.log('Share canceled:', err));
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('App link copied to clipboard!');
-    }
-  }
 
   tabUpload.addEventListener('click', () => {
     tabUpload.classList.add('active');
@@ -724,10 +509,6 @@ iPhone / iPad (Safari):
     downloadLink.download = `${fileName}${suffix}.${extensionMap[mimeType]}`;
     downloadLink.href = fileUrl;
     downloadLink.click();
-
-    setTimeout(() => {
-      window.open('https://omg10.com/4/9797691', '_blank');
-    }, 300);
   });
 </script>
 
