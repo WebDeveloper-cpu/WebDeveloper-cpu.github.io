@@ -43,9 +43,36 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 1.5rem; display: flex; justify-content: center; }
+    body { background-color: var(--bg); color: var(--text); padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; justify-content: center; }
     .container { max-width: 900px; width: 100%; }
     
+    /* Native Navigation Bar */
+    nav.app-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .app-brand { font-size: 1rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
+    .nav-actions { display: flex; gap: 0.5rem; }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { background: var(--bg); border-color: var(--primary); color: var(--primary); }
+
     header { text-align: center; margin-bottom: 1.5rem; }
     header h1 { font-size: 1.8rem; color: var(--text); margin-bottom: 0.5rem; }
     header p { color: var(--text-muted); font-size: 0.95rem; }
@@ -215,6 +242,33 @@
     }
     .gdoc-link-btn:hover { background: #c7d2fe; }
 
+    /* Modal Overlay and Content Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .modal-header h3 { font-size: 1.2rem; color: var(--text); }
+    .modal-close { background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; }
+    .modal-body { font-size: 0.9rem; color: var(--text); line-height: 1.6; }
+    .modal-body ul { margin-left: 1.2rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
+
     footer {
       margin-top: 2.5rem;
       text-align: center;
@@ -227,6 +281,19 @@
 <body>
 
 <main class="container">
+  <!-- Native App Navigation Bar -->
+  <nav class="app-bar" aria-label="Main Navigation">
+    <div class="app-brand">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+      Converter
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn" id="navHomeBtn">Home</button>
+      <button class="nav-btn" id="navHelpBtn">Help</button>
+      <button class="nav-btn" id="navAboutBtn">About</button>
+    </div>
+  </nav>
+
   <header>
     <h1>Universal File & Document Converter</h1>
     <p>Convert images, Word documents, PDFs, and Google Docs locally on your device.</p>
@@ -323,6 +390,45 @@
     </div>
   </section>
 
+  <!-- Help Modal -->
+  <div class="modal-overlay" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="helpModalTitle">Help & Instructions</h3>
+        <button class="modal-close" id="closeHelpBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Converting Local Files:</strong></p>
+        <ul>
+          <li>Tap the drop zone or drag files into it.</li>
+          <li>Supported formats: Images (PNG, JPG, WEBP), PDF documents, Word DOCX, and TXT files.</li>
+          <li>Adjust width, height, and quality settings on the right panel before saving.</li>
+        </ul>
+        <p><strong>Converting Google Docs:</strong></p>
+        <ul>
+          <li>Switch to the "Google Doc URL" tab.</li>
+          <li>Paste the public link of your Google Doc and tap "Process Link".</li>
+          <li>Download the file directly as PDF, DOCX, TXT, or ODT.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Modal -->
+  <div class="modal-overlay" id="aboutModal" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="aboutModalTitle">About Universal Converter</h3>
+        <button class="modal-close" id="closeAboutBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Universal File & Document Converter v1.0</strong></p>
+        <p style="margin-top: 0.5rem;">This utility provides client-side file and document conversions directly on your device without transmitting data to external servers.</p>
+        <p style="margin-top: 0.5rem;"><strong>Security & Privacy:</strong> All standard file conversions occur within your active browser session for data privacy.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Legal & Privacy Disclaimer for Store Compliance -->
   <footer>
     <p><strong>Privacy Notice:</strong> All local file conversions occur securely inside your browser session. Files are never uploaded or stored on any external servers.</p>
@@ -364,6 +470,30 @@
 
   const webviewWrapper = document.getElementById('webviewWrapper');
   const docIframe = document.getElementById('docIframe');
+
+  // Navigation & Modal Elements
+  const navHomeBtn = document.getElementById('navHomeBtn');
+  const navHelpBtn = document.getElementById('navHelpBtn');
+  const navAboutBtn = document.getElementById('navAboutBtn');
+  const helpModal = document.getElementById('helpModal');
+  const aboutModal = document.getElementById('aboutModal');
+  const closeHelpBtn = document.getElementById('closeHelpBtn');
+  const closeAboutBtn = document.getElementById('closeAboutBtn');
+
+  navHomeBtn.addEventListener('click', () => {
+    tabUpload.click();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  navHelpBtn.addEventListener('click', () => helpModal.classList.add('active'));
+  navAboutBtn.addEventListener('click', () => aboutModal.classList.add('active'));
+  closeHelpBtn.addEventListener('click', () => helpModal.classList.remove('active'));
+  closeAboutBtn.addEventListener('click', () => aboutModal.classList.remove('active'));
+
+  window.addEventListener('click', (e) => {
+    if (e.target === helpModal) helpModal.classList.remove('active');
+    if (e.target === aboutModal) aboutModal.classList.remove('active');
+  });
 
   let loadedImage = null;
   let loadedPdf = null;
