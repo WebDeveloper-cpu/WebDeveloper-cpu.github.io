@@ -7,6 +7,25 @@
   <title>Universal Document, Image & PDF Converter</title>
   <meta name="description" content="Convert images, Word DOCX, PDFs, and Google Docs directly in your app. Fast, free, and secure client-side file conversion tool." />
 
+  <!-- Security: Content Security Policy (CSP) to satisfy store security audits -->
+  <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self' data: blob: https://cdnjs.cloudflare.com https://docs.google.com; 
+                 style-src 'self' 'unsafe-inline'; 
+                 script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; 
+                 img-src 'self' data: blob: https:; 
+                 frame-src https://docs.google.com; 
+                 connect-src 'self' https://cdnjs.cloudflare.com https://docs.google.com;">
+
+  <!-- Global Error Handler for Missing External Scripts -->
+  <script>
+    window.addEventListener('error', function(e) {
+      if (e.target.tagName === 'SCRIPT') {
+        console.error('Failed to load dependency:', e.target.src);
+        alert('Notice: A required resource failed to load. Please check your internet connection.');
+      }
+    }, true);
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
   
@@ -19,6 +38,8 @@
       --text: #1e293b;
       --text-muted: #64748b;
       --border: #e2e8f0;
+      --accent-gold: #d97706;
+      --accent-gold-bg: #fffbe0;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
@@ -79,8 +100,59 @@
     .gdoc-input-group { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
     .gdoc-input-group input { flex: 1; padding: 0.6rem; border: 1px solid var(--border); border-radius: 6px; }
 
+    /* Policy-Compliant Sponsor Card Styling */
+    .sponsor-card {
+      background: var(--accent-gold-bg);
+      border: 1px solid #fef3c7;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .sponsor-info h3 {
+      font-size: 0.95rem;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .sponsor-info p {
+      font-size: 0.85rem;
+      color: #92400e;
+      margin-top: 0.2rem;
+    }
+    .sponsor-badge {
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .sponsor-btn {
+      background: #f59e0b;
+      color: white;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .sponsor-btn:hover { background: #d97706; }
+
     .app-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
-    @media (max-width: 768px) { .app-body { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { 
+      .app-body { grid-template-columns: 1fr; } 
+      .sponsor-card { flex-direction: column; text-align: center; }
+      .sponsor-btn { width: 100%; text-align: center; }
+    }
 
     .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
     .card h2 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text); }
@@ -142,6 +214,14 @@
       font-weight: 600;
     }
     .gdoc-link-btn:hover { background: #c7d2fe; }
+
+    footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -151,6 +231,15 @@
     <h1>Universal File & Document Converter</h1>
     <p>Convert images, Word documents, PDFs, and Google Docs locally on your device.</p>
   </header>
+
+  <!-- Explicit, Policy-Compliant Monetization Placement -->
+  <div class="sponsor-card">
+    <div class="sponsor-info">
+      <h3><span class="sponsor-badge">AD</span> Special Partner Offer</h3>
+      <p>Discover recommended tools and offers from our supporters.</p>
+    </div>
+    <a href="https://omg10.com/4/9797691" target="_blank" rel="noopener noreferrer" class="sponsor-btn">View Special Offer</a>
+  </div>
 
   <div class="tabs" role="tablist">
     <button class="tab-btn active" id="tabUpload" role="tab">Upload File (Image/PDF/Docx)</button>
@@ -233,10 +322,23 @@
       <button class="btn" id="downloadBtn" disabled>Convert & Save</button>
     </div>
   </section>
+
+  <!-- Legal & Privacy Disclaimer for Store Compliance -->
+  <footer>
+    <p><strong>Privacy Notice:</strong> All local file conversions occur securely inside your browser session. Files are never uploaded or stored on any external servers.</p>
+    <p style="margin-top:0.3rem;">Google Docs is a trademark of Google LLC. This tool is an independent utility and is not affiliated with Google.</p>
+  </footer>
 </main>
 
 <script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  // Network Availability Detection
+  window.addEventListener('offline', () => {
+    alert('Notice: You are offline. Local file conversion is available, but online web features require a connection.');
+  });
+
+  if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
 
   const dropZone = document.getElementById('dropZone');
   const fileInput = document.getElementById('fileInput');
@@ -339,6 +441,10 @@
   }
 
   function processDOCX(file) {
+    if (typeof mammoth === 'undefined') {
+      alert('DOCX processing library unavailable.');
+      return;
+    }
     const reader = new FileReader();
     reader.onload = function(e) {
       mammoth.convertToHtml({ arrayBuffer: e.target.result })
@@ -390,15 +496,23 @@
   }
 
   function processPDF(file) {
+    if (typeof pdfjsLib === 'undefined') {
+      alert('PDF processing library unavailable.');
+      return;
+    }
     const reader = new FileReader();
     reader.onload = async function() {
-      const typedarray = new Uint8Array(this.result);
-      loadedPdf = await pdfjsLib.getDocument(typedarray).promise;
-      pdfTotalPages = loadedPdf.numPages;
-      pdfCurrentPage = 1;
-      
-      pdfControls.classList.add('active');
-      renderPdfPage(pdfCurrentPage);
+      try {
+        const typedarray = new Uint8Array(this.result);
+        loadedPdf = await pdfjsLib.getDocument(typedarray).promise;
+        pdfTotalPages = loadedPdf.numPages;
+        pdfCurrentPage = 1;
+        
+        pdfControls.classList.add('active');
+        renderPdfPage(pdfCurrentPage);
+      } catch(err) {
+        alert('Failed to parse PDF document.');
+      }
     };
     reader.readAsArrayBuffer(file);
   }
@@ -476,9 +590,6 @@
   }
 
   downloadBtn.addEventListener('click', () => {
-    // Monetization: Open Smartlink in new tab
-    window.open('https://omg10.com/4/9797691', '_blank');
-
     const targetFormat = formatSelect.value;
     const quality = parseFloat(qualityInput.value) / 100;
     
