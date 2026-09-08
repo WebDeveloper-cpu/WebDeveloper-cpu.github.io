@@ -127,7 +127,7 @@
     .gdoc-input-group { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
     .gdoc-input-group input { flex: 1; padding: 0.6rem; border: 1px solid var(--border); border-radius: 6px; }
 
-    /* Policy-Compliant Sponsor Card Styling */
+    /* Policy-Compliant Sponsor Card Styling with Smooth Transitions */
     .sponsor-card {
       background: var(--accent-gold-bg);
       border: 1px solid #fef3c7;
@@ -138,6 +138,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      transition: opacity 0.4s ease-in-out;
     }
     .sponsor-info h3 {
       font-size: 0.95rem;
@@ -299,13 +300,13 @@
     <p>Convert images, Word documents, PDFs, and Google Docs locally on your device.</p>
   </header>
 
-  <!-- Explicit, Policy-Compliant Monetization Placement -->
-  <div class="sponsor-card">
+  <!-- Dynamic Rotating Affiliate Sponsor Card -->
+  <div class="sponsor-card" id="sponsorCard">
     <div class="sponsor-info">
-      <h3><span class="sponsor-badge">AD</span> Special Partner Offer</h3>
-      <p>Discover recommended tools and offers from our supporters.</p>
+      <h3 id="sponsorTitle"><span class="sponsor-badge">AD</span> Monetag Ad Network</h3>
+      <p id="sponsorDesc">Monetize your website traffic with high-paying smart links and ad formats.</p>
     </div>
-    <a href="https://omg10.com/4/9797691" target="_blank" rel="noopener noreferrer" class="sponsor-btn">View Special Offer</a>
+    <a href="https://monetag.com/?ref_id=zUg8" target="_blank" rel="noopener noreferrer" class="sponsor-btn" id="sponsorBtn">Start Earning</a>
   </div>
 
   <div class="tabs" role="tablist">
@@ -437,6 +438,73 @@
 </main>
 
 <script>
+  // Dynamic Rotating Sponsor Banners configuration
+  const sponsors = [
+    {
+      title: "Monetag Ad Network",
+      desc: "Monetize your website traffic with high-paying smart links and ad formats.",
+      url: "https://monetag.com/?ref_id=zUg8",
+      btnText: "Start Earning"
+    },
+    {
+      title: "HOSTAFRICA Web Hosting",
+      desc: "Fast, reliable VPS and web hosting services for developers and creators.",
+      url: "https://panel.hostafrica.com/?aff=3440",
+      btnText: "Explore Hosting"
+    },
+    {
+      title: "Deriv Trading Platform",
+      desc: "Trade forex, commodities, and synthetic indices on a secure platform.",
+      url: "https://t.deriv.link?t=9LES59QKZERG",
+      btnText: "Start Trading"
+    },
+    {
+      title: "Cleva USD Account",
+      desc: "Receive international USD payments easily and securely from anywhere.",
+      url: "https://app.getcleva.com/refer/CHUK6191",
+      btnText: "Get Cleva Account"
+    },
+    {
+      title: "GoTech Africa",
+      desc: "Discover essential tech tools, resources, and digital opportunities.",
+      url: "https://app.gotechafrica.com/go-invite?mref=7936",
+      btnText: "Discover More"
+    },
+    {
+      title: "Special Partner Offer",
+      desc: "Discover recommended tools and exclusive offers from our network.",
+      url: "https://omg10.com/4/9312448",
+      btnText: "View Offer"
+    }
+  ];
+
+  let currentSponsorIndex = 0;
+  const sponsorCard = document.getElementById('sponsorCard');
+  const sponsorTitle = document.getElementById('sponsorTitle');
+  const sponsorDesc = document.getElementById('sponsorDesc');
+  const sponsorBtn = document.getElementById('sponsorBtn');
+
+  function rotateSponsor() {
+    // Fade out
+    sponsorCard.style.opacity = '0';
+    
+    setTimeout(() => {
+      currentSponsorIndex = (currentSponsorIndex + 1) % sponsors.length;
+      const s = sponsors[currentSponsorIndex];
+      
+      sponsorTitle.innerHTML = `<span class="sponsor-badge">AD</span> ${s.title}`;
+      sponsorDesc.textContent = s.desc;
+      sponsorBtn.href = s.url;
+      sponsorBtn.textContent = s.btnText;
+      
+      // Fade in
+      sponsorCard.style.opacity = '1';
+    }, 400);
+  }
+
+  // Rotate every 15 seconds
+  setInterval(rotateSponsor, 15000);
+
   // Network Availability Detection
   window.addEventListener('offline', () => {
     alert('Notice: You are offline. Local file conversion is available, but online web features require a connection.');
