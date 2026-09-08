@@ -59,7 +59,7 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     .app-brand { font-size: 1rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
-    .nav-actions { display: flex; gap: 0.5rem; }
+    .nav-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
     .nav-btn {
       background: transparent;
       border: 1px solid var(--border);
@@ -72,6 +72,17 @@
       transition: all 0.2s;
     }
     .nav-btn:hover { background: var(--bg); border-color: var(--primary); color: var(--primary); }
+    
+    /* Highlighted Share Button */
+    #navShareBtn {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    #navShareBtn:hover {
+      background: var(--primary-hover);
+      color: white;
+    }
 
     header { text-align: center; margin-bottom: 1.5rem; }
     header h1 { font-size: 1.8rem; color: var(--text); margin-bottom: 0.5rem; }
@@ -290,6 +301,7 @@
     </div>
     <div class="nav-actions">
       <button class="nav-btn" id="navHomeBtn">Home</button>
+      <button class="nav-btn" id="navShareBtn">Share App</button>
       <button class="nav-btn" id="navHelpBtn">Help</button>
       <button class="nav-btn" id="navAboutBtn">About</button>
     </div>
@@ -541,12 +553,36 @@
 
   // Navigation & Modal Elements
   const navHomeBtn = document.getElementById('navHomeBtn');
+  const navShareBtn = document.getElementById('navShareBtn');
   const navHelpBtn = document.getElementById('navHelpBtn');
   const navAboutBtn = document.getElementById('navAboutBtn');
   const helpModal = document.getElementById('helpModal');
   const aboutModal = document.getElementById('aboutModal');
   const closeHelpBtn = document.getElementById('closeHelpBtn');
   const closeAboutBtn = document.getElementById('closeAboutBtn');
+
+  // Share App Handler
+  const shareUrl = 'https://apkpure.com/universal-file-converter/com.fcapp.id1788566960968';
+
+  navShareBtn.addEventListener('click', async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Universal File & Document Converter',
+          text: 'Check out this fast, secure client-side file and document converter app!',
+          url: shareUrl
+        });
+      } catch (err) {
+        console.log('Share canceled or failed:', err);
+      }
+    } else {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        alert('App share link copied to clipboard!');
+      }).catch(() => {
+        alert('Share Link: ' + shareUrl);
+      });
+    }
+  });
 
   navHomeBtn.addEventListener('click', () => {
     tabUpload.click();
