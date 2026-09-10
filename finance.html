@@ -2,8 +2,14 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Currency Hub">
+
   <title>Currency Exchange Hub</title>
+
   <style>
     :root {
       --bg-color: #f4f6f9;
@@ -13,8 +19,6 @@
       --input-bg: #f8fafc;
       --input-border: #e2e8f0;
       --header-bg: #0f172a;
-      --action-bar-bg: #1e293b;
-      --action-bar-border: #334155;
       --tab-active: #38bdf8;
       --btn-bg: #0284c7;
       --btn-active: #0369a1;
@@ -24,6 +28,7 @@
       --result-val: #0c4a6e;
       --bottom-bar-bg: #ffffff;
       --bottom-bar-border: #e2e8f0;
+      --danger: #dc2626;
     }
 
     [data-theme="dark"] {
@@ -34,8 +39,6 @@
       --input-bg: #334155;
       --input-border: #475569;
       --header-bg: #020617;
-      --action-bar-bg: #0f172a;
-      --action-bar-border: #1e293b;
       --tab-active: #38bdf8;
       --btn-bg: #0284c7;
       --btn-active: #0369a1;
@@ -52,201 +55,250 @@
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      user-select: none;
-      -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
 
+    html {
+      background: var(--bg-color);
+    }
+
     body {
-      background-color: var(--bg-color);
+      background: var(--bg-color);
       color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 76px;
     }
 
-    /* Fixed Top Navigation Bar */
-    .header-wrapper {
-      position: fixed;
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 100;
+      background: var(--header-bg);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
     }
 
-    .app-header {
-      height: 50px;
-      background: var(--header-bg);
-      color: #ffffff;
-      padding: 0 16px;
+    .header-main {
+      min-height: 56px;
+      padding: env(safe-area-inset-top) 16px 0 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
 
     .app-title {
       font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      letter-spacing: 0.3px;
+      line-height: 1.3;
     }
 
-    .home-link-btn {
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid var(--tab-active);
-      color: #ffffff;
-      padding: 4px 10px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 600;
+    .header-actions {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 8px;
+      flex-shrink: 0;
     }
 
-    .header-action-bar {
-      height: 50px;
-      background: var(--action-bar-bg);
-      border-top: 1px solid var(--action-bar-border);
-      padding: 0 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .action-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .action-btn-item {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      padding: 6px 10px;
+    .header-btn {
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
       border-radius: 20px;
+      padding: 7px 11px;
+      cursor: pointer;
       font-size: 0.8rem;
       font-weight: 600;
-      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .header-btn:active {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Main */
+    main {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .info-banner {
+      background: var(--card-bg);
+      border-left: 4px solid var(--tab-active);
+      border-radius: 10px;
+      padding: 13px 15px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--label-color);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .info-banner strong {
+      color: var(--text-color);
+    }
+
+    /* Offline banner */
+    .offline-banner {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    [data-theme="dark"] .offline-banner {
+      background: #450a0a;
+      border-color: #7f1d1d;
+      color: #fecaca;
+    }
+
+    .offline-banner.visible {
+      display: block;
+    }
+
+    /* Sponsored Ad Banner */
+    .ad-container {
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .ad-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--label-color);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 4px;
-      transition: background 0.2s, transform 0.1s;
+      gap: 6px;
     }
 
-    .action-btn-item:active {
-      background: rgba(255, 255, 255, 0.22);
-      transform: scale(0.97);
+    .ad-banner {
+      display: block;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      border-radius: 12px;
+      padding: 16px 18px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+      position: relative;
     }
 
-    /* Embedded Content Viewport */
-    .content-viewport {
+    .ad-banner:active {
+      transform: scale(0.985);
+    }
+
+    .ad-banner::after {
+      content: "→";
       position: absolute;
-      top: 100px;
-      bottom: 56px;
-      left: 0;
-      right: 0;
-      width: 100%;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      opacity: 0.7;
     }
 
-    #app-frame {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: none;
-      background: #ffffff;
+    .ad-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      padding-right: 30px;
     }
 
+    .ad-desc {
+      font-size: 0.82rem;
+      opacity: 0.9;
+      line-height: 1.4;
+      padding-right: 30px;
+    }
+
+    .ad-cta {
+      display: inline-block;
+      margin-top: 10px;
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    .ad-banner.ad-1 { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+    .ad-banner.ad-2 { background: linear-gradient(135deg, #ea580c, #c2410c); }
+    .ad-banner.ad-3 { background: linear-gradient(135deg, #059669, #047857); }
+    .ad-banner.ad-4 { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .ad-banner.ad-5 { background: linear-gradient(135deg, #db2777, #be185d); }
+    .ad-banner.ad-6 { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+
+    /* Tabs */
     .tab-content {
       display: none;
-      padding: 16px;
     }
 
     .tab-content.active {
       display: block;
     }
 
-    /* Info & Search Description Banner */
-    .info-banner {
-      background: var(--card-bg);
-      border-left: 4px solid var(--tab-active);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      font-size: 0.85rem;
-      color: var(--label-color);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    /* Install App Banner */
-    .install-instructions {
-      background: var(--card-bg);
-      border: 1px solid var(--tab-active);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .install-instructions h3 {
-      color: var(--tab-active);
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-    }
-
-    .install-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      font-size: 0.8rem;
-      color: var(--label-color);
-    }
-
-    .install-step strong {
-      color: var(--text-color);
-    }
-
     .card {
       background: var(--card-bg);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
 
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 17px;
     }
 
     label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--label-color);
-      margin-bottom: 6px;
+      margin-bottom: 7px;
       text-transform: uppercase;
+      letter-spacing: 0.2px;
     }
 
     input, select {
       width: 100%;
-      padding: 12px;
+      min-height: 48px;
+      padding: 11px 12px;
       border: 1.5px solid var(--input-border);
-      border-radius: 8px;
-      font-size: 1rem;
+      border-radius: 9px;
       outline: none;
       background: var(--input-bg);
       color: var(--text-color);
-      user-select: auto;
-      -webkit-user-select: auto;
+      font-size: 1rem;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--tab-active);
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
     }
 
     .grid-2 {
@@ -257,96 +309,56 @@
 
     .btn {
       width: 100%;
-      padding: 14px;
+      min-height: 50px;
+      padding: 13px 16px;
       background: var(--btn-bg);
-      color: #ffffff;
+      color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 9px;
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
     }
 
-    /* Universal Section Referral Box Styling */
-    .referral-box {
-      margin-top: 16px;
-      padding: 14px;
-      border-radius: 10px;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px dashed var(--tab-active);
-      text-align: center;
+    .btn:active {
+      background: var(--btn-active);
+      transform: scale(0.985);
     }
 
-    .referral-box.cleva-box {
-      background: rgba(99, 102, 241, 0.08);
-      border-color: #6366f1;
+    .btn.secondary {
+      margin-top: 10px;
+      background: transparent;
+      color: var(--btn-bg);
+      border: 1px solid var(--btn-bg);
     }
 
-    .referral-box.deriv-box {
-      background: rgba(239, 68, 68, 0.08);
-      border-color: #ef4444;
+    .btn.secondary:active {
+      background: rgba(2,132,199,0.08);
     }
 
-    .referral-box.hosting-box {
-      background: rgba(16, 185, 129, 0.08);
-      border-color: #10b981;
-    }
-
-    .referral-prompt {
-      font-size: 0.83rem;
-      color: var(--label-color);
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
-
-    .affiliate-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 16px;
-      background: #0284c7;
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 700;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .affiliate-btn.cleva-btn {
-      background: #4f46e5;
-    }
-
-    .affiliate-btn.deriv-btn {
-      background: #dc2626;
-    }
-
-    .affiliate-btn.hosting-btn {
-      background: #059669;
-    }
-
+    /* Result */
     .result-box {
       margin-top: 20px;
       background: var(--result-bg);
       border: 1px solid var(--result-border);
-      border-radius: 8px;
-      padding: 16px;
+      border-radius: 10px;
+      padding: 18px 14px;
       text-align: center;
     }
 
     .result-box .label {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--result-label);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .result-box .value {
-      font-size: 1.5rem;
+      font-size: 1.55rem;
       color: var(--result-val);
       font-weight: 800;
-      margin-top: 4px;
+      margin-top: 5px;
+      overflow-wrap: anywhere;
     }
 
     .status-text {
@@ -354,613 +366,877 @@
       color: var(--label-color);
       text-align: center;
       margin-top: 10px;
+      line-height: 1.4;
     }
 
-    /* Fixed Bottom Navigation Container */
-    .bottom-fixed-wrapper {
+    .error-text {
+      color: var(--danger);
+    }
+
+    /* Bottom navigation */
+    .bottom-bar {
       position: fixed;
-      bottom: 0;
+      z-index: 100;
       left: 0;
       right: 0;
-      display: flex;
-      flex-direction: column;
-      z-index: 1000;
-      background-color: var(--bottom-bar-bg);
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    }
-
-    .app-bottom-bar {
-      height: 56px;
-      background-color: var(--bottom-bar-bg);
+      bottom: 0;
+      min-height: 60px;
+      padding-bottom: env(safe-area-inset-bottom);
+      background: var(--bottom-bar-bg);
       border-top: 1px solid var(--bottom-bar-border);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
       display: flex;
       justify-content: space-around;
-      align-items: center;
+      align-items: stretch;
     }
 
     .nav-item {
+      flex: 1;
+      min-height: 60px;
+      border: none;
+      background: transparent;
+      color: var(--label-color);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: var(--label-color);
-      text-decoration: none;
-      font-size: 0.75rem;
-      background: none;
-      border: none;
-      width: 33.33%;
-      height: 100%;
       cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 600;
     }
 
     .nav-item.active {
       color: var(--tab-active);
-      font-weight: 700;
     }
 
     .nav-icon {
-      font-size: 1.1rem;
-      margin-bottom: 2px;
+      font-size: 1.15rem;
+      margin-bottom: 3px;
+    }
+
+    .loading {
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    /* ===== Modal Styles ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.visible {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--card-bg);
+      color: var(--text-color);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 440px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      animation: modalIn 0.22s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px 12px;
+      border-bottom: 1px solid var(--input-border);
+    }
+
+    .modal-header h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--label-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    .modal-close:active {
+      background: var(--input-bg);
+    }
+
+    .modal-body {
+      padding: 18px 20px 24px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--label-color);
+    }
+
+    .modal-body h3 {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 16px 0 6px;
+    }
+
+    .modal-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .modal-body p {
+      margin-bottom: 10px;
+    }
+
+    .modal-body ul {
+      padding-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    .modal-body li {
+      margin-bottom: 6px;
+    }
+
+    .modal-body strong {
+      color: var(--text-color);
+    }
+
+    @media (max-width: 430px) {
+      main { padding: 12px; }
+      .card { padding: 16px; }
+      .grid-2 { gap: 8px; }
+      input, select { font-size: 0.95rem; }
+      .header-btn { padding: 6px 9px; font-size: 0.75rem; }
+    }
+
+    @media (min-width: 700px) {
+      .header-main {
+        max-width: 760px;
+        margin: 0 auto;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <div class="header-wrapper">
-    <header class="app-header">
-      <div class="app-title" id="app-title-text">Calculate Currency Exchange</div>
-      <a href="index.html" class="home-link-btn">🏠 Home</a>
-    </header>
+  <header class="header">
+    <div class="header-main">
+      <div class="app-title" id="app-title">Calculate Currency Exchange</div>
 
-    <div class="header-action-bar">
-      <div class="action-group">
-        <button class="action-btn-item" onclick="goBack()">
-          <span>◀</span> <span>Back</span>
-        </button>
-        <button class="action-btn-item" onclick="goForward()">
-          <span>Forward</span> <span>▶</span>
+      <div class="header-actions">
+        <button type="button" class="header-btn" onclick="openModal('help-modal')">Help</button>
+        <button type="button" class="header-btn" onclick="openModal('about-modal')">About</button>
+        <button type="button" class="header-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark mode">
+          🌙 Dark
         </button>
       </div>
+    </div>
+  </header>
 
-      <div class="action-group">
-        <button class="action-btn-item" onclick="shareApp()">
-          <span>🔗</span> <span>Share</span>
-        </button>
-        <button class="action-btn-item" onclick="reloadFrame()">
-          <span>🔄</span>
-        </button>
-        <button class="action-btn-item" onclick="toggleTheme()">
-          <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
-        </button>
+  <main>
+
+    <div class="info-banner">
+      <strong>Currency Exchange Hub</strong><br>
+      Convert currencies using live exchange-rate data, estimate investment growth, and calculate loan payments.
+    </div>
+
+    <!-- Offline indicator -->
+    <div id="offline-banner" class="offline-banner">
+      📡 You are offline. Live currency rates require internet. Investment & Loan calculators still work.
+    </div>
+
+    <!-- Sponsored Ads -->
+    <div class="ad-container">
+      <div class="ad-label">Sponsored</div>
+      <a id="rotating-ad" class="ad-banner ad-1" href="https://monetag.com/?ref_id=zUg8" target="_blank" rel="noopener noreferrer sponsored">
+        <div class="ad-title">Turn Your Traffic Into Cash 💰</div>
+        <div class="ad-desc">Monetag pays weekly from just $5. Clean ads, high CPMs, zero minimum traffic required.</div>
+        <span class="ad-cta">Start Earning Now</span>
+      </a>
+    </div>
+
+    <!-- Currency Tab -->
+    <section id="currency" class="tab-content active">
+      <div class="card">
+        <div class="form-group">
+          <label for="cur-amount">Amount</label>
+          <input type="text" inputmode="decimal" id="cur-amount" value="1" placeholder="Enter amount" autocomplete="off" oninput="formatInput(this); saveInputs();">
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="cur-from">From</label>
+            <select id="cur-from" onchange="saveInputs()">
+              <optgroup label="Major African Currencies">
+                <option value="NGN">Nigeria - Naira (₦)</option>
+                <option value="ZAR">South Africa - Rand (R)</option>
+                <option value="EGP">Egypt - Pound (EGP)</option>
+                <option value="KES">Kenya - Shilling (KSh)</option>
+                <option value="GHS">Ghana - Cedi (₵)</option>
+                <option value="XOF">West Africa - CFA Franc (XOF)</option>
+                <option value="XAF">Central Africa - CFA Franc (XAF)</option>
+                <option value="MAD">Morocco - Dirham (MAD)</option>
+                <option value="DZD">Algeria - Dinar (DZD)</option>
+                <option value="TND">Tunisia - Dinar (TND)</option>
+                <option value="ETB">Ethiopia - Birr (ETB)</option>
+                <option value="TZS">Tanzania - Shilling (TZS)</option>
+                <option value="UGX">Uganda - Shilling (UGX)</option>
+                <option value="RWF">Rwanda - Franc (RWF)</option>
+                <option value="ZMW">Zambia - Kwacha (ZMW)</option>
+                <option value="BWP">Botswana - Pula (BWP)</option>
+                <option value="AOA">Angola - Kwanza (AOA)</option>
+                <option value="MUR">Mauritius - Rupee (MUR)</option>
+              </optgroup>
+              <optgroup label="Global Fiat">
+                <option value="USD" selected>USD - US Dollar ($)</option>
+                <option value="EUR">EUR - Euro (€)</option>
+                <option value="GBP">GBP - British Pound (£)</option>
+                <option value="CAD">CAD - Canadian Dollar ($)</option>
+                <option value="AED">AED - UAE Dirham (AED)</option>
+                <option value="CNY">CNY - Chinese Yuan (¥)</option>
+              </optgroup>
+              <optgroup label="Crypto">
+                <option value="BTC">Bitcoin (BTC)</option>
+                <option value="USDT">Tether (USDT)</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cur-to">To</label>
+            <select id="cur-to" onchange="saveInputs()">
+              <optgroup label="Major African Currencies">
+                <option value="NGN" selected>Nigeria - Naira (₦)</option>
+                <option value="ZAR">South Africa - Rand (R)</option>
+                <option value="EGP">Egypt - Pound (EGP)</option>
+                <option value="KES">Kenya - Shilling (KSh)</option>
+                <option value="GHS">Ghana - Cedi (₵)</option>
+                <option value="XOF">West Africa - CFA Franc (XOF)</option>
+                <option value="XAF">Central Africa - CFA Franc (XAF)</option>
+                <option value="MAD">Morocco - Dirham (MAD)</option>
+                <option value="DZD">Algeria - Dinar (DZD)</option>
+                <option value="TND">Tunisia - Dinar (TND)</option>
+                <option value="ETB">Ethiopia - Birr (ETB)</option>
+                <option value="TZS">Tanzania - Shilling (TZS)</option>
+                <option value="UGX">Uganda - Shilling (UGX)</option>
+                <option value="RWF">Rwanda - Franc (RWF)</option>
+                <option value="ZMW">Zambia - Kwacha (ZMW)</option>
+                <option value="BWP">Botswana - Pula (BWP)</option>
+                <option value="AOA">Angola - Kwanza (AOA)</option>
+                <option value="MUR">Mauritius - Rupee (MUR)</option>
+              </optgroup>
+              <optgroup label="Global Fiat">
+                <option value="USD">USD - US Dollar ($)</option>
+                <option value="EUR">EUR - Euro (€)</option>
+                <option value="GBP">GBP - British Pound (£)</option>
+                <option value="CAD">CAD - Canadian Dollar ($)</option>
+                <option value="AED">AED - UAE Dirham (AED)</option>
+                <option value="CNY">CNY - Chinese Yuan (¥)</option>
+              </optgroup>
+              <optgroup label="Crypto">
+                <option value="BTC">Bitcoin (BTC)</option>
+                <option value="USDT">Tether (USDT)</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" class="btn" id="currency-btn" onclick="convertCurrency()">Convert Live</button>
+        <button type="button" class="btn secondary" onclick="swapCurrencies()">⇄ Swap Currencies</button>
+
+        <div class="result-box">
+          <div class="label">Converted Amount</div>
+          <div class="value" id="cur-result">0.00</div>
+        </div>
+        <div class="status-text" id="rate-status">Enter an amount and tap Convert Live.</div>
+      </div>
+    </section>
+
+    <!-- Investment Tab -->
+    <section id="investment" class="tab-content">
+      <div class="card">
+        <div class="form-group">
+          <label for="inv-principal">Starting Principal</label>
+          <input type="text" inputmode="decimal" id="inv-principal" value="1,000" autocomplete="off" oninput="formatInput(this); saveInputs();">
+        </div>
+        <div class="form-group">
+          <label for="inv-rate">Annual Return Rate (%)</label>
+          <input type="text" inputmode="decimal" id="inv-rate" value="10" autocomplete="off" oninput="formatInput(this); saveInputs();">
+        </div>
+        <div class="form-group">
+          <label for="inv-years">Time Period (Years)</label>
+          <input type="text" inputmode="decimal" id="inv-years" value="5" autocomplete="off" oninput="formatInput(this); saveInputs();">
+        </div>
+        <button type="button" class="btn" onclick="calculateInvestment()">Calculate Future Value</button>
+        <div class="result-box">
+          <div class="label">Total Estimated Value</div>
+          <div class="value" id="inv-result">1,610.51</div>
+        </div>
+        <div class="status-text">Calculation uses annual compound growth.</div>
+      </div>
+    </section>
+
+    <!-- Loan Tab -->
+    <section id="loan" class="tab-content">
+      <div class="card">
+        <div class="form-group">
+          <label for="loan-amount">Loan Amount</label>
+          <input type="text" inputmode="decimal" id="loan-amount" value="5,000" autocomplete="off" oninput="formatInput(this); saveInputs();">
+        </div>
+        <div class="form-group">
+          <label for="loan-rate">Annual Interest Rate (%)</label>
+          <input type="text" inputmode="decimal" id="loan-rate" value="12" autocomplete="off" oninput="formatInput(this); saveInputs();">
+        </div>
+        <div class="form-group">
+          <label for="loan-months">Loan Duration (Months)</label>
+          <input type="text" inputmode="decimal" id="loan-months" value="12" autocomplete="off" oninput="formatInput(this); saveInputs();">
+        </div>
+        <button type="button" class="btn" onclick="calculateLoan()">Calculate Monthly Payment</button>
+        <div class="result-box">
+          <div class="label">Monthly Payment (EMI)</div>
+          <div class="value" id="loan-result">444.24</div>
+        </div>
+        <div class="status-text">EMI calculation assumes a fixed monthly interest rate.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-bar" aria-label="Main navigation">
+    <button type="button" class="nav-item active" id="tab-btn-currency" onclick="switchTab('currency')">
+      <span class="nav-icon">💱</span>
+      <span>Exchange</span>
+    </button>
+    <button type="button" class="nav-item" id="tab-btn-investment" onclick="switchTab('investment')">
+      <span class="nav-icon">📈</span>
+      <span>Investment</span>
+    </button>
+    <button type="button" class="nav-item" id="tab-btn-loan" onclick="switchTab('loan')">
+      <span class="nav-icon">🏦</span>
+      <span>Loan / EMI</span>
+    </button>
+  </nav>
+
+  <!-- ===== HELP MODAL ===== -->
+  <div id="help-modal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'help-modal')">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Help & Guide</h2>
+        <button class="modal-close" onclick="closeModal('help-modal')" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <h3>💱 Currency Exchange</h3>
+        <p>Convert between African currencies, major world currencies, Bitcoin and USDT using live rates.</p>
+        <ul>
+          <li>Enter the amount you want to convert</li>
+          <li>Select the <strong>From</strong> and <strong>To</strong> currencies</li>
+          <li>Tap <strong>Convert Live</strong> to get the latest rate</li>
+          <li>Use the <strong>Swap</strong> button to quickly reverse currencies</li>
+        </ul>
+
+        <h3>📈 Investment Calculator</h3>
+        <p>Estimate how much your money can grow with compound interest.</p>
+        <ul>
+          <li>Enter your starting principal</li>
+          <li>Enter the expected annual return rate (%)</li>
+          <li>Enter the number of years</li>
+          <li>Tap <strong>Calculate Future Value</strong></li>
+        </ul>
+
+        <h3>🏦 Loan / EMI Calculator</h3>
+        <p>Calculate your monthly loan repayment (EMI).</p>
+        <ul>
+          <li>Enter the loan amount</li>
+          <li>Enter the annual interest rate (%)</li>
+          <li>Enter the loan duration in months</li>
+          <li>Tap <strong>Calculate Monthly Payment</strong></li>
+        </ul>
+
+        <h3>📡 Offline Mode</h3>
+        <p>If you lose internet connection, a banner will appear. Live currency rates require internet, but the <strong>Investment</strong> and <strong>Loan</strong> calculators continue to work offline.</p>
+
+        <h3>🌙 Dark Mode</h3>
+        <p>Tap the Dark / Light button in the top right to switch themes. Your preference is saved automatically.</p>
       </div>
     </div>
   </div>
 
-  <div class="content-viewport">
-    <iframe id="app-frame" name="app-frame"></iframe>
-
-    <div id="native-workspace">
-      <div style="padding: 16px 16px 0 16px;">
-        <div class="info-banner">
-          Search for <strong>"webdeveloper-cpu"</strong> in Bing, Yahoo, DuckDuckGo, Ecosia, and Qwant search engines. Access original web apps, utilities, and tools directly in your browser.
-        </div>
-
-        <div class="install-instructions">
-          <h3>📱 How to Add This Web Page as an App to Your Screen</h3>
-          <div class="install-grid">
-            <div class="install-step">
-              <strong>Opera Mini:</strong><br>
-              1. Tap the <strong>Opera Icon (O)</strong> or bottom menu.<br>
-              2. Select <strong>"Add to Home screen"</strong> or tap the <strong>+</strong> icon.
-            </div>
-            <div class="install-step">
-              <strong>Android (Chrome / Edge):</strong><br>
-              1. Tap the top menu icon (⋮).<br>
-              2. Tap <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.
-            </div>
-            <div class="install-step">
-              <strong>iPhone / iPad (Safari):</strong><br>
-              1. Tap the <strong>Share</strong> icon (Square with arrow up).<br>
-              2. Choose <strong>"Add to Home Screen"</strong>.
-            </div>
-          </div>
-        </div>
+  <!-- ===== ABOUT MODAL ===== -->
+  <div id="about-modal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'about-modal')">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>About</h2>
+        <button class="modal-close" onclick="closeModal('about-modal')" aria-label="Close">×</button>
       </div>
+      <div class="modal-body">
+        <h3>Currency Exchange Hub</h3>
+        <p>A simple, fast and free tool designed especially for African users to convert currencies, plan investments and calculate loan payments.</p>
 
-      <div id="currency" class="tab-content active">
-        <div class="card">
-          <div class="form-group">
-            <label>Amount</label>
-            <input type="text" inputmode="decimal" id="cur-amount" value="1" placeholder="Enter amount" oninput="formatInput(this); saveInputs();">
-          </div>
+        <h3>Features</h3>
+        <ul>
+          <li>Live currency conversion (fiat + crypto)</li>
+          <li>Support for major African currencies</li>
+          <li>Investment growth calculator</li>
+          <li>Loan / EMI calculator</li>
+          <li>Dark mode</li>
+          <li>Works offline (except live rates)</li>
+          <li>No account required</li>
+        </ul>
 
-          <div class="grid-2">
-            <div class="form-group">
-              <label>From</label>
-              <select id="cur-from" onchange="saveInputs();">
-                <optgroup label="Major African Currencies">
-                  <option value="NGN">Nigeria - Naira (₦)</option>
-                  <option value="ZAR">South Africa - Rand (R)</option>
-                  <option value="EGP">Egypt - Pound (EGP)</option>
-                  <option value="KES">Kenya - Shilling (KSh)</option>
-                  <option value="GHS">Ghana - Cedi (₵)</option>
-                  <option value="XOF">West Africa - CFA Franc (XOF)</option>
-                  <option value="XAF">Central Africa - CFA Franc (XAF)</option>
-                  <option value="MAD">Morocco - Dirham (MAD)</option>
-                  <option value="DZD">Algeria - Dinar (DZD)</option>
-                  <option value="TND">Tunisia - Dinar (TND)</option>
-                  <option value="ETB">Ethiopia - Birr (ETB)</option>
-                  <option value="TZS">Tanzania - Shilling (TZS)</option>
-                  <option value="UGX">Uganda - Shilling (UGX)</option>
-                  <option value="RWF">Rwanda - Franc (RWF)</option>
-                  <option value="ZMW">Zambia - Kwacha (ZMW)</option>
-                  <option value="BWP">Botswana - Pula (BWP)</option>
-                  <option value="AOA">Angola - Kwanza (AOA)</option>
-                  <option value="MUR">Mauritius - Rupee (MUR)</option>
-                </optgroup>
-                <optgroup label="Global Fiat">
-                  <option value="USD">USD - US Dollar ($)</option>
-                  <option value="EUR">EUR - Euro (€)</option>
-                  <option value="GBP">GBP - British Pound (£)</option>
-                  <option value="CAD">CAD - Canadian Dollar ($)</option>
-                  <option value="AED">AED - UAE Dirham (AED)</option>
-                  <option value="CNY">CNY - Chinese Yuan (¥)</option>
-                </optgroup>
-                <optgroup label="Crypto">
-                  <option value="BTC" selected>Bitcoin (BTC)</option>
-                  <option value="USDT">Tether (USDT)</option>
-                </optgroup>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>To</label>
-              <select id="cur-to" onchange="saveInputs();">
-                <optgroup label="Major African Currencies">
-                  <option value="NGN" selected>Nigeria - Naira (₦)</option>
-                  <option value="ZAR">South Africa - Rand (R)</option>
-                  <option value="EGP">Egypt - Pound (EGP)</option>
-                  <option value="KES">Kenya - Shilling (KSh)</option>
-                  <option value="GHS">Ghana - Cedi (₵)</option>
-                  <option value="XOF">West Africa - CFA Franc (XOF)</option>
-                  <option value="XAF">Central Africa - CFA Franc (XAF)</option>
-                  <option value="MAD">Morocco - Dirham (MAD)</option>
-                  <option value="DZD">Algeria - Dinar (DZD)</option>
-                  <option value="TND">Tunisia - Dinar (TND)</option>
-                  <option value="ETB">Ethiopia - Birr (ETB)</option>
-                  <option value="TZS">Tanzania - Shilling (TZS)</option>
-                  <option value="UGX">Uganda - Shilling (UGX)</option>
-                  <option value="RWF">Rwanda - Franc (RWF)</option>
-                  <option value="ZMW">Zambia - Kwacha (ZMW)</option>
-                  <option value="BWP">Botswana - Pula (BWP)</option>
-                  <option value="AOA">Angola - Kwanza (AOA)</option>
-                  <option value="MUR">Mauritius - Rupee (MUR)</option>
-                </optgroup>
-                <optgroup label="Global Fiat">
-                  <option value="USD">USD - US Dollar ($)</option>
-                  <option value="EUR">EUR - Euro (€)</option>
-                  <option value="GBP">GBP - British Pound (£)</option>
-                  <option value="CAD">CAD - Canadian Dollar ($)</option>
-                  <option value="AED">AED - UAE Dirham (AED)</option>
-                  <option value="CNY">CNY - Chinese Yuan (¥)</option>
-                </optgroup>
-                <optgroup label="Crypto">
-                  <option value="BTC">Bitcoin (BTC)</option>
-                  <option value="USDT">Tether (USDT)</option>
-                </optgroup>
-              </select>
-            </div>
-          </div>
+        <h3>Data Sources</h3>
+        <p>Live exchange rates are provided by:</p>
+        <ul>
+          <li><strong>ExchangeRate-API</strong> (fiat currencies)</li>
+          <li><strong>CoinGecko</strong> (cryptocurrencies)</li>
+        </ul>
 
-          <button class="btn" onclick="handleButtonClick(event, convertCurrency)">Convert Live</button>
+        <h3>Disclaimer</h3>
+        <p>This app is for informational and educational purposes only. Exchange rates and calculations should not be considered as financial advice. Always verify rates with official sources before making financial decisions.</p>
 
-          <div class="result-box">
-            <div class="label">Converted Amount</div>
-            <div class="value" id="cur-result">0.00</div>
-          </div>
-          <div class="status-text" id="rate-status">Ready</div>
-
-          <div class="referral-box cleva-box">
-            <p class="referral-prompt">💳 <strong>Receive USD Direct to Your Virtual Account:</strong> Open a free US Dollar bank account instantly with Cleva to receive international payments, freelance earnings, and swap USD to Naira at competitive real-time market rates!</p>
-            <a href="https://app.getcleva.com/refer/CHUK6191" target="_blank" class="affiliate-btn cleva-btn">
-              <span>⚡</span> <span>Open Free USD Account on Cleva</span>
-            </a>
-          </div>
-
-          <div class="referral-box deriv-box">
-            <p class="referral-prompt">📊 <strong>Trade Forex, Crypto & Synthetic Indices 24/7:</strong> Start trading online with Deriv's low spreads, instant automated deposits/withdrawals, and free demo account loaded with $10,000 virtual funds.</p>
-            <a href="https://t.deriv.link?t=9LES59QKZERG" target="_blank" class="affiliate-btn deriv-btn">
-              <span>🚀</span> <span>Claim $10,000 Free Demo on Deriv</span>
-            </a>
-          </div>
-
-          <div class="referral-box hosting-box">
-            <p class="referral-prompt">🌍 <strong>Build & Host Your Next Web App:</strong> Get fast, reliable Cloud & cPanel hosting across Africa with HOSTAFRICA. High performance, 99.9% uptime, and free SSL included.</p>
-            <a href="https://www.hostafrica.com/?aff=4410" target="_blank" class="affiliate-btn hosting-btn">
-              <span>🌐</span> <span>Get Started with HOSTAFRICA</span>
-            </a>
-          </div>
-
-          <div class="referral-box">
-            <p class="referral-prompt">💡 <strong>Monetize Your Web Traffic:</strong> Turn site visitors into daily passive income with Monetag high-CPM ads, SmartLinks, and fast payouts.</p>
-            <a href="https://monetag.com/?ref_id=zUg8" target="_blank" class="affiliate-btn">
-              <span>💰</span> <span>Join Monetag & Start Earning</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div id="investment" class="tab-content">
-        <div class="card">
-          <div class="form-group">
-            <label>Starting Principal</label>
-            <input type="text" inputmode="decimal" id="inv-principal" value="1,000" oninput="formatInput(this); saveInputs();">
-          </div>
-          <div class="form-group">
-            <label>Annual Return Rate (%)</label>
-            <input type="text" inputmode="decimal" id="inv-rate" value="10" oninput="formatInput(this); saveInputs();">
-          </div>
-          <div class="form-group">
-            <label>Time Period (Years)</label>
-            <input type="text" inputmode="decimal" id="inv-years" value="5" oninput="formatInput(this); saveInputs();">
-          </div>
-
-          <button class="btn" onclick="handleButtonClick(event, calculateInvestment)">Calculate Future Value</button>
-
-          <div class="result-box">
-            <div class="label">Total Estimated Value</div>
-            <div class="value" id="inv-result">1,610.51</div>
-          </div>
-
-          <div class="referral-box deriv-box">
-            <p class="referral-prompt">📈 <strong>Multiply Your Wealth Trading Global Markets:</strong> Trade Multipliers, Indices, and Forex on Deriv's powerful platform with risk-management protection tools built right in.</p>
-            <a href="https://t.deriv.link?t=9LES59QKZERG" target="_blank" class="affiliate-btn deriv-btn">
-              <span>📊</span> <span>Start Trading Multipliers on Deriv</span>
-            </a>
-          </div>
-
-          <div class="referral-box cleva-box">
-            <p class="referral-prompt">💵 <strong>Protect Savings Against Inflation:</strong> Save and hold foreign earnings in a US Dollar account with Cleva and convert to local currency whenever exchange rates spike.</p>
-            <a href="https://app.getcleva.com/refer/CHUK6191" target="_blank" class="affiliate-btn cleva-btn">
-              <span>🏦</span> <span>Create USD Account (Code: CHUK6191)</span>
-            </a>
-          </div>
-
-          <div class="referral-box hosting-box">
-            <p class="referral-prompt">🚀 <strong>Launch Your Online Business:</strong> Host your blogs, portfolio, or web applications on HOSTAFRICA with high-speed SSD storage and 24/7 expert support.</p>
-            <a href="https://www.hostafrica.com/?aff=4410" target="_blank" class="affiliate-btn hosting-btn">
-              <span>⚡</span> <span>Claim Hosting Offer on HOSTAFRICA</span>
-            </a>
-          </div>
-
-          <div class="referral-box">
-            <p class="referral-prompt">💡 <strong>Monetize Your Web Traffic:</strong> Turn site visitors into daily passive income with Monetag high-CPM ads, SmartLinks, and fast payouts.</p>
-            <a href="https://monetag.com/?ref_id=zUg8" target="_blank" class="affiliate-btn">
-              <span>💰</span> <span>Join Monetag & Start Earning</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div id="loan" class="tab-content">
-        <div class="card">
-          <div class="form-group">
-            <label>Loan Amount</label>
-            <input type="text" inputmode="decimal" id="loan-amount" value="5,000" oninput="formatInput(this); saveInputs();">
-          </div>
-          <div class="form-group">
-            <label>Annual Interest Rate (%)</label>
-            <input type="text" inputmode="decimal" id="loan-rate" value="12" oninput="formatInput(this); saveInputs();">
-          </div>
-          <div class="form-group">
-            <label>Loan Duration (Months)</label>
-            <input type="text" inputmode="decimal" id="loan-months" value="12" oninput="formatInput(this); saveInputs();">
-          </div>
-
-          <button class="btn" onclick="handleButtonClick(event, calculateLoan)">Calculate Monthly Payment</button>
-
-          <div class="result-box">
-            <div class="label">Monthly Payment (EMI)</div>
-            <div class="value" id="loan-result">444.24</div>
-          </div>
-
-          <div class="referral-box cleva-box">
-            <p class="referral-prompt">💳 <strong>Need Global Foreign Payment Solutions?</strong> Get virtual USD debit cards and receive international client wire transfers instantly via Cleva.</p>
-            <a href="https://app.getcleva.com/refer/CHUK6191" target="_blank" class="affiliate-btn cleva-btn">
-              <span>📲</span> <span>Sign Up Cleva (Code: CHUK6191)</span>
-            </a>
-          </div>
-
-          <div class="referral-box deriv-box">
-            <p class="referral-prompt">⚡ <strong>Earn Daily Yields in Global Financial Markets:</strong> Access automated trading bots and micro-trade contracts with initial stakes starting at just $1 on Deriv.</p>
-            <a href="https://t.deriv.link?t=9LES59QKZERG" target="_blank" class="affiliate-btn deriv-btn">
-              <span>🤖</span> <span>Explore Automated Trading on Deriv</span>
-            </a>
-          </div>
-
-          <div class="referral-box hosting-box">
-            <p class="referral-prompt">🚀 <strong>Reliable Web Hosting:</strong> Get local domain registration and top-tier cloud hosting in Africa powered by HOSTAFRICA infrastructure.</p>
-            <a href="https://www.hostafrica.com/?aff=4410" target="_blank" class="affiliate-btn hosting-btn">
-              <span>🌐</span> <span>Explore HOSTAFRICA Solutions</span>
-            </a>
-          </div>
-
-          <div class="referral-box">
-            <p class="referral-prompt">💡 <strong>Monetize Your Web Traffic:</strong> Turn site visitors into daily passive income with Monetag high-CPM ads, SmartLinks, and fast payouts.</p>
-            <a href="https://monetag.com/?ref_id=zUg8" target="_blank" class="affiliate-btn">
-              <span>💰</span> <span>Join Monetag & Start Earning</span>
-            </a>
-          </div>
-        </div>
+        <p style="margin-top: 18px; font-size: 0.8rem; opacity: 0.8;">
+          Version 1.0 · Built with ❤️ for Africa
+        </p>
       </div>
     </div>
-  </div>
-
-  <div class="bottom-fixed-wrapper">
-    <nav class="app-bottom-bar">
-      <button class="nav-item active" id="tab-btn-currency" onclick="switchTab('currency')">
-        <span class="nav-icon">💱</span>
-        <span>Exchange</span>
-      </button>
-      <button class="nav-item" id="tab-btn-investment" onclick="switchTab('investment')">
-        <span class="nav-icon">📈</span>
-        <span>Investment</span>
-      </button>
-      <button class="nav-item" id="tab-btn-loan" onclick="switchTab('loan')">
-        <span class="nav-icon">🏦</span>
-        <span>Loan / EMI</span>
-      </button>
-    </nav>
   </div>
 
   <script>
-    const iframe = document.getElementById('app-frame');
-    const nativeWorkspace = document.getElementById('native-workspace');
-    const smartlinkUrl = "https://omg10.com/4/9317445";
-
     const cryptoMapping = {
-      'BTC': 'bitcoin',
-      'USDT': 'tether'
+      BTC: "bitcoin",
+      USDT: "tether"
     };
 
-    function shareApp() {
-      const shareData = {
-        title: 'Currency Exchange Hub',
-        text: 'Check out Currency Exchange Hub for real-time currency conversion, investment planning, and loan calculation tools!',
-        url: 'https://webdeveloper-cpu.github.io/finance.html'
-      };
+    const STORAGE_KEY = "currency_exchange_hub_data";
+    const THEME_KEY = "currency_exchange_hub_theme";
 
-      if (navigator.share) {
-        navigator.share(shareData).catch(() => {});
-      } else {
-        navigator.clipboard.writeText(shareData.url).then(() => {
-          alert('Link copied to clipboard: ' + shareData.url);
-        }).catch(() => {
-          prompt('Copy this link:', shareData.url);
-        });
+    /* ===== Attractive Ads ===== */
+    const ads = [
+      {
+        url: "https://monetag.com/?ref_id=zUg8",
+        title: "Turn Your Traffic Into Cash 💰",
+        desc: "Monetag pays weekly from just $5. Clean ads, high CPMs, zero minimum traffic required.",
+        cta: "Start Earning Now",
+        className: "ad-1"
+      },
+      {
+        url: "https://omg10.com/4/9390162",
+        title: "🔥 Limited Offer – Claim Yours Fast",
+        desc: "Exclusive deal available for a short time only. Don’t miss out on this special opportunity.",
+        cta: "Claim Offer Now",
+        className: "ad-2"
+      },
+      {
+        url: "https://t.deriv.link?t=9LES59QKZERG",
+        title: "Trade 24/7 – Markets Never Sleep",
+        desc: "Forex, crypto, stocks & derived indices. Start with as little as $5 on an award-winning platform.",
+        cta: "Open Free Account",
+        className: "ad-3"
+      },
+      {
+        url: "https://panel.hostafrica.com/?aff=3440",
+        title: "Your Partner in Hosting 🌍",
+        desc: "Fast, reliable hosting built for Africa. Free domain, SSL & expert support included.",
+        cta: "Get Hosting Today",
+        className: "ad-4"
+      },
+      {
+        url: "https://app.getcleva.com/refer/CHUK6191",
+        title: "Receive USD. Send Money Instantly",
+        desc: "Open a USD account, get paid globally & transfer across Africa at competitive rates. Free conversions.",
+        cta: "Join Cleva Free",
+        className: "ad-5"
+      },
+      {
+        url: "https://app.gotechafrica.com/go-invite?mref=7936",
+        title: "Tech is the New Oil 🚀",
+        desc: "Learn high-income tech skills online. Affordable courses + real job opportunities across Africa.",
+        cta: "Start Learning Free",
+        className: "ad-6"
+      }
+    ];
+
+    let currentAdIndex = 0;
+
+    function showAd(index) {
+      const ad = ads[index];
+      const banner = document.getElementById("rotating-ad");
+      if (!banner) return;
+
+      banner.href = ad.url;
+      banner.className = "ad-banner " + ad.className;
+      banner.innerHTML = `
+        <div class="ad-title">${ad.title}</div>
+        <div class="ad-desc">${ad.desc}</div>
+        <span class="ad-cta">${ad.cta}</span>
+      `;
+    }
+
+    function rotateAds() {
+      currentAdIndex = (currentAdIndex + 1) % ads.length;
+      showAd(currentAdIndex);
+    }
+
+    /* ===== Modal Functions ===== */
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add("visible");
+        document.body.style.overflow = "hidden";
       }
     }
 
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove("visible");
+        document.body.style.overflow = "";
+      }
+    }
+
+    function closeModalOnOverlay(event, id) {
+      if (event.target.id === id) {
+        closeModal(id);
+      }
+    }
+
+    /* ===== Offline Detection ===== */
+    function updateOnlineStatus() {
+      const banner = document.getElementById("offline-banner");
+      if (banner) {
+        if (navigator.onLine) {
+          banner.classList.remove("visible");
+        } else {
+          banner.classList.add("visible");
+        }
+      }
+    }
+
+    window.addEventListener("online", updateOnlineStatus);
+    window.addEventListener("offline", updateOnlineStatus);
+
+    /* ===== Utility Functions ===== */
     function formatInput(input) {
-      const cursorOffset = input.value.length - input.selectionEnd;
-      let val = input.value.replace(/[^0-9.]/g, '');
-      
-      const parts = val.split('.');
-      if (parts.length > 2) {
-        val = parts[0] + '.' + parts.slice(1).join('');
+      let value = input.value.replace(/[^0-9.]/g, "");
+      const firstDot = value.indexOf(".");
+      if (firstDot !== -1) {
+        value = value.substring(0, firstDot + 1) + value.substring(firstDot + 1).replace(/\./g, "");
       }
-
+      let parts = value.split(".");
       if (parts[0]) {
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
-
-      input.value = parts.join('.');
-      const newPos = Math.max(0, input.value.length - cursorOffset);
-      input.setSelectionRange(newPos, newPos);
+      input.value = parts.join(".");
     }
 
     function parseInputValue(id) {
-      const val = document.getElementById(id).value.replace(/,/g, '');
-      return parseFloat(val);
+      const element = document.getElementById(id);
+      if (!element) return NaN;
+      return parseFloat(element.value.replace(/,/g, ""));
     }
 
-    function formatNumber(num, decimals = 2) {
-      return num.toLocaleString('en-US', {
+    function formatNumber(number, decimals = 2) {
+      if (!Number.isFinite(number)) return "0.00";
+      return number.toLocaleString("en-US", {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals
       });
     }
 
-    function handleButtonClick(event, calcFunction) {
-      if (typeof calcFunction === 'function') {
-        calcFunction();
-      }
-      openInFrame(event, smartlinkUrl);
-    }
-
-    function openInFrame(event, url) {
-      if (event) event.preventDefault();
-      nativeWorkspace.style.display = 'none';
-      iframe.style.display = 'block';
-      iframe.src = url;
-    }
-
-    function closeFrame() {
-      iframe.style.display = 'none';
-      iframe.src = '';
-      nativeWorkspace.style.display = 'block';
-    }
-
-    function goBack() {
-      if (iframe.style.display === 'block') {
-        try {
-          iframe.contentWindow.history.back();
-        } catch (e) {
-          closeFrame();
-        }
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("rate-status");
+      if (!status) return;
+      status.textContent = message;
+      if (isError) {
+        status.classList.add("error-text");
       } else {
-        window.history.back();
+        status.classList.remove("error-text");
       }
     }
 
-    function goForward() {
-      if (iframe.style.display === 'block') {
-        try {
-          iframe.contentWindow.history.forward();
-        } catch (e) {
-          window.history.forward();
-        }
-      } else {
-        window.history.forward();
-      }
-    }
-
-    function reloadFrame() {
-      if (iframe.style.display === 'block') {
-        iframe.src = iframe.src;
-      } else {
-        window.location.reload();
-      }
-    }
-
-    function switchTab(tabId) {
-      closeFrame();
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-
-      const activeTabEl = document.getElementById(tabId);
-      if (activeTabEl) activeTabEl.classList.add('active');
-      
-      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      const titleEl = document.getElementById('app-title-text');
-      if (tabId === 'currency') titleEl.innerText = 'Calculate Currency Exchange';
-      if (tabId === 'investment') titleEl.innerText = 'Calculate Investment';
-      if (tabId === 'loan') titleEl.innerText = 'Calculate Loan / EMI';
-    }
-
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      document.getElementById('themeIcon').innerText = newTheme === 'dark' ? '☀️' : '🌙';
-      document.getElementById('themeText').innerText = newTheme === 'dark' ? 'Light' : 'Dark';
-    }
-
-    function saveInputs() {
-      const state = {
-        curAmount: document.getElementById('cur-amount').value,
-        curFrom: document.getElementById('cur-from').value,
-        curTo: document.getElementById('cur-to').value,
-        invPrincipal: document.getElementById('inv-principal').value,
-        invRate: document.getElementById('inv-rate').value,
-        invYears: document.getElementById('inv-years').value,
-        loanAmount: document.getElementById('loan-amount').value,
-        loanRate: document.getElementById('loan-rate').value,
-        loanMonths: document.getElementById('loan-months').value
-      };
-      localStorage.setItem('hub_form_data', JSON.stringify(state));
-    }
-
-    function calculateInvestment() {
-      const P = parseInputValue('inv-principal');
-      const r = parseInputValue('inv-rate') / 100;
-      const t = parseInputValue('inv-years');
-      if (!isNaN(P) && !isNaN(r) && !isNaN(t)) {
-        const A = P * Math.pow((1 + r), t);
-        document.getElementById('inv-result').innerText = formatNumber(A);
-      }
-    }
-
-    function calculateLoan() {
-      const P = parseInputValue('loan-amount');
-      const annualRate = parseInputValue('loan-rate');
-      const n = parseInputValue('loan-months');
-      if (!isNaN(P) && !isNaN(annualRate) && !isNaN(n)) {
-        const r = (annualRate / 100) / 12;
-        const emi = r === 0 ? P / n : (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-        document.getElementById('loan-result').innerText = formatNumber(emi);
-      }
-    }
-
+    /* ===== Currency Converter ===== */
     async function convertCurrency() {
-      const amount = parseInputValue('cur-amount');
-      const from = document.getElementById('cur-from').value;
-      const to = document.getElementById('cur-to').value;
-      const resultBox = document.getElementById('cur-result');
-      const statusText = document.getElementById('rate-status');
+      const amount = parseInputValue("cur-amount");
+      const from = document.getElementById("cur-from").value;
+      const to = document.getElementById("cur-to").value;
+      const resultBox = document.getElementById("cur-result");
+      const button = document.getElementById("currency-btn");
 
-      if (isNaN(amount) || amount <= 0) return;
+      if (!Number.isFinite(amount) || amount <= 0) {
+        resultBox.textContent = "0.00";
+        setStatus("Please enter a valid amount.", true);
+        return;
+      }
 
-      statusText.innerText = 'Fetching live rates...';
+      if (from === to) {
+        resultBox.textContent = `${to} ${formatNumber(amount, 2)}`;
+        setStatus("Same currency selected.");
+        return;
+      }
 
-      const isFromCrypto = cryptoMapping.hasOwnProperty(from);
-      const isToCrypto = cryptoMapping.hasOwnProperty(to);
+      // Offline fallback
+      if (!navigator.onLine) {
+        resultBox.textContent = "Offline";
+        setStatus("No internet connection. Live rates require internet. Please reconnect and try again.", true);
+        return;
+      }
+
+      button.classList.add("loading");
+      button.textContent = "Fetching Live Rate...";
+      setStatus("Fetching live exchange rate...");
+
+      const isFromCrypto = Object.prototype.hasOwnProperty.call(cryptoMapping, from);
+      const isToCrypto = Object.prototype.hasOwnProperty.call(cryptoMapping, to);
 
       try {
         if (isFromCrypto && isToCrypto) {
           const fromId = cryptoMapping[from];
           const toId = cryptoMapping[to];
-          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${fromId},${toId}&vs_currencies=usd`);
-          const data = await res.json();
-          const fromUsd = data[fromId].usd;
-          const toUsd = data[toId].usd;
-          const rate = fromUsd / toUsd;
-          const converted = amount * rate;
-          const decimals = to === 'BTC' ? 8 : 4;
-          resultBox.innerText = `${to} ${formatNumber(converted, decimals)}`;
-          statusText.innerText = 'Live crypto exchange rates updated';
-        } 
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(fromId)},${encodeURIComponent(toId)}&vs_currencies=usd`;
+          const response = await fetch(url);
+          if (!response.ok) throw new Error("Crypto API request failed.");
+          const data = await response.json();
+          if (!data[fromId]?.usd || !data[toId]?.usd) throw new Error("Crypto rate unavailable.");
+          const converted = amount * (data[fromId].usd / data[toId].usd);
+          const decimals = to === "BTC" ? 8 : 4;
+          resultBox.textContent = `${to} ${formatNumber(converted, decimals)}`;
+          setStatus("Live cryptocurrency rate updated.");
+        }
         else if (isFromCrypto && !isToCrypto) {
           const cryptoId = cryptoMapping[from];
-          const cgRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoId}&vs_currencies=usd`);
-          const cgData = await cgRes.json();
-          const cryptoInUsd = cgData[cryptoId].usd;
+          const cryptoResponse = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(cryptoId)}&vs_currencies=usd`);
+          if (!cryptoResponse.ok) throw new Error("Crypto API request failed.");
+          const cryptoData = await cryptoResponse.json();
+          const cryptoUsd = cryptoData?.[cryptoId]?.usd;
+          if (!cryptoUsd) throw new Error("Crypto price unavailable.");
 
-          if (to === 'USD') {
-            const converted = amount * cryptoInUsd;
-            resultBox.innerText = `USD ${formatNumber(converted, 2)}`;
+          if (to === "USD") {
+            resultBox.textContent = `USD ${formatNumber(amount * cryptoUsd, 2)}`;
           } else {
-            const fiatRes = await fetch(`https://open.er-api.com/v6/latest/USD`);
-            const fiatData = await fiatRes.json();
-            const usdToTargetRate = fiatData.rates[to];
-            const converted = amount * cryptoInUsd * usdToTargetRate;
-            resultBox.innerText = `${to} ${formatNumber(converted, 2)}`;
+            const fiatResponse = await fetch("https://open.er-api.com/v6/latest/USD");
+            if (!fiatResponse.ok) throw new Error("Fiat API request failed.");
+            const fiatData = await fiatResponse.json();
+            const usdToTarget = fiatData?.rates?.[to];
+            if (!usdToTarget) throw new Error("Target currency unavailable.");
+            resultBox.textContent = `${to} ${formatNumber(amount * cryptoUsd * usdToTarget, 2)}`;
           }
-          statusText.innerText = 'Live crypto-to-fiat exchange rates updated';
-        } 
+          setStatus("Live cryptocurrency-to-fiat rate updated.");
+        }
         else if (!isFromCrypto && isToCrypto) {
           const cryptoId = cryptoMapping[to];
-          const cgRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoId}&vs_currencies=usd`);
-          const cgData = await cgRes.json();
-          const cryptoInUsd = cgData[cryptoId].usd;
+          const cryptoResponse = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(cryptoId)}&vs_currencies=usd`);
+          if (!cryptoResponse.ok) throw new Error("Crypto API request failed.");
+          const cryptoData = await cryptoResponse.json();
+          const cryptoUsd = cryptoData?.[cryptoId]?.usd;
+          if (!cryptoUsd) throw new Error("Crypto price unavailable.");
 
-          if (from === 'USD') {
-            const converted = amount / cryptoInUsd;
-            const decimals = to === 'BTC' ? 8 : 4;
-            resultBox.innerText = `${to} ${formatNumber(converted, decimals)}`;
+          let amountInUsd;
+          if (from === "USD") {
+            amountInUsd = amount;
           } else {
-            const fiatRes = await fetch(`https://open.er-api.com/v6/latest/${from}`);
-            const fiatData = await fiatRes.json();
-            const amountInUsd = amount * fiatData.rates['USD'];
-            const converted = amountInUsd / cryptoInUsd;
-            const decimals = to === 'BTC' ? 8 : 4;
-            resultBox.innerText = `${to} ${formatNumber(converted, decimals)}`;
+            const fiatResponse = await fetch(`https://open.er-api.com/v6/latest/${encodeURIComponent(from)}`);
+            if (!fiatResponse.ok) throw new Error("Fiat API request failed.");
+            const fiatData = await fiatResponse.json();
+            const usdRate = fiatData?.rates?.USD;
+            if (!usdRate) throw new Error("USD conversion unavailable.");
+            amountInUsd = amount * usdRate;
           }
-          statusText.innerText = 'Live fiat-to-crypto exchange rates updated';
-        } 
-        else {
-          const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
-          const data = await res.json();
-          const rate = data.rates[to];
-          const converted = amount * rate;
-          resultBox.innerText = `${to} ${formatNumber(converted, 2)}`;
-          statusText.innerText = 'Live fiat exchange rates updated';
+          const converted = amountInUsd / cryptoUsd;
+          const decimals = to === "BTC" ? 8 : 4;
+          resultBox.textContent = `${to} ${formatNumber(converted, decimals)}`;
+          setStatus("Live fiat-to-cryptocurrency rate updated.");
         }
-      } catch (e) {
-        statusText.innerText = 'Error fetching live market rates. Please check connection.';
+        else {
+          const response = await fetch(`https://open.er-api.com/v6/latest/${encodeURIComponent(from)}`);
+          if (!response.ok) throw new Error("Exchange-rate API request failed.");
+          const data = await response.json();
+          const rate = data?.rates?.[to];
+          if (!rate) throw new Error("Exchange rate unavailable.");
+          resultBox.textContent = `${to} ${formatNumber(amount * rate, 2)}`;
+          setStatus("Live fiat exchange rate updated.");
+        }
+      } catch (error) {
+        console.error(error);
+        resultBox.textContent = "Unavailable";
+        if (!navigator.onLine) {
+          setStatus("No internet connection. Please check your network and try again.", true);
+        } else {
+          setStatus("Unable to fetch live rates. Please check your connection or try again later.", true);
+        }
+      } finally {
+        button.classList.remove("loading");
+        button.textContent = "Convert Live";
       }
     }
+
+    function swapCurrencies() {
+      const from = document.getElementById("cur-from");
+      const to = document.getElementById("cur-to");
+      const oldFrom = from.value;
+      from.value = to.value;
+      to.value = oldFrom;
+      saveInputs();
+      document.getElementById("cur-result").textContent = "0.00";
+      setStatus("Currencies swapped. Tap Convert Live.");
+    }
+
+    /* ===== Investment Calculator ===== */
+    function calculateInvestment() {
+      const principal = parseInputValue("inv-principal");
+      const rate = parseInputValue("inv-rate") / 100;
+      const years = parseInputValue("inv-years");
+      const result = document.getElementById("inv-result");
+
+      if (!Number.isFinite(principal) || !Number.isFinite(rate) || !Number.isFinite(years) || principal < 0 || years < 0) {
+        result.textContent = "Invalid";
+        return;
+      }
+      const futureValue = principal * Math.pow(1 + rate, years);
+      result.textContent = formatNumber(futureValue, 2);
+    }
+
+    /* ===== Loan Calculator ===== */
+    function calculateLoan() {
+      const principal = parseInputValue("loan-amount");
+      const annualRate = parseInputValue("loan-rate");
+      const months = parseInputValue("loan-months");
+      const result = document.getElementById("loan-result");
+
+      if (!Number.isFinite(principal) || !Number.isFinite(annualRate) || !Number.isFinite(months) || principal <= 0 || months <= 0 || annualRate < 0) {
+        result.textContent = "Invalid";
+        return;
+      }
+
+      const monthlyRate = annualRate / 100 / 12;
+      let emi;
+      if (monthlyRate === 0) {
+        emi = principal / months;
+      } else {
+        emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+      }
+      result.textContent = formatNumber(emi, 2);
+    }
+
+    /* ===== Tab Navigation ===== */
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-content").forEach(section => section.classList.remove("active"));
+      document.querySelectorAll(".nav-item").forEach(button => button.classList.remove("active"));
+
+      const section = document.getElementById(tabId);
+      const button = document.getElementById(`tab-btn-${tabId}`);
+      if (section) section.classList.add("active");
+      if (button) button.classList.add("active");
+
+      const title = document.getElementById("app-title");
+      if (tabId === "currency") title.textContent = "Calculate Currency Exchange";
+      if (tabId === "investment") title.textContent = "Calculate Investment";
+      if (tabId === "loan") title.textContent = "Calculate Loan / EMI";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* ===== Dark Mode ===== */
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute("data-theme");
+      const newTheme = current === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", newTheme);
+      localStorage.setItem(THEME_KEY, newTheme);
+      updateThemeButton(newTheme);
+    }
+
+    function updateThemeButton(theme) {
+      const button = document.getElementById("theme-btn");
+      if (!button) return;
+      button.textContent = theme === "dark" ? "☀️ Light" : "🌙 Dark";
+    }
+
+    function loadTheme() {
+      const savedTheme = localStorage.getItem(THEME_KEY);
+      if (savedTheme === "dark" || savedTheme === "light") {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        updateThemeButton(savedTheme);
+        return;
+      }
+      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.documentElement.setAttribute("data-theme", "dark");
+        updateThemeButton("dark");
+      }
+    }
+
+    /* ===== Save / Load Form Data ===== */
+    function saveInputs() {
+      const state = {
+        curAmount: document.getElementById("cur-amount").value,
+        curFrom: document.getElementById("cur-from").value,
+        curTo: document.getElementById("cur-to").value,
+        invPrincipal: document.getElementById("inv-principal").value,
+        invRate: document.getElementById("inv-rate").value,
+        invYears: document.getElementById("inv-years").value,
+        loanAmount: document.getElementById("loan-amount").value,
+        loanRate: document.getElementById("loan-rate").value,
+        loanMonths: document.getElementById("loan-months").value
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (error) {
+        console.warn("Could not save form data.", error);
+      }
+    }
+
+    function loadInputs() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+        const state = JSON.parse(saved);
+        if (state.curAmount !== undefined) document.getElementById("cur-amount").value = state.curAmount;
+        if (state.curFrom) document.getElementById("cur-from").value = state.curFrom;
+        if (state.curTo) document.getElementById("cur-to").value = state.curTo;
+        if (state.invPrincipal !== undefined) document.getElementById("inv-principal").value = state.invPrincipal;
+        if (state.invRate !== undefined) document.getElementById("inv-rate").value = state.invRate;
+        if (state.invYears !== undefined) document.getElementById("inv-years").value = state.invYears;
+        if (state.loanAmount !== undefined) document.getElementById("loan-amount").value = state.loanAmount;
+        if (state.loanRate !== undefined) document.getElementById("loan-rate").value = state.loanRate;
+        if (state.loanMonths !== undefined) document.getElementById("loan-months").value = state.loanMonths;
+      } catch (error) {
+        console.warn("Could not load saved data.", error);
+      }
+    }
+
+    /* ===== Initialization ===== */
+    document.addEventListener("DOMContentLoaded", function () {
+      loadTheme();
+      loadInputs();
+      calculateInvestment();
+      calculateLoan();
+      showAd(0);
+      setInterval(rotateAds, 15000);
+      updateOnlineStatus();
+    });
   </script>
-</body>
-</html>
+  
+  </body>
+  </html>
+
