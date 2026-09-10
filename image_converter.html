@@ -7,14 +7,14 @@
   <title>Universal Document, Image & PDF Converter</title>
   <meta name="description" content="Convert images, Word DOCX, PDFs, and Google Docs directly in your app. Fast, free, and secure client-side file conversion tool." />
 
-  <!-- Security: Content Security Policy (CSP) to satisfy store security audits -->
+  <!-- Security: Content Security Policy (CSP) updated for all affiliate and external domains -->
   <meta http-equiv="Content-Security-Policy" 
-        content="default-src 'self' data: blob: https://cdnjs.cloudflare.com https://docs.google.com; 
+        content="default-src 'self' data: blob: https://cdnjs.cloudflare.com https://docs.google.com https://www.hostafrica.ng https://monetag.com https://deriv.com https://gotechafrica.com https://cleva.banking; 
                  style-src 'self' 'unsafe-inline'; 
                  script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; 
                  img-src 'self' data: blob: https:; 
-                 frame-src https://docs.google.com; 
-                 connect-src 'self' https://cdnjs.cloudflare.com https://docs.google.com;">
+                 frame-src https://docs.google.com https://www.hostafrica.ng https://monetag.com https://deriv.com; 
+                 connect-src 'self' https://cdnjs.cloudflare.com https://docs.google.com https://www.hostafrica.ng https://monetag.com https://deriv.com https://gotechafrica.com https://cleva.banking;">
 
   <!-- Global Error Handler for Missing External Scripts -->
   <script>
@@ -138,59 +138,106 @@
     .gdoc-input-group { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
     .gdoc-input-group input { flex: 1; padding: 0.6rem; border: 1px solid var(--border); border-radius: 6px; }
 
-    /* Policy-Compliant Sponsor Card Styling with Smooth Transitions */
+    /* Custom Responsive Affiliate Banner Container */
     .sponsor-card {
-      background: var(--accent-gold-bg);
-      border: 1px solid #fef3c7;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1rem 1.25rem;
       margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: opacity 0.4s ease-in-out;
+      text-decoration: none;
+      display: block;
+      color: #ffffff;
+      position: relative;
+    }
+    .sponsor-card:hover {
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
+    }
+    .banner-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      transition: opacity 0.4s ease-in-out;
     }
-    .sponsor-info h3 {
-      font-size: 0.95rem;
-      color: var(--accent-gold);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+    @media (max-width: 600px) {
+      .banner-inner { flex-direction: column; text-align: center; }
     }
-    .sponsor-info p {
-      font-size: 0.85rem;
-      color: #92400e;
-      margin-top: 0.2rem;
-    }
-    .sponsor-badge {
-      background: #fef3c7;
-      color: #b45309;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 0.15rem 0.4rem;
-      border-radius: 4px;
+    .banner-tag {
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      color: #cbd5e1;
     }
-    .sponsor-btn {
-      background: #f59e0b;
-      color: white;
-      text-decoration: none;
+    .banner-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+    }
+    .banner-desc {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    .banner-cta {
+      background: #4f46e5;
+      color: #ffffff;
       padding: 0.6rem 1.2rem;
       border-radius: 6px;
-      font-weight: 600;
       font-size: 0.875rem;
+      font-weight: 700;
       white-space: nowrap;
       transition: background 0.2s;
     }
-    .sponsor-btn:hover { background: #d97706; }
+    .sponsor-card:hover .banner-cta {
+      background: #6366f1;
+    }
+
+    /* Ad navigation controls */
+    .ad-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.75rem;
+      gap: 0.5rem;
+    }
+    .ad-nav-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e2e8f0;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .ad-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+    }
+    .ad-nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .ad-counter {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      letter-spacing: 0.02em;
+    }
 
     .app-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
     @media (max-width: 768px) { 
       .app-body { grid-template-columns: 1fr; } 
-      .sponsor-card { flex-direction: column; text-align: center; }
-      .sponsor-btn { width: 100%; text-align: center; }
     }
 
     .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
@@ -312,13 +359,30 @@
     <p>Convert images, Word documents, PDFs, and Google Docs locally on your device.</p>
   </header>
 
-  <!-- Dynamic Rotating Affiliate Sponsor Card -->
-  <div class="sponsor-card" id="sponsorCard">
-    <div class="sponsor-info">
-      <h3 id="sponsorTitle"><span class="sponsor-badge">AD</span> Monetag Ad Network</h3>
-      <p id="sponsorDesc">Monetize your website traffic with high-paying smart links and ad formats.</p>
+  <!-- Rotating Custom Affiliate Banner Display Card -->
+  <div class="sponsor-card" id="sponsorCardWrapper">
+    <a id="sponsorCard" href="#" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block;">
+      <div class="banner-inner">
+        <div>
+          <span class="banner-tag" id="bannerCategory">Featured Partner</span>
+          <div class="banner-title" id="bannerTitle">Fast & Reliable Digital Services</div>
+          <div class="banner-desc" id="bannerDesc">Top-tier hosting, monetization, trading, and fintech solutions.</div>
+        </div>
+        <div class="banner-cta" id="bannerCta">Explore Deal &rarr;</div>
+      </div>
+    </a>
+    <!-- Previous / Next ad navigation -->
+    <div class="ad-nav">
+      <button type="button" class="ad-nav-btn" id="prevAdBtn" aria-label="Previous ad">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Prev
+      </button>
+      <span class="ad-counter" id="adCounter">1 / 15</span>
+      <button type="button" class="ad-nav-btn" id="nextAdBtn" aria-label="Next ad">
+        Next
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
     </div>
-    <a href="https://monetag.com/?ref_id=zUg8" target="_blank" rel="noopener noreferrer" class="sponsor-btn" id="sponsorBtn">Start Earning</a>
   </div>
 
   <div class="tabs" role="tablist">
@@ -450,72 +514,199 @@
 </main>
 
 <script>
-  // Dynamic Rotating Sponsor Banners configuration
-  const sponsors = [
+  // Complete Structured Affiliate Array (Monetag, Deriv, GoTech Africa, Cleva & HOSTAFRICA)
+  const adOffers = [
+    // Monetag Offer
     {
-      title: "Monetag Ad Network",
-      desc: "Monetize your website traffic with high-paying smart links and ad formats.",
-      url: "https://monetag.com/?ref_id=zUg8",
-      btnText: "Start Earning"
+      category: "Ad Monetization",
+      title: "Monetag Publisher Program",
+      desc: "Monetize your mobile apps and web traffic with high CPM ad formats.",
+      cta: "Start Monetizing",
+      url: "https://monetag.com/?ref_id=YOUR_MONETAG_ID"
     },
+    // Deriv Offer
     {
-      title: "HOSTAFRICA Web Hosting",
-      desc: "Fast, reliable VPS and web hosting services for developers and creators.",
-      url: "https://panel.hostafrica.com/?aff=3440",
-      btnText: "Explore Hosting"
-    },
-    {
+      category: "Online Trading",
       title: "Deriv Trading Platform",
-      desc: "Trade forex, commodities, and synthetic indices on a secure platform.",
-      url: "https://t.deriv.link?t=9LES59QKZERG",
-      btnText: "Start Trading"
+      desc: "Trade Forex, Synthetics, and Crypto with high leverage and low spreads.",
+      cta: "Trade Now",
+      url: "https://deriv.com/?partner_markup=YOUR_DERIV_ID"
+    },
+    // GoTech Africa Offer (corrected)
+    {
+      category: "Tech Education",
+      title: "Go Tech Africa Training",
+      desc: "Master in-demand tech skills with affordable online courses. Train for high-income tech careers across Africa.",
+      cta: "Start Learning",
+      url: "https://gotechafrica.com/?ref=YOUR_GOTECH_ID"
+    },
+    // Cleva Offer
+    {
+      category: "Global Fintech",
+      title: "Cleva USD Banking",
+      desc: "Receive USD payments easily from international clients with a virtual US bank account.",
+      cta: "Open USD Account",
+      url: "https://cleva.banking/?referral=YOUR_CLEVA_ID"
+    },
+
+    // HOSTAFRICA Offers
+    {
+      category: "AI Website Builder",
+      title: "HOSTAFRICA AI Website Builder",
+      desc: "Build your professional website in minutes with easy AI assistance.",
+      cta: "Build Now",
+      url: "https://www.hostafrica.ng/website-builder/easy-ai-builder/?aff=3440"
     },
     {
-      title: "Cleva USD Account",
-      desc: "Receive international USD payments easily and securely from anywhere.",
-      url: "https://app.getcleva.com/refer/CHUK6191",
-      btnText: "Get Cleva Account"
+      category: "Website Builder",
+      title: "HOSTAFRICA Website Builder",
+      desc: "Create custom, responsive websites effortlessly.",
+      cta: "Get Started",
+      url: "https://www.hostafrica.ng/website-builder/?aff=3440"
     },
     {
-      title: "GoTech Africa",
-      desc: "Discover essential tech tools, resources, and digital opportunities.",
-      url: "https://app.gotechafrica.com/go-invite?mref=7936",
-      btnText: "Discover More"
+      category: "E-Commerce",
+      title: "HOSTAFRICA Online Store Builder",
+      desc: "Launch your ecommerce store and start selling online today.",
+      cta: "Start Selling",
+      url: "https://www.hostafrica.ng/website-builder/online-store/?aff=3440"
     },
     {
-      title: "Special Partner Offer",
-      desc: "Discover recommended tools and exclusive offers from our network.",
-      url: "https://omg10.com/4/9312448",
-      btnText: "View Offer"
+      category: "Domains",
+      title: "Register Custom Domains",
+      desc: "Search and lock in your unique domain name now.",
+      cta: "Search Domains",
+      url: "https://www.hostafrica.ng/domains/?aff=3440"
+    },
+    {
+      category: "Email Hosting",
+      title: "Professional Email Hosting",
+      desc: "Create custom domain email addresses for your business identity.",
+      cta: "Get Email",
+      url: "https://www.hostafrica.ng/email-hosting/?aff=3440"
+    },
+    {
+      category: "Web Hosting",
+      title: "Reliable Web Hosting Solutions",
+      desc: "Fast, stable web hosting powered by SSD storage.",
+      cta: "View Plans",
+      url: "https://www.hostafrica.ng/hosting/web-hosting/?aff=3440"
+    },
+    {
+      category: "WordPress Hosting",
+      title: "Managed WordPress Hosting",
+      desc: "Optimized, secure hosting pre-configured for WordPress sites.",
+      cta: "Host WordPress",
+      url: "https://www.hostafrica.ng/hosting/wordpress-hosting/?aff=3440"
+    },
+    {
+      category: "VPS Servers",
+      title: "Linux VPS Servers",
+      desc: "High-performance Linux virtual private servers with full root control.",
+      cta: "Deploy Linux VPS",
+      url: "https://www.hostafrica.ng/servers/linux-vps-servers/?aff=3440"
+    },
+    {
+      category: "VPS Servers",
+      title: "Windows VPS Hosting",
+      desc: "Dedicated resources with Windows OS remote desktop support.",
+      cta: "Deploy Windows VPS",
+      url: "https://www.hostafrica.ng/servers/windows-vps-servers/?aff=3440"
+    },
+    {
+      category: "Dedicated Hardware",
+      title: "Dedicated Bare Metal Servers",
+      desc: "Uncompromising physical server performance for high traffic apps.",
+      cta: "Get Bare Metal",
+      url: "https://www.hostafrica.ng/servers/dedicated-servers/?aff=3440"
+    },
+    {
+      category: "Reseller Program",
+      title: "Web Hosting Reseller",
+      desc: "Launch your web hosting business with white-label infrastructure.",
+      cta: "Start Hosting Biz",
+      url: "https://www.hostafrica.ng/reseller-program/webhosting-reseller/?aff=3440"
     }
   ];
 
-  let currentSponsorIndex = 0;
-  const sponsorCard = document.getElementById('sponsorCard');
-  const sponsorTitle = document.getElementById('sponsorTitle');
-  const sponsorDesc = document.getElementById('sponsorDesc');
-  const sponsorBtn = document.getElementById('sponsorBtn');
+  let currentAdIndex = 0;
+  let autoRotateTimer = null;
+  const ROTATE_INTERVAL = 10000; // 10 seconds
 
-  function rotateSponsor() {
-    // Fade out
-    sponsorCard.style.opacity = '0';
-    
-    setTimeout(() => {
-      currentSponsorIndex = (currentSponsorIndex + 1) % sponsors.length;
-      const s = sponsors[currentSponsorIndex];
-      
-      sponsorTitle.innerHTML = `<span class="sponsor-badge">AD</span> ${s.title}`;
-      sponsorDesc.textContent = s.desc;
-      sponsorBtn.href = s.url;
-      sponsorBtn.textContent = s.btnText;
-      
-      // Fade in
+  function showAd(index, animate = true) {
+    const sponsorCard = document.getElementById("sponsorCard");
+    const bannerCategory = document.getElementById("bannerCategory");
+    const bannerTitle = document.getElementById("bannerTitle");
+    const bannerDesc = document.getElementById("bannerDesc");
+    const bannerCta = document.getElementById("bannerCta");
+    const adCounter = document.getElementById("adCounter");
+    const prevAdBtn = document.getElementById("prevAdBtn");
+    const nextAdBtn = document.getElementById("nextAdBtn");
+
+    if (!sponsorCard) return;
+
+    // Clamp index
+    if (index < 0) index = adOffers.length - 1;
+    if (index >= adOffers.length) index = 0;
+    currentAdIndex = index;
+
+    const applyContent = () => {
+      const offer = adOffers[currentAdIndex];
+      sponsorCard.href = offer.url;
+      bannerCategory.textContent = offer.category;
+      bannerTitle.textContent = offer.title;
+      bannerDesc.textContent = offer.desc;
+      bannerCta.innerHTML = `${offer.cta} &rarr;`;
+      adCounter.textContent = `${currentAdIndex + 1} / ${adOffers.length}`;
+      // Enable both buttons (circular navigation)
+      prevAdBtn.disabled = false;
+      nextAdBtn.disabled = false;
+    };
+
+    if (animate) {
+      sponsorCard.style.opacity = '0';
+      setTimeout(() => {
+        applyContent();
+        sponsorCard.style.opacity = '1';
+      }, 300);
+    } else {
+      applyContent();
       sponsorCard.style.opacity = '1';
-    }, 400);
+    }
   }
 
-  // Rotate every 15 seconds
-  setInterval(rotateSponsor, 15000);
+  function nextAd() {
+    showAd(currentAdIndex + 1);
+    resetAutoRotate();
+  }
+
+  function prevAd() {
+    showAd(currentAdIndex - 1);
+    resetAutoRotate();
+  }
+
+  function resetAutoRotate() {
+    if (autoRotateTimer) clearInterval(autoRotateTimer);
+    autoRotateTimer = setInterval(() => {
+      showAd(currentAdIndex + 1);
+    }, ROTATE_INTERVAL);
+  }
+
+  // Initial load
+  showAd(0, false);
+  resetAutoRotate();
+
+  // Button listeners
+  document.getElementById("prevAdBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    prevAd();
+  });
+  document.getElementById("nextAdBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    nextAd();
+  });
 
   // Network Availability Detection
   window.addEventListener('offline', () => {
