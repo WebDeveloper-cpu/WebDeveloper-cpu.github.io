@@ -9,12 +9,12 @@
 
   <!-- Security: Content Security Policy (CSP) updated for all affiliate and external domains -->
   <meta http-equiv="Content-Security-Policy" 
-        content="default-src 'self' data: blob: https://cdnjs.cloudflare.com https://docs.google.com https://www.hostafrica.ng https://monetag.com https://deriv.com https://gotechafrica.com https://cleva.banking; 
+        content="default-src 'self' data: blob: https://cdnjs.cloudflare.com https://docs.google.com https://www.hostafrica.ng https://my.hostafrica.com https://monetag.com https://deriv.com https://gotechafrica.com https://cleva.banking https://omg10.com; 
                  style-src 'self' 'unsafe-inline'; 
                  script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; 
                  img-src 'self' data: blob: https:; 
-                 frame-src https://docs.google.com https://www.hostafrica.ng https://monetag.com https://deriv.com; 
-                 connect-src 'self' https://cdnjs.cloudflare.com https://docs.google.com https://www.hostafrica.ng https://monetag.com https://deriv.com https://gotechafrica.com https://cleva.banking;">
+                 frame-src https://docs.google.com https://www.hostafrica.ng https://my.hostafrica.com https://monetag.com https://deriv.com https://omg10.com; 
+                 connect-src 'self' https://cdnjs.cloudflare.com https://docs.google.com https://www.hostafrica.ng https://my.hostafrica.com https://monetag.com https://deriv.com https://gotechafrica.com https://cleva.banking https://omg10.com;">
 
   <!-- Global Error Handler for Missing External Scripts -->
   <script>
@@ -377,7 +377,7 @@
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
         Prev
       </button>
-      <span class="ad-counter" id="adCounter">1 / 15</span>
+      <span class="ad-counter" id="adCounter">1 / 17</span>
       <button type="button" class="ad-nav-btn" id="nextAdBtn" aria-label="Next ad">
         Next
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -514,7 +514,7 @@
 </main>
 
 <script>
-  // Complete Structured Affiliate Array (Monetag, Deriv, GoTech Africa, Cleva & HOSTAFRICA)
+  // Complete Structured Affiliate Array (Monetag, Deriv, GoTech Africa, Cleva, HOSTAFRICA & new offers)
   const adOffers = [
     // Monetag Offer
     {
@@ -532,7 +532,7 @@
       cta: "Trade Now",
       url: "https://deriv.com/?partner_markup=YOUR_DERIV_ID"
     },
-    // GoTech Africa Offer (corrected)
+    // GoTech Africa Offer
     {
       category: "Tech Education",
       title: "Go Tech Africa Training",
@@ -626,6 +626,22 @@
       desc: "Launch your web hosting business with white-label infrastructure.",
       cta: "Start Hosting Biz",
       url: "https://www.hostafrica.ng/reseller-program/webhosting-reseller/?aff=3440"
+    },
+
+    // ===== NEW AFFILIATE LINKS ADDED =====
+    {
+      category: "Web Hosting",
+      title: "HOSTAFRICA Affiliate Portal",
+      desc: "Access exclusive hosting deals, manage your account, and explore all HOSTAFRICA services.",
+      cta: "Visit Portal",
+      url: "https://my.hostafrica.com/aff.php?aff=3440"
+    },
+    {
+      category: "Special Offer",
+      title: "Exclusive Partner Deal",
+      desc: "Discover high-converting offers and exclusive promotions from our trusted partners.",
+      cta: "Claim Offer",
+      url: "https://omg10.com/4/9312449"
     }
   ];
 
