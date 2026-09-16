@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HostAfrica – Web Hosting, Domains, VPS & Website Builder in Nigeria</title>
+  <meta name="description" content="Discover HostAfrica: affordable web hosting, domains, VPS, email, AI website builder and more. Local servers in Nigeria, Naira pricing, fast support. Sign up with the links below." />
+  <style>
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --accent: #10b981;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --light: #f8fafc;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: var(--light);
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      color: white;
+      padding: 60px 0 50px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.3rem;
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      opacity: 0.92;
+      max-width: 640px;
+      margin: 0 auto 28px;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-accent:hover {
+      background: #059669;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.45);
+      color: white;
+    }
+    .btn-outline:hover {
+      border-color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+    section {
+      padding: 50px 0;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin: 22px 0 10px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #334155;
+    }
+
+    ul {
+      margin: 10px 0 18px 22px;
+      color: #334155;
+    }
+
+    li { margin-bottom: 6px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07);
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary-dark);
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      flex-grow: 1;
+      font-size: 0.95rem;
+    }
+
+    .card .btn {
+      margin-top: 14px;
+      text-align: center;
+      align-self: flex-start;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: var(--primary-dark);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+      border-left: 5px solid var(--primary);
+      padding: 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 26px 0;
+    }
+
+    .final-cta {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .final-cta h2 { color: white; margin-bottom: 12px; }
+    .final-cta p { color: #cbd5e1; max-width: 560px; margin: 0 auto 26px; }
+
+    footer {
+      text-align: center;
+      padding: 26px 20px;
+      color: var(--gray);
+      font-size: 0.9rem;
+      background: #f1f5f9;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+      .cta-group { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 280px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <div class="container">
+      <h1>HostAfrica – Reliable Hosting & Domains for Nigeria</h1>
+      <p>
+        Local servers in Lagos, Naira pricing, free SSL, free .com.ng domain on many plans, 
+        and excellent support. From simple websites to powerful VPS and dedicated servers.
+      </p>
+      <div class="cta-group">
+        <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=3440" class="btn btn-accent" rel="nofollow" target="_blank">
+          Get Web Hosting →
+        </a>
+        <a href="https://www.hostafrica.ng/domains/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">
+          Register Domain →
+        </a>
+        <a href="https://www.hostafrica.ng/website-builder/easy-ai-builder/?aff=3440" class="btn btn-outline" rel="nofollow" target="_blank">
+          AI Website Builder
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Why HostAfrica -->
+  <section>
+    <div class="container">
+      <h2>Why Choose HostAfrica?</h2>
+      <p>
+        HostAfrica is one of the strongest hosting providers serving Nigeria and the rest of Africa. 
+        They have data centres in <strong>Lagos (Nigeria)</strong>, Johannesburg, Nairobi and Accra, 
+        so your website loads faster for local visitors. You pay in Naira, get free SSL certificates, 
+        and enjoy 24/7 support with a strong reputation (4.9/5 on Trustpilot).
+      </p>
+      <p>
+        Whether you need a simple business site, an online store, professional email, 
+        or a powerful VPS for developers, HostAfrica has a solution that scales with you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Website Builder -->
+  <section style="background: white;">
+    <div class="container">
+      <h2>Website Builder – Build Without Coding</h2>
+      <p>
+        Launch a professional website in minutes using HostAfrica’s AI-powered and drag-and-drop builders. 
+        No technical knowledge required.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <span class="badge">AI Powered</span>
+          <h3>Easy AI Website Builder</h3>
+          <p>Describe your business in one sentence and the AI creates a complete, mobile-friendly website with layout, design and content in under a minute.</p>
+          <a href="https://www.hostafrica.ng/website-builder/easy-ai-builder/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Try AI Builder →</a>
+        </div>
+
+        <div class="card">
+          <span class="badge">E-commerce</span>
+          <h3>Online Store Builder</h3>
+          <p>Sell products online with ready-made e-commerce templates, product pages, cart and payment options. Perfect for small businesses and online shops.</p>
+          <a href="https://www.hostafrica.ng/website-builder/online-store/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Build Online Store →</a>
+        </div>
+
+        <div class="card">
+          <span class="badge">Appointments</span>
+          <h3>Bookings / Smart Scheduler</h3>
+          <p>Accept appointments and bookings online. Ideal for consultants, salons, clinics, trainers and service-based businesses.</p>
+          <a href="https://www.hostafrica.ng/website-builder/bookings/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Get Bookings Builder →</a>
+        </div>
+
+        <div class="card">
+          <span class="badge">All-in-One</span>
+          <h3>Website Builder Overview</h3>
+          <p>Explore all website builder options – AI, visual drag-and-drop, and industry templates – in one place.</p>
+          <a href="https://www.hostafrica.ng/website-builder/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">View All Builders →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Domains -->
+  <section>
+    <div class="container">
+      <h2>Domain Names</h2>
+      <p>
+        Register a new domain, transfer an existing one, check prices or look up WHOIS information – all in one place.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Register a Domain</h3>
+          <p>Get your perfect .com, .com.ng, .ng or other extension. Many hosting plans include a free .com.ng domain for the first year.</p>
+          <a href="https://www.hostafrica.ng/domains/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Register Domain →</a>
+        </div>
+
+        <div class="card">
+          <h3>Transfer Domain</h3>
+          <p>Move your existing domain to HostAfrica easily and manage everything under one account.</p>
+          <a href="https://www.hostafrica.ng/transfer-domain/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Transfer Domain →</a>
+        </div>
+
+        <div class="card">
+          <h3>Domain Prices</h3>
+          <p>See current pricing for all available extensions before you buy.</p>
+          <a href="https://www.hostafrica.ng/domains/domain-prices/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">View Domain Prices →</a>
+        </div>
+
+        <div class="card">
+          <h3>WHOIS Lookup</h3>
+          <p>Check domain ownership and availability with the free WHOIS tool.</p>
+          <a href="https://www.hostafrica.ng/domains/whois-lookup/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">WHOIS Lookup →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hosting -->
+  <section style="background: white;">
+    <div class="container">
+      <h2>Web Hosting Plans</h2>
+      <p>
+        Reliable shared hosting starting from around ₦4,500/month. Free SSL, daily backups, 
+        free .com.ng domain on many plans, and local Nigerian servers for better speed.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <span class="badge">Most Popular</span>
+          <h3>Web Hosting</h3>
+          <p>Ideal for everyday business websites and blogs. NVMe storage, free SSL, email accounts and easy control panel.</p>
+          <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">View Web Hosting →</a>
+        </div>
+
+        <div class="card">
+          <span class="badge">Faster</span>
+          <h3>LiteSpeed Hosting</h3>
+          <p>Accelerated LiteSpeed servers for better performance – great for growing websites and online stores.</p>
+          <a href="https://www.hostafrica.ng/hosting/litespeed-hosting/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">View LiteSpeed →</a>
+        </div>
+
+        <div class="card">
+          <span class="badge">WordPress</span>
+          <h3>WordPress Hosting</h3>
+          <p>Optimised specifically for WordPress with one-click install, better caching and performance tools.</p>
+          <a href="https://www.hostafrica.ng/hosting/wordpress-hosting/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">View WordPress Hosting →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email -->
+  <section>
+    <div class="container">
+      <h2>Professional Email Hosting</h2>
+      <p>
+        Get a professional email address like info@yourbusiness.com instead of using Gmail. 
+        Secure, reliable and available with calendar and productivity tools.
+      </p>
+      <div class="highlight">
+        <a href="https://www.hostafrica.ng/email-hosting/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">
+          Get Email Hosting →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servers -->
+  <section style="background: white;">
+    <div class="container">
+      <h2>VPS, VDS & Dedicated Servers</h2>
+      <p>
+        Need more power and control? HostAfrica offers Linux and Windows VPS, Managed VPS, 
+        Virtual Dedicated Servers, full Dedicated Servers and even GPU servers.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Linux VPS Servers</h3>
+          <p>Full root access, NVMe storage, choice of Linux distributions. Great for developers and growing projects.</p>
+          <a href="https://www.hostafrica.ng/servers/linux-vps-servers/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Linux VPS →</a>
+        </div>
+
+        <div class="card">
+          <h3>Windows VPS Servers</h3>
+          <p>Windows-based virtual servers for applications that require the Microsoft ecosystem.</p>
+          <a href="https://www.hostafrica.ng/servers/windows-vps-servers/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Windows VPS →</a>
+        </div>
+
+        <div class="card">
+          <h3>Managed VPS Hosting</h3>
+          <p>Let HostAfrica handle server management, updates and security while you focus on your business.</p>
+          <a href="https://www.hostafrica.ng/servers/managed-vps-hosting/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Managed VPS →</a>
+        </div>
+
+        <div class="card">
+          <h3>Linux VDS Servers</h3>
+          <p>Virtual Dedicated Servers – more isolation and resources than standard VPS.</p>
+          <a href="https://www.hostafrica.ng/servers/linux-vds-servers/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Linux VDS →</a>
+        </div>
+
+        <div class="card">
+          <h3>Windows VDS Servers</h3>
+          <p>Windows Virtual Dedicated Servers for higher performance Windows workloads.</p>
+          <a href="https://www.hostafrica.ng/servers/windows-vds-servers/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Windows VDS →</a>
+        </div>
+
+        <div class="card">
+          <h3>Dedicated Servers</h3>
+          <p>Full physical servers with complete control, high performance and dedicated resources.</p>
+          <a href="https://www.hostafrica.ng/servers/dedicated-servers/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Dedicated Servers →</a>
+        </div>
+
+        <div class="card">
+          <h3>Metal Core Windows</h3>
+          <p>High-performance bare-metal Windows servers for demanding applications.</p>
+          <a href="https://www.hostafrica.ng/servers/metal-core-windows/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Metal Core Windows →</a>
+        </div>
+
+        <div class="card">
+          <h3>GPU Servers</h3>
+          <p>Powerful GPU servers for AI, machine learning, rendering and other GPU-intensive workloads.</p>
+          <a href="https://www.hostafrica.ng/servers/gpu-servers/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">GPU Servers →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reseller & Affiliate -->
+  <section>
+    <div class="container">
+      <h2>Reseller & Partner Programmes</h2>
+      <p>
+        Want to sell hosting or domains yourself? HostAfrica offers reseller packages and partner programmes.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Domain Reseller</h3>
+          <p>Resell domain names under your own brand with competitive pricing.</p>
+          <a href="https://www.hostafrica.ng/reseller-program/domain-reseller/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Domain Reseller →</a>
+        </div>
+
+        <div class="card">
+          <h3>Web Hosting Reseller</h3>
+          <p>Start your own hosting business with white-label packages and full control.</p>
+          <a href="https://www.hostafrica.ng/reseller-program/webhosting-reseller/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Hosting Reseller →</a>
+        </div>
+
+        <div class="card">
+          <h3>Affiliate Programme</h3>
+          <p>Earn commissions by promoting HostAfrica services to your audience.</p>
+          <a href="https://www.hostafrica.ng/affiliate-programme/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Join Affiliate →</a>
+        </div>
+
+        <div class="card">
+          <h3>IT Partner Programme</h3>
+          <p>Special partnership options for IT companies, agencies and system integrators.</p>
+          <a href="https://www.hostafrica.ng/reseller-program/it-partner-programme/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">IT Partner →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Application Hosting -->
+  <section style="background: white;">
+    <div class="container">
+      <h2>Application Hosting</h2>
+      <p>
+        Ready-to-use hosting for popular modern applications and automation tools.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Self-Hosted n8n</h3>
+          <p>Host your own n8n automation workflows on reliable HostAfrica infrastructure.</p>
+          <a href="https://www.hostafrica.ng/application-hosting/self-hosted-n8n/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">n8n Hosting →</a>
+        </div>
+
+        <div class="card">
+          <h3>Supabase Hosting</h3>
+          <p>Deploy and run Supabase (open-source Firebase alternative) with ease.</p>
+          <a href="https://www.hostafrica.ng/application-hosting/supabase-hosting/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">Supabase Hosting →</a>
+        </div>
+
+        <div class="card">
+          <h3>OpenClaw</h3>
+          <p>Application hosting for OpenClaw – check the page for the latest details.</p>
+          <a href="https://www.hostafrica.ng/application-hosting/openclaw/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">OpenClaw →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- General Affiliate Link -->
+  <section>
+    <div class="container">
+      <h2>Start with HostAfrica Today</h2>
+      <p>
+        Ready to get your website or business online? Use any of the links above or go through the main affiliate entry point below.
+      </p>
+      <div class="highlight" style="text-align: center;">
+        <a href="https://my.hostafrica.com/aff.php?aff=3440" class="btn btn-accent" rel="nofollow" target="_blank" style="font-size: 1.05rem;">
+          Visit HostAfrica via My Affiliate Link →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <div class="final-cta">
+    <div class="container">
+      <h2>Get Online with HostAfrica</h2>
+      <p>
+        Local Nigerian servers • Naira pricing • Free SSL • Excellent support • 
+        From simple websites to powerful dedicated servers.
+      </p>
+      <div class="cta-group">
+        <a href="https://www.hostafrica.ng/hosting/web-hosting/?aff=3440" class="btn btn-accent" rel="nofollow" target="_blank">
+          Start with Web Hosting
+        </a>
+        <a href="https://www.hostafrica.ng/website-builder/easy-ai-builder/?aff=3440" class="btn btn-primary" rel="nofollow" target="_blank">
+          Try AI Website Builder
+        </a>
+        <a href="https://www.hostafrica.ng/domains/?aff=3440" class="btn btn-outline" rel="nofollow" target="_blank">
+          Register a Domain
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>
+        This page contains affiliate links. If you sign up or make a purchase through them, 
+        the site owner may earn a commission at no extra cost to you. 
+        Always review HostAfrica’s official terms and pricing before buying.
+      </p>
+      <p style="margin-top: 10px;">© 2026 · Hosted on GitHub Pages</p>
+    </div>
+  </footer>
+
+</body>
+</html>
