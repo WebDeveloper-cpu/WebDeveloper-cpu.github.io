@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dangote Refinery Massive Expansion Drive</title>
+  <style>
+    :root {
+      --primary-color: #0d47a1;
+      --accent-color: #e65100;
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .article-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .meta-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #666;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .view-counter {
+      background: #e3f2fd;
+      color: #0d47a1;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-weight: bold;
+    }
+
+    h1.article-title {
+      color: #111;
+      font-size: 2rem;
+      line-height: 1.3;
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 1.2rem;
+    }
+
+    /* Fullscreen Locker Overlay */
+    .locker-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.92);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      backdrop-filter: blur(5px);
+    }
+
+    .locker-box {
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      width: 85%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .locker-box h2 {
+      margin-top: 0;
+      color: #111;
+    }
+
+    .locker-box p {
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    .ad-btn {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    .ad-btn:hover {
+      background-color: #bf360c;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>NIGERIA ENERGY BREAKTHROUGH</h1>
+  </header>
+
+  <div class="container">
+    <article class="article-card">
+      <h1 class="article-title">Dangote’s Mega Refinement Plan: Workforce to Double as Capacity Eyes 1.4 Million Barrels Daily Target</h1>
+      
+      <div class="meta-info">
+        <span>Published: September 2026</span>
+        <span class="view-counter">Total Views: <span id="viewCount">0</span></span>
+      </div>
+
+      <p><strong>LAGOS, NIGERIA</strong> — In a major development for Africa's energy sector, the Dangote Petroleum Refinery and Petrochemicals FZE has announced plans to double its current workforce as part of an aggressive expansion strategy aimed at boosting its crude refining capacity from 700,000 barrels per day (bpd) to 1.4 million bpd by 2029.</p>
+
+      <p>Devakumar Edwin, Group Vice President of Oil & Gas and Fertiliser at Dangote Industries Limited, disclosed the expansion targets during an inspection tour of the complex. He confirmed that basic engineering for the phase-two expansion has been completed, with detailed technical designs finalized and critical equipment already ordered from international manufacturers.</p>
+
+      <p>The ambitious expansion project coincides with the company's ongoing Initial Public Offering (IPO) on the Nigerian Exchange (NGX), which seeks to raise approximately ₦2.15 trillion to fund capital expenditures and scale petrochemical operations, including linear alkyl benzene and polypropylene units.</p>
+
+      <p>President of Dangote Group, Aliko Dangote, highlighted that the refinery complex is positioned to become the largest commercial entity on the African continent by the end of 2026. Operating with over 70% automation, the facility is configured to process diverse global crude grades and maximize high-value Euro 5 and Euro 6 standard fuels for both domestic consumption and international exports to Europe, the United States, and regional markets.</p>
+    </article>
+  </div>
+
+  <!-- Content Locker Modal Overlay -->
+  <div class="locker-overlay" id="contentLocker">
+    <div class="locker-box">
+      <h2>Content Locked</h2>
+      <p>Please click the button below to view the advertisement and continue reading the full article.</p>
+      <a href="#" id="adSmartLink" class="ad-btn" target="_blank" rel="noopener">View Ad to Continue</a>
+    </div>
+  </div>
+
+  <script>
+    // --- 1. Page View Counter Logic ---
+    function updateViewCount() {
+      let views = localStorage.getItem('dangote_news_views');
+      if (!views) {
+        views = 1;
+      } else {
+        views = parseInt(views) + 1;
+      }
+      localStorage.setItem('dangote_news_views', views);
+      document.getElementById('viewCount').innerText = views.toLocaleString();
+    }
+    updateViewCount();
+
+    // --- 2. Locker Configuration & Smartlinks ---
+    const smartlinks = [
+      "https://omg10.com/4/9317445", // First ad link (30 seconds)
+      "https://omg10.com/4/9300114", // Second ad link (60 seconds)
+      "https://omg10.com/4/9319730"  // Third ad link (90 seconds)
+    ];
+
+    const lockerModal = document.getElementById('contentLocker');
+    const adBtn = document.getElementById('adSmartLink');
+    let currentLockerIndex = 0;
+
+    function showLocker(index) {
+      if (index >= smartlinks.length) return;
+      
+      // Set the target smartlink on the button
+      adBtn.href = smartlinks[index];
+      currentLockerIndex = index;
+
+      // Display full screen modal
+      lockerModal.style.display = 'flex';
+
+      // Push history state to capture back button press
+      history.pushState({ locked: true, lockerIndex: index }, "", location.href);
+    }
+
+    // Handle user clicking the Ad button
+    adBtn.addEventListener('click', function() {
+      // Hide the modal after clicking
+      lockerModal.style.display = 'none';
+      
+      // Record in session that ad was clicked for this step
+      sessionStorage.setItem('ad_clicked_' + currentLockerIndex, 'true');
+    });
+
+    // --- 3. Return via Back Button Behavior ---
+    window.addEventListener('popstate', function(event) {
+      // Hide the overlay when user presses back button
+      lockerModal.style.display = 'none';
+    });
+
+    // --- 4. Timers Setup ---
+    // Timer 1: 30 Seconds (30,000 ms)
+    setTimeout(() => {
+      showLocker(0);
+    }, 30000);
+
+    // Timer 2: 60 Seconds (60,000 ms)
+    setTimeout(() => {
+      showLocker(1);
+    }, 60000);
+
+    // Timer 3: 1 Minute 30 Seconds (90,000 ms)
+    setTimeout(() => {
+      showLocker(2);
+    }, 90000);
+  </script>
+</body>
+</html>
