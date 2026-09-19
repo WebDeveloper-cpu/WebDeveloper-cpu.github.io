@@ -290,6 +290,8 @@
       font-size: 0.85rem;
     }
   </style>
+  -- Link to the Web Manifest -->
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
 
@@ -514,5 +516,16 @@
   </script>
   <script data-goatcounter="https://chukwuchimezie.goatcounter.com/count"
       async src="//gc.zgo.at/count.js"></script>
+      
+          <!-- Script to register the Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registered!', reg))
+                    .catch(err => console.error('Service Worker failed:', err));
+            });
+        }
+    </script>
 </body>
 </html>
